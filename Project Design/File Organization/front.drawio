@@ -1,0 +1,55 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.6 Chrome/144.0.7559.236 Electron/40.8.4 Safari/537.36" version="29.6.6">
+  <diagram name="Pagina-1" id="jhwcoEURmDQMLtiTvnfU">
+    <mxGraphModel dx="1226" dy="849" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Y1BoDe2gnHlt2QcEypBU-7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;dashed=1;" value="" vertex="1">
+          <mxGeometry height="280" width="606" x="111" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="Y1BoDe2gnHlt2QcEypBU-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;dashed=1;" value="" vertex="1">
+          <mxGeometry height="220" width="600" x="120" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="Y1BoDe2gnHlt2QcEypBU-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 35px;&quot;&gt;&lt;b&gt;File Organization: Frontend&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="310" x="250" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Y1BoDe2gnHlt2QcEypBU-2" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/Folder_Blank.svg;" value="frontend" vertex="1">
+          <mxGeometry height="56.00000000000001" width="69" x="370.5" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="Y1BoDe2gnHlt2QcEypBU-4" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/Folder_Blank.svg;" value="module nodes" vertex="1">
+          <mxGeometry height="56.00000000000001" width="69" x="220" y="277" as="geometry" />
+        </mxCell>
+        <mxCell id="Y1BoDe2gnHlt2QcEypBU-5" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/Folder_Blank.svg;" value="src" vertex="1">
+          <mxGeometry height="56.00000000000001" width="69" x="540" y="277" as="geometry" />
+        </mxCell>
+        <mxCell id="Y1BoDe2gnHlt2QcEypBU-6" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/Folder_Blank.svg;" value="src" vertex="1">
+          <mxGeometry height="56.00000000000001" width="69" x="379.5" y="530" as="geometry" />
+        </mxCell>
+        <mxCell id="Y1BoDe2gnHlt2QcEypBU-8" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/Folder_Blank.svg;" value="pages&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start; background-color: rgb(236, 236, 236);&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20parent%3D%221%22%20style%3D%22image%3Baspect%3Dfixed%3Bhtml%3D1%3Bpoints%3D%5B%5D%3Balign%3Dcenter%3BfontSize%3D12%3Bimage%3Dimg%2Flib%2Fazure2%2Fgeneral%2FFolder_Blank.svg%3B%22%20value%3D%22src%22%20vertex%3D%221%22%3E%3CmxGeometry%20height%3D%2256.00000000000001%22%20width%3D%2269%22%20x%3D%22370.5%22%20y%3D%22440%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" vertex="1">
+          <mxGeometry height="56.00000000000001" width="69" x="212.75" y="619" as="geometry" />
+        </mxCell>
+        <mxCell id="Y1BoDe2gnHlt2QcEypBU-9" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/Folder_Blank.svg;" value="u&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start; background-color: rgb(236, 236, 236);&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20parent%3D%221%22%20style%3D%22image%3Baspect%3Dfixed%3Bhtml%3D1%3Bpoints%3D%5B%5D%3Balign%3Dcenter%3BfontSize%3D12%3Bimage%3Dimg%2Flib%2Fazure2%2Fgeneral%2FFolder_Blank.svg%3B%22%20value%3D%22pages%26lt%3Bspan%20style%3D%26quot%3Bcolor%3A%20rgba(0%2C%200%2C%200%2C%200)%3B%20font-family%3A%20monospace%3B%20font-size%3A%200px%3B%20text-align%3A%20start%3B%20background-color%3A%20rgb(236%2C%20236%2C%20236)%3B%26quot%3B%26gt%3B%253CmxGraphModel%253E%253Croot%253E%253CmxCell%2520id%253D%25220%2522%252F%253E%253CmxCell%2520id%253D%25221%2522%2520parent%253D%25220%2522%252F%253E%253CmxCell%2520id%253D%25222%2522%2520parent%253D%25221%2522%2520style%253D%2522image%253Baspect%253Dfixed%253Bhtml%253D1%253Bpoints%253D%255B%255D%253Balign%253Dcenter%253BfontSize%253D12%253Bimage%253Dimg%252Flib%252Fazure2%252Fgeneral%252FFolder_Blank.svg%253B%2522%2520value%253D%2522src%2522%2520vertex%253D%25221%2522%253E%253CmxGeometry%2520height%253D%252256.00000000000001%2522%2520width%253D%252269%2522%2520x%253D%2522370.5%2522%2520y%253D%2522440%2522%2520as%253D%2522geometry%2522%252F%253E%253C%252FmxCell%253E%253C%252Froot%253E%253C%252FmxGraphModel%253E%26lt%3B%2Fspan%26gt%3B%22%20vertex%3D%221%22%3E%3CmxGeometry%20height%3D%2256.00000000000001%22%20width%3D%2269%22%20x%3D%22200%22%20y%3D%22529%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start; background-color: rgb(236, 236, 236);&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20parent%3D%221%22%20style%3D%22image%3Baspect%3Dfixed%3Bhtml%3D1%3Bpoints%3D%5B%5D%3Balign%3Dcenter%3BfontSize%3D12%3Bimage%3Dimg%2Flib%2Fazure2%2Fgeneral%2FFolder_Blank.svg%3B%22%20value%3D%22pages%26lt%3Bspan%20style%3D%26quot%3Bcolor%3A%20rgba(0%2C%200%2C%200%2C%200)%3B%20font-family%3A%20monospace%3B%20font-size%3A%200px%3B%20text-align%3A%20start%3B%20background-color%3A%20rgb(236%2C%20236%2C%20236)%3B%26quot%3B%26gt%3B%253CmxGraphModel%253E%253Croot%253E%253CmxCell%2520id%253D%25220%2522%252F%253E%253CmxCell%2520id%253D%25221%2522%2520parent%253D%25220%2522%252F%253E%253CmxCell%2520id%253D%25222%2522%2520parent%253D%25221%2522%2520style%253D%2522image%253Baspect%253Dfixed%253Bhtml%253D1%253Bpoints%253D%255B%255D%253Balign%253Dcenter%253BfontSize%253D12%253Bimage%253Dimg%252Flib%252Fazure2%252Fgeneral%252FFolder_Blank.svg%253B%2522%2520value%253D%2522src%2522%2520vertex%253D%25221%2522%253E%253CmxGeometry%2520height%253D%252256.00000000000001%2522%2520width%253D%252269%2522%2520x%253D%2522370.5%2522%2520y%253D%2522440%2522%2520as%253D%2522geometry%2522%252F%253E%253C%252FmxCell%253E%253C%252Froot%253E%253C%252FmxGraphModel%253E%26lt%3B%2Fspan%26gt%3B%22%20vertex%3D%221%22%3E%3CmxGeometry%20height%3D%2256.00000000000001%22%20width%3D%2269%22%20x%3D%22200%22%20y%3D%22529%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;tility" vertex="1">
+          <mxGeometry height="56.00000000000001" width="69" x="383.25" y="619" as="geometry" />
+        </mxCell>
+        <mxCell id="Y1BoDe2gnHlt2QcEypBU-10" parent="1" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/File.svg;" value="app.js" vertex="1">
+          <mxGeometry height="69" width="56.00000000000001" x="559.25" y="606" as="geometry" />
+        </mxCell>
+        <mxCell id="Y1BoDe2gnHlt2QcEypBU-12" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="Cartella che contiene i file react per la visualizzazione della dashboard" vertex="1">
+          <mxGeometry height="30" width="161" x="506.75" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="Y1BoDe2gnHlt2QcEypBU-13" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="Cartella in cui vengono installate tutte le dipendeze del progetto" vertex="1">
+          <mxGeometry height="64" width="111" x="212.75" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="Y1BoDe2gnHlt2QcEypBU-14" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="Cartella che contiene tutte le componenti react divisi per pagina&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-wrap-mode: nowrap;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20parent%3D%221%22%20style%3D%22text%3Bhtml%3D1%3BwhiteSpace%3Dwrap%3BstrokeColor%3Dnone%3BfillColor%3Dnone%3Balign%3Dleft%3BverticalAlign%3Dmiddle%3Brounded%3D0%3B%22%20value%3D%22Cartella%20che%20contiene%20i%20file%20react%20per%20la%20visualizzazione%20della%20dashboard%22%20vertex%3D%221%22%3E%3CmxGeometry%20height%3D%2230%22%20width%3D%22161%22%20x%3D%22506.75%22%20y%3D%22370%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" vertex="1">
+          <mxGeometry height="30" width="120" x="180" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="Y1BoDe2gnHlt2QcEypBU-15" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="Cartella che contiene funzioni utili per app.js" vertex="1">
+          <mxGeometry height="30" width="120" x="357.75" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="Y1BoDe2gnHlt2QcEypBU-16" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="File in che gestisce il routing delle pagine e la loro visualizzazione" vertex="1">
+          <mxGeometry height="30" width="120" x="527.25" y="710" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
