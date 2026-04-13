@@ -42,7 +42,7 @@ const Graph = ({ label }) => {
     
       label: `${e.rels.length}`,
 
-      // opzionale: hover con dettagli
+    
       title: e.rels.join("\n"),
 
       rels: e.rels,
@@ -116,15 +116,40 @@ console.log("Relazioni edge:", edge.rels);
   }, [nodes, edges]);
 
   return (
+  <div style={styles.container}>
+    <h2 style={styles.title}>
+      Grafo Nodo: {label || "Seleziona un nodo"}
+    </h2>
+
     <div
       ref={ref}
-      style={{
-        height: "500px",
-        border: "1px solid lightgray",
-        borderRadius: "8px",
-      }}
+      style={styles.graphWrapper}
     />
+  </div>
   );
 };
+const styles = {
+  container: {
+    height: "500px",
+    display: "flex",
+    flexDirection: "column",
+    border: "1px solid #ddd",
+    borderRadius: "12px",
+    padding: "10px",
+    boxSizing: "border-box",
+    backgroundColor: "#fff",
+    overflow: "hidden",
+  },
 
+  title: {
+    margin: 0,
+    marginBottom: "10px",
+    flexShrink: 0,
+  },
+
+  graphWrapper: {
+    flex: 1,
+    minHeight: 0,
+  }
+};
 export default Graph;

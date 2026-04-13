@@ -48,19 +48,22 @@ export default function RelationTypesTable({ onView }) {
 
 const styles = {
   container: {
-    marginTop: "20px",
-    padding: "15px",
     border: "1px solid #ddd",
-    borderRadius: "10px",
-    backgroundColor: "#fff"
+    borderRadius: "12px",
+    backgroundColor: "#fff",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+    height: "500px",
+    display: "flex",
+    flexDirection: "column"
   },
 
   title: {
-    marginBottom: "10px"
+    marginBottom: "10px",
+    flexShrink: 0
   },
 
   tableWrapper: {
-    maxHeight: "400px",
+    flex: 1,
     overflowY: "auto",
     border: "1px solid #eee",
     borderRadius: "8px"
@@ -75,21 +78,23 @@ const styles = {
     position: "sticky",
     top: 0,
     backgroundColor: "#fafafa",
-    padding: "8px",
-    borderBottom: "2px solid #eee"
+    textAlign: "left",
+    padding: "10px",
+    borderBottom: "2px solid #eee",
+    zIndex: 1
   },
 
   td: {
-    padding: "8px",
+    padding: "10px",
     borderBottom: "1px solid #eee"
   },
 
   button: {
-    padding: "5px 10px",
-    backgroundColor: "#007bff",
-    color: "white",
+    padding: "6px 12px",
     border: "none",
     borderRadius: "6px",
+    backgroundColor: "#dddddd",
+    color: "black",
     cursor: "pointer"
   }
 };

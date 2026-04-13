@@ -35,7 +35,8 @@ function Stat({ label, value }) {
 
 const styles = {
   container: {
-    padding: "20px"
+    marginBottom:"20px",
+    width: "100%"
   },
   card: {
     display: "flex",

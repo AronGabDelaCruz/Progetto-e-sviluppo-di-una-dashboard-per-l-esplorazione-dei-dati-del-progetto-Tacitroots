@@ -31,42 +31,64 @@ export default function RelationGraph({ relation }) {
     const options = {
       nodes: {
         shape: "dot",
-        size: 16,
-        font: { size: 14 }
+        size: 18,
+        font: { size: 14, face: "arial" },
       },
       edges: {
-        arrows: "to",
-        font: { size: 12 },
-        smooth: true
+        arrows: { to: true },
+        font: { size: 10, align: "middle" },
+        smooth: false,
       },
       physics: {
-        stabilization: false
-      }
+        enabled: true,
+        stabilization: false,
+      },
+      interaction: {
+        hover: true,
+      },
     };
 
     if (networkRef.current) {
       networkRef.current.destroy();
     }
 
-    networkRef.current = new Network(ref.current, data, options);
+    const network = new Network(ref.current, data, options);
+    networkRef.current = network;
 
+    return () => network.destroy();
   }, [nodes, edges]);
 
   return (
-    <div>
-      <h3>Graph View</h3>
+    <div style={styles.container}>
+      <h2 style={styles.title}>
+        Grafo Relazioni: {relation || "Seleziona una relazione"}
+      </h2>
 
-      {!relation && (
-        <p>Select a relation to view the graph</p>
-      )}
-
-      <div
-        ref={ref}
-        style={{
-          height: "500px",
-          border: "1px solid #ddd"
-        }}
-      />
+      <div ref={ref} style={styles.graphWrapper} />
     </div>
   );
 }
+const styles = {
+  container: {
+    height: "500px",
+    display: "flex",
+    flexDirection: "column",
+    border: "1px solid #ddd",
+    borderRadius: "12px",
+    padding: "10px",
+    boxSizing: "border-box",
+    backgroundColor: "#fff",
+    overflow: "hidden",
+  },
+
+  title: {
+    margin: 0,
+    marginBottom: "10px",
+    flexShrink: 0,
+  },
+
+  graphWrapper: {
+    flex: 1,
+    minHeight: 0,
+  }
+};

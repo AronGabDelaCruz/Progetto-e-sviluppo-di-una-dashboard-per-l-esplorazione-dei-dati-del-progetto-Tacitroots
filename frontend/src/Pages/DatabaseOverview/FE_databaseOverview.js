@@ -4,30 +4,36 @@ import NodeTypesTable from "./table_nodeTypes";
 import Graph from "./graph_typeNodes";
 import RelationTypesTable from "./table_relationTypes";
 import GraphRel from "./graph_typeRelations";
+import "./databaseOverview.css";
 
-function NuovaPagina() {
+function DatabaseOverviewPage() {
   const [selectedLabel, setSelectedLabel] = useState("Person"); 
-  const [selectedRelation, setSelectedRelation] = useState(null);
+  const [selectedRelation, setSelectedRelation] = useState("TAGGED_WITH");
 
   return (
-    <div>
+    <div className="page-container">
       <h1>Database Overview</h1>
 
       <DatabaseOverview />
 
-      {/* NODI */}
-      <NodeTypesTable onView={setSelectedLabel} />
-      <Graph label={selectedLabel} />
+  
+      <div className="grid-container">
+       
+          <NodeTypesTable onView={setSelectedLabel} />
+          <Graph label={selectedLabel} />
+      </div>
 
-      <hr />
 
-      {/* RELAZIONI */}
-  <RelationTypesTable onView={setSelectedRelation} />
+      <div className="grid-container">
+        
+          <RelationTypesTable onView={setSelectedRelation} />
+        
 
-<GraphRel relation={selectedRelation} />
-
+       
+          <GraphRel relation={selectedRelation} />
+      </div>
     </div>
   );
 }
 
-export default NuovaPagina;
+export default DatabaseOverviewPage;
