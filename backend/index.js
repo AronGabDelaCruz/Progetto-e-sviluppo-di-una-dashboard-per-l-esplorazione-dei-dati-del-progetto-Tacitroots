@@ -8,7 +8,7 @@ import {
 import { handleRoute} from "./controllerWrapper.js";
 
 import { dbOverview, nodesByLabel, graphByNodeLabels, relationTypes, graphByRelationType } from './controllers/BE_databaseOverview.js';
-import {peopleStats, personDetail } from "./controllers/BE_archivioPersone.js"
+import {peopleStats, personDetail, personGraph, personFieldPie, personWritingMap } from "./controllers/BE_archivioPersone.js"
 // configurazione express
 const app = express();
 app.use(cors());
@@ -45,6 +45,9 @@ app.get("/graph/relation/:relation", handleRoute(driver, graphByRelationType));
 // Rotte utili per Archivio Persone
 app.get("/people-stats", handleRoute(driver, peopleStats));
 app.get("/person/:name", handleRoute(driver, personDetail));
+app.get("/person-graph/:name", handleRoute(driver, personGraph));
+app.get("/person-field-pie/:name", handleRoute(driver, personFieldPie));
+app.get("/person-writing-map/:name",handleRoute(driver, personWritingMap));
 
 
 app.listen(3001, () => console.log("Server attivo su http://localhost:3001"));

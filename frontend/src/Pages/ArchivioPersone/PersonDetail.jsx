@@ -5,7 +5,7 @@ function PersonDetail({ name }) {
 
   useEffect(() => {
     if (!name) return;
-
+    setPerson(null);
     fetch(`http://localhost:3001/person/${name}`)
       .then(res => res.json())
       .then(setPerson)
