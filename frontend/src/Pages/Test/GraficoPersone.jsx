@@ -11,7 +11,7 @@ export default function GraficoLettere() {
       .catch(err => console.error(err));
   }, []);
 
-  // Componente personalizzato per tick verticale
+  
   const CustomizedAxisTick = ({ x, y, payload }) => {
     return (
       <g transform={`translate(${x},${y})`}>
@@ -24,17 +24,17 @@ export default function GraficoLettere() {
 
   return (
     <BarChart
-      width={Math.max(800, data.length * 50)} // aumenta larghezza se tanti nomi
+      width={Math.max(800, data.length * 50)} 
       height={400}
       data={data}
-      margin={{ top: 20, right: 30, left: 20, bottom: 100 }} // spazio per etichette
+      margin={{ top: 20, right: 30, left: 20, bottom: 100 }} 
     >
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis
         dataKey="persona"
-        interval={0} // mostra tutte le etichette
-        tick={<CustomizedAxisTick />} // verticale
-        height={100} // spazio sotto per le etichette
+        interval={0} 
+        tick={<CustomizedAxisTick />} 
+        height={100} 
       />
       <YAxis />
       <Tooltip />

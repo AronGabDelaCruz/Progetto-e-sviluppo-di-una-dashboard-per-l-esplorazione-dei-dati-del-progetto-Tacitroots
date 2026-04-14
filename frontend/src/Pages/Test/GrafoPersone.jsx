@@ -9,7 +9,7 @@ export default function GrafoPersone() {
   const [persona, setPersona] = useState(null);
   const [personeDisponibili, setPersoneDisponibili] = useState([]);
 
-  // 🔹 Carica lista persone
+  
   useEffect(() => {
     fetch("http://localhost:3001/person-list")
       .then(res => res.json())
@@ -17,7 +17,7 @@ export default function GrafoPersone() {
       .catch(err => console.error(err));
   }, []);
 
-  // 🔹 Carica grafo per persona selezionata
+ 
   useEffect(() => {
     if (!persona) return;
 
@@ -27,7 +27,6 @@ export default function GrafoPersone() {
         const nodesMap = {};
         const edgesArray = [];
 
-        // 🔹 Creazione nodi e archi
         data.forEach((d, i) => {
           const sizeSource = Math.min(120, 80 + (d.sourceWeight || 1) * 2); // dimensione proporzionale lettere
           const sizeTarget = Math.min(120, 80 + (d.targetWeight || 1) * 2);
@@ -107,7 +106,7 @@ export default function GrafoPersone() {
     <div>
       <h2>Seleziona una persona</h2>
 
-      {/* 🔹 Bottoni per selezione */}
+  
       <div style={{ marginBottom: "20px" }}>
         {personeDisponibili.map((p, i) => (
           <button
@@ -128,7 +127,7 @@ export default function GrafoPersone() {
         ))}
       </div>
 
-      {/* 🔹 Grafo */}
+   
       {persona && (
         <div style={{ height: "700px", width: "100%", border: "1px solid black" }}>
           <ReactFlow nodes={nodes} edges={edges} fitView>

@@ -37,7 +37,7 @@ export default function TimelineChart() {
   useEffect(() => {
     fetchData();
 
-    // Riascolta quando cambia URL tramite FieldSelector
+    
     const listener = () => fetchData();
     window.addEventListener("fieldChanged", listener);
 

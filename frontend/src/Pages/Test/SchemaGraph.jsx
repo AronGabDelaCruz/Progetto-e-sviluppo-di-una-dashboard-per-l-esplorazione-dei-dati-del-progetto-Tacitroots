@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactFlow, { ReactFlowProvider } from "reactflow";
 import "reactflow/dist/style.css";
 
-// ---- La tua funzione di trasformazione ----
+
 const transformToGraph = (data) => {
   if (!data || Object.keys(data).length === 0) return { nodes: [], edges: [] };
 
@@ -14,7 +14,7 @@ const transformToGraph = (data) => {
   Object.entries(data).forEach(([key, rels], index) => {
     const [from, to] = key.split(",");
 
-    // nodi
+ 
     if (!nodesMap.has(from)) {
       nodesMap.set(from, {
         id: from,
@@ -52,7 +52,7 @@ const transformToGraph = (data) => {
       });
     }
 
-    // edges
+ 
     edges.push({
       id: `e${index}`,
       source: from,

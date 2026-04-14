@@ -5,9 +5,10 @@ import cors from 'cors';
 import {
   letterePerPersona,cittaLettere, grafoPersona, personList, letterePerAnno, fieldsList, schemaGrafo, schemaRelazioni
 } from "./controllers/test.js";
-import { handleRoute } from "./controllerWrapper.js";
+import { handleRoute} from "./controllerWrapper.js";
 
 import { dbOverview, nodesByLabel, graphByNodeLabels, relationTypes, graphByRelationType } from './controllers/BE_databaseOverview.js';
+import {peopleStats, personDetail } from "./controllers/BE_archivioPersone.js"
 // configurazione express
 const app = express();
 app.use(cors());
@@ -40,6 +41,11 @@ app.get("/nodes-by-label", handleRoute(driver, nodesByLabel));
 app.get("/graph/:label", handleRoute(driver, graphByNodeLabels));
 app.get("/relation-types", handleRoute(driver, relationTypes));
 app.get("/graph/relation/:relation", handleRoute(driver, graphByRelationType));
+
+// Rotte utili per Archivio Persone
+app.get("/people-stats", handleRoute(driver, peopleStats));
+app.get("/person/:name", handleRoute(driver, personDetail));
+
 
 app.listen(3001, () => console.log("Server attivo su http://localhost:3001"));
 

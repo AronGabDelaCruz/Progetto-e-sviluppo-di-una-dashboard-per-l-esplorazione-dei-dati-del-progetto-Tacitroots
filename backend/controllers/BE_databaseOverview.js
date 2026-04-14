@@ -76,8 +76,8 @@ export const graphByNodeLabels = async (session, req) => {
     edges.push({
       from,
       to,
-      rels,                 // 🔥 array vero
-      label: rels.join(", ") // opzionale per debug o tooltip
+      rels,                
+      label: rels.join(", ") 
     });
   });
 

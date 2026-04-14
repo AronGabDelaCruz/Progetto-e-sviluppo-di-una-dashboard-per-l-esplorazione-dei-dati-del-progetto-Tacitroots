@@ -1,4 +1,4 @@
-// src/components/FieldSelector.jsx
+
 import React, { useEffect, useState } from "react";
 
 export default function FieldSelector() {
@@ -11,17 +11,17 @@ export default function FieldSelector() {
       .then(setFields)
       .catch(err => console.error(err));
 
-    // Legge il field dalla URL iniziale
+    
     const params = new URLSearchParams(window.location.search);
     setSelectedField(params.get("field"));
   }, []);
 
   const handleClick = (field) => {
     const url = new URL(window.location);
-    url.searchParams.set("field", field); // aggiorna ?field=...
-    window.history.pushState({}, "", url); // cambia URL senza ricaricare
-    setSelectedField(field); // opzionale: per evidenziare il bottone selezionato
-    // Dispatch evento custom per avvisare altri componenti se vuoi
+    url.searchParams.set("field", field); 
+    window.history.pushState({}, "", url); 
+    setSelectedField(field); 
+    
     window.dispatchEvent(new Event("fieldChanged"));
   };
 

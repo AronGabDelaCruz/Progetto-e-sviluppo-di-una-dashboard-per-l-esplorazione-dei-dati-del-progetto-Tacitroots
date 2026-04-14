@@ -27,9 +27,6 @@ function DatabaseOverviewPage() {
       <div className="grid-container">
         
           <RelationTypesTable onView={setSelectedRelation} />
-        
-
-       
           <GraphRel relation={selectedRelation} />
       </div>
     </div>

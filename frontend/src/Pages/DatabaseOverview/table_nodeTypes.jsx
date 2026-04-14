@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export default function NodeTypesTable({ onView }) {
-  const [data, setData] = useState([]);
+const [data, setData] = useState([]);
 const handleView = (label) => {
   onView(label);
 };

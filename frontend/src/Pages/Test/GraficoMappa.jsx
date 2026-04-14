@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
-// ✅ FIX icone leaflet (problema quadrato)
+
 delete L.Icon.Default.prototype._getIconUrl;
 
 L.Icon.Default.mergeOptions({
@@ -12,12 +12,12 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png"
 });
 
-// ✅ dimensione marker dinamica
+
 const getSize = (n) => {
   return Math.max(20, Math.min(60, n));
 };
 
-// ✅ icona personalizzata (cerchio)
+
 const customIcon = (size) =>
   L.divIcon({
     html: `<div style="
@@ -52,9 +52,9 @@ export default function GraficoMappa() {
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-      {/* ✅ marker */}
+      
       {data
-        .filter(c => c && c.lat && c.lng) // evita errori
+        .filter(c => c && c.lat && c.lng) 
         .map((c, i) => (
           <Marker
             key={i}
@@ -63,7 +63,7 @@ export default function GraficoMappa() {
           >
             <Popup>
               <strong>{c.name}</strong><br />
-              📩 {c.lettere} lettere
+               {c.lettere} lettere
             </Popup>
           </Marker>
         ))}
