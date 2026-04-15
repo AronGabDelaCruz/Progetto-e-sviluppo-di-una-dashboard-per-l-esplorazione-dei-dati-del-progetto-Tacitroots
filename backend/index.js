@@ -8,7 +8,10 @@ import {
 import { handleRoute} from "./controllerWrapper.js";
 
 import { dbOverview, nodesByLabel, graphByNodeLabels, relationTypes, graphByRelationType } from './controllers/BE_databaseOverview.js';
-import {peopleStats, personDetail, personGraph, personFieldPie, personWritingMap } from "./controllers/BE_archivioPersone.js"
+import {peopleStats, personDetail, personGraph,
+   personFieldPie, personWritingMap, personCitationTimeline, 
+   personCitedBy, personInstrumentPacking, personExperimentPacking,
+  personCited, personReceiverMap, personGraphIn } from "./controllers/BE_archivioPersone.js"
 // configurazione express
 const app = express();
 app.use(cors());
@@ -48,7 +51,13 @@ app.get("/person/:name", handleRoute(driver, personDetail));
 app.get("/person-graph/:name", handleRoute(driver, personGraph));
 app.get("/person-field-pie/:name", handleRoute(driver, personFieldPie));
 app.get("/person-writing-map/:name",handleRoute(driver, personWritingMap));
-
+app.get("/person-citation-timeline/:name",handleRoute(driver, personCitationTimeline));
+app.get("/person-cited-by/:name",handleRoute(driver, personCitedBy));
+app.get("/person-instrument-packing/:name",handleRoute(driver, personInstrumentPacking));
+app.get("/person-experiment-packing/:name",handleRoute(driver, personExperimentPacking));
+app.get("/person-cited-by/:name",handleRoute(driver, personCited));
+app.get("/person-receiver-map/:name",handleRoute(driver, personReceiverMap ));
+app.get("/person-graph-in/:name",handleRoute(driver, personGraphIn));
 
 app.listen(3001, () => console.log("Server attivo su http://localhost:3001"));
 
