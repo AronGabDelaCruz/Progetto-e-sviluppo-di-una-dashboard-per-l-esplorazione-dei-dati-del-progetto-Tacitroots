@@ -27,10 +27,18 @@ export const peopleStats = async (session) => {
 export const personDetail = async (session, req) => {
   const { name } = req.params;
 
-  const result = await session.run(`
+  const result = await session.run(
+    `
     MATCH (p:Person {name: $name})
-    RETURN p.name AS name, p.birth AS birth, p.death AS death
-  `, { name });
+    RETURN 
+      p.name AS name,
+      p.birth AS birth,
+      p.death AS death,
+      p.notes AS notes,
+      p.wikipedia AS wikipedia
+    `,
+    { name }
+  );
 
   if (result.records.length === 0) return null;
 
@@ -39,7 +47,9 @@ export const personDetail = async (session, req) => {
   return {
     name: r.get("name"),
     birth: r.get("birth")?.toNumber?.() ?? r.get("birth"),
-    death: r.get("death")?.toNumber?.() ?? r.get("death")
+    death: r.get("death")?.toNumber?.() ?? r.get("death"),
+   notes: r.get("notes") || null,
+    wikipedia: r.get("wikipedia") || null
   };
 };
 

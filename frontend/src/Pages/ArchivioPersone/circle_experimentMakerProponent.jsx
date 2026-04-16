@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { DataSet, Network } from "vis-network/standalone";
 import "vis-network/styles/vis-network.css";
+
 const API_URL = process.env.REACT_APP_API_URL;
+
 function PersonExperimentPackingVis({ name }) {
   const containerRef = useRef(null);
   const networkRef = useRef(null);
@@ -18,31 +20,41 @@ function PersonExperimentPackingVis({ name }) {
           id: i,
           label: d.experiment || "unknown",
           value: d.count,
-
           group: d.type,
+          shape: "dot",
+
+          scaling: {
+            min: 12,
+            max: 55
+          },
 
           color:
             d.type === "invented"
-              ? "#ff4d4f"
-              : "#52c41a",
+              ? {
+                  background: "#ff4d4f",
+                  border: "#a8071a"
+                }
+              : {
+                  background: "#52c41a",
+                  border: "#237804"
+                },
 
-          shape: "dot",
-          scaling: {
-            min: 10,
-            max: 60
+          font: {
+            size: 12,
+            color: "#1f1f1f",
+            face: "arial",
+            align: "center"
           },
 
           title: `
-${d.experiment}
+Experiment: ${d.experiment}
 Type: ${d.type}
 Citations: ${d.count}
 `
         }));
 
-        const nodesDataSet = new DataSet(nodes);
-
         const data = {
-          nodes: nodesDataSet,
+          nodes: new DataSet(nodes),
           edges: []
         };
 
@@ -52,30 +64,33 @@ Citations: ${d.count}
             stabilization: false,
             solver: "barnesHut",
             barnesHut: {
-              gravitationalConstant: -1300, 
-              centralGravity: 0.4,          
-              springLength: 60,             
+              gravitationalConstant: -1200,
+              centralGravity: 0.35,
+              springLength: 70,
               springConstant: 0.05
             },
-            minVelocity: 0.75
+            minVelocity: 0.5
           },
 
           nodes: {
             shape: "dot",
-            font: {
-              size: 12,
-              color: "#333"
+            borderWidth: 1,
+            scaling: {
+              min: 12,
+              max: 55
             }
           },
 
           interaction: {
             dragNodes: true,
-            zoomView: true
+            zoomView: true,
+            hover: true
           }
         };
 
         if (networkRef.current) {
           networkRef.current.destroy();
+          networkRef.current = null;
         }
 
         networkRef.current = new Network(
@@ -87,16 +102,92 @@ Citations: ${d.count}
       .catch(console.error);
   }, [name]);
 
-  return (
-    <div>
-      <h3>Experiment packing (Vis Network): {name}</h3>
+  if (!name) return null;
 
-      <div
-        ref={containerRef}
-        style={{ height: "600px", border: "1px solid #ddd" }}
-      />
+return (
+  <div style={styles.container}>
+    
+    <div style={styles.header}>
+      <h2 style={styles.title}>
+        Esperimenti Proposti/Inventati
+      </h2>
+
+      {/* 🔥 LEGEND */}
+      <div style={styles.legend}>
+        <div style={styles.legendItem}>
+          <span style={{ ...styles.dot, background: "#ff4d4f" }} />
+          Invented
+        </div>
+
+        <div style={styles.legendItem}>
+          <span style={{ ...styles.dot, background: "#52c41a" }} />
+          Proposed
+        </div>
+      </div>
     </div>
-  );
+
+    <div ref={containerRef} style={styles.graphWrapper} />
+  </div>
+);
 }
 
 export default PersonExperimentPackingVis;
+
+const styles = {
+  container: {
+    height: "500px",
+    display: "flex",
+    flexDirection: "column",
+    border: "1px solid #ddd",
+    borderRadius: "12px",
+    padding: "12px",
+    boxSizing: "border-box",
+    backgroundColor: "#fff",
+    overflow: "hidden"
+  },
+
+  title: {
+    marginBottom: "10px",
+    flexShrink: 0
+  },
+
+  subtitle: {
+    fontSize: "12px",
+    color: "#666",
+    marginBottom: "10px",
+    flexShrink: 0
+  },
+
+  graphWrapper: {
+    flex: 1,
+    minHeight: 0
+  },
+  header: {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  marginBottom: "8px",
+  flexShrink: 0
+},
+
+legend: {
+  display: "flex",
+  gap: "12px",
+  fontSize: "12px",
+  color: "#333",
+  alignItems: "center"
+},
+
+legendItem: {
+  display: "flex",
+  alignItems: "center",
+  gap: "6px"
+},
+
+dot: {
+  width: "10px",
+  height: "10px",
+  borderRadius: "50%",
+  display: "inline-block"
+}
+};

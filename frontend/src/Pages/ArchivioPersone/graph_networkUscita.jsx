@@ -3,7 +3,7 @@ import { DataSet, Network } from "vis-network/standalone";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-function PersonGraphIn({ name }) {
+function PersonGraph({ name }) {
   const ref = useRef(null);
   const networkRef = useRef(null);
 
@@ -16,7 +16,7 @@ function PersonGraphIn({ name }) {
     setNodes([]);
     setEdges([]);
 
-    fetch(`${API_URL}/person-graph-in/${name}`)
+    fetch(`${API_URL}/person-graph/${name}`)
       .then(res => res.json())
       .then(data => {
         setNodes(data.nodes || []);
@@ -50,9 +50,8 @@ function PersonGraphIn({ name }) {
       id: `${e.from}-${e.to}-${i}`,
       from: e.from,
       to: e.to,
-      label: `${e.rels?.length || 0}`,
+      label: "",
       title: e.rels?.join("\n") || "",
-      rels: e.rels,
       arrows: "to",
       smooth: {
         enabled: true,
@@ -97,6 +96,7 @@ function PersonGraphIn({ name }) {
 
     if (networkRef.current) {
       networkRef.current.destroy();
+      networkRef.current = null;
     }
 
     const network = new Network(ref.current, data, options);
@@ -110,7 +110,7 @@ function PersonGraphIn({ name }) {
   return (
     <div style={styles.container}>
       <h2 style={styles.title}>
-        Network in Entrata
+        Network in Uscita
       </h2>
 
       <div ref={ref} style={styles.graphWrapper} />
@@ -118,7 +118,7 @@ function PersonGraphIn({ name }) {
   );
 }
 
-export default PersonGraphIn;
+export default PersonGraph;
 
 const styles = {
   container: {

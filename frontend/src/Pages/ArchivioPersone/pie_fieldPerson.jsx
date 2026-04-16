@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+
 const API_URL = process.env.REACT_APP_API_URL;
+
 const COLORS = [
   "#8884d8",
   "#82ca9d",
@@ -26,35 +28,83 @@ function PersonFieldPie({ name }) {
 
   if (!name) return null;
 
-  if (data.length === 0) {
-    return <p>No field data for this person</p>;
-  }
-
   return (
-<div style={{ width: "100%", height: 300 }}>
-  <ResponsiveContainer>
-    <PieChart>
-      <Pie
-        data={data}
-        dataKey="count"
-        nameKey="field"
-        cx="50%"
-        cy="50%"
-        outerRadius={100}
-        label
-      >
-        {data.map((_, index) => (
-          <Cell key={index} fill={COLORS[index % COLORS.length]} />
-        ))}
-      </Pie>
+    <div style={styles.container}>
+      <div style={styles.header}>
+        <h2 style={styles.title}>
+          Principali Materie di Studio
+        </h2>
+      </div>
 
-      <Tooltip />
-      <Legend />
-    </PieChart>
-  </ResponsiveContainer>
-</div>
+      <div style={styles.chartWrapper}>
+        {data.length === 0 ? (
+          <div style={styles.empty}>
+            No field data for this person
+          </div>
+        ) : (
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Pie
+                data={data}
+                dataKey="count"
+                nameKey="field"
+                cx="50%"
+                cy="50%"
+                outerRadius={100}
+                label
+              >
+                {data.map((_, index) => (
+                  <Cell
+                    key={index}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
+        )}
+      </div>
+    </div>
   );
 }
 
-
 export default PersonFieldPie;
+const styles = {
+  container: {
+    height: "500px",
+    display: "flex",
+    flexDirection: "column",
+    border: "1px solid #ddd",
+    borderRadius: "12px",
+    padding: "10px",
+    boxSizing: "border-box",
+    backgroundColor: "#fff",
+    overflow: "hidden"
+  },
+
+  header: {
+    flexShrink: 0,
+    marginBottom: "10px"
+  },
+
+  title: {
+    marginBottom: "10px",
+    flexShrink: 0
+  },
+
+  chartWrapper: {
+    flex: 1,
+    minHeight: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+
+  empty: {
+    color: "#888",
+    fontSize: "14px"
+  }
+};

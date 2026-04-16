@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 const API_URL = process.env.REACT_APP_API_URL;
+
 function PersonCitedByTable({ name }) {
   const [data, setData] = useState([]);
 
@@ -15,66 +16,83 @@ function PersonCitedByTable({ name }) {
   if (!name) return null;
 
   return (
-    <div style={containerStyle}>
-      <h3 style={{ padding: "10px" }}>Chi ha citato: {name}</h3>
+    <div style={styles.container}>
+      <h2 style={styles.title}>Da Chi è Stato Citato</h2>
 
-      <table style={tableStyle}>
-        <thead style={theadStyle}>
-          <tr>
-            <th style={thStyle}>Persona</th>
-            <th style={thStyle}>Numero citazioni</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {data.length === 0 ? (
+      <div style={styles.tableWrapper}>
+        <table style={styles.table}>
+          <thead>
             <tr>
-              <td style={tdStyle} colSpan="2">
-                Nessuno ha citato questa persona
-              </td>
+              <th style={styles.th}>Persona</th>
+              <th style={styles.th}>Numero citazioni</th>
             </tr>
-          ) : (
-            data.map((row, i) => (
-              <tr key={i}>
-                <td style={tdStyle}>{row.person}</td>
-                <td style={tdStyle}>{row.count}</td>
+          </thead>
+
+          <tbody>
+            {data.length === 0 ? (
+              <tr>
+                <td style={styles.td} colSpan={2}>
+                  Nessuno ha citato questa persona
+                </td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ) : (
+              data.map((row, i) => (
+                <tr key={i}>
+                  <td style={styles.td}>{row.person}</td>
+                  <td style={styles.td}>{row.count}</td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
 
 export default PersonCitedByTable;
 
-const containerStyle = {
-  maxHeight: "400px",
-  overflowY: "auto",
-  border: "1px solid #ddd",
-  marginTop: "20px"
-};
+const styles = {
+  container: {
+    border: "1px solid #ddd",
+    borderRadius: "12px",
+    backgroundColor: "#fff",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+    height: "500px",
+    display: "flex",
+    flexDirection: "column",
+    padding: "10px"
+  },
 
-const tableStyle = {
-  borderCollapse: "collapse",
-  width: "100%"
-};
+  title: {
+    marginBottom: "10px",
+    flexShrink: 0
+  },
 
-const theadStyle = {
-  position: "sticky",
-  top: 0,
-  backgroundColor: "#f4f4f4",
-  zIndex: 1
-};
+  tableWrapper: {
+    flex: 1,
+    overflowY: "auto",
+    border: "1px solid #eee",
+    borderRadius: "8px"
+  },
 
-const thStyle = {
-  border: "1px solid #ddd",
-  padding: "8px",
-  textAlign: "left"
-};
+  table: {
+    width: "100%",
+    borderCollapse: "collapse"
+  },
 
-const tdStyle = {
-  border: "1px solid #ddd",
-  padding: "8px"
+  th: {
+    position: "sticky",
+    top: 0,
+    backgroundColor: "#fafafa",
+    textAlign: "left",
+    padding: "10px",
+    borderBottom: "2px solid #eee",
+    zIndex: 1
+  },
+
+  td: {
+    padding: "10px",
+    borderBottom: "1px solid #eee"
+  }
 };

@@ -25,10 +25,8 @@ function PersonInstrumentList({ name }) {
 
   return (
     <div style={containerStyle}>
-      <h3>Strumenti di {name}</h3>
-      <p>API_URL: {API_URL || "NON DEFINITO"}</p>
+      <h3>Strumenti Inventati/Proposti</h3>
       <div style={gridStyle}>
-        {/* INVENTED */}
         <div style={columnStyle}>
           <h4 style={{ color: "#ff4d4f" }}>Invented</h4>
 
@@ -44,7 +42,6 @@ function PersonInstrumentList({ name }) {
           )}
         </div>
 
-        {/* PROPOSED */}
         <div style={columnStyle}>
           <h4 style={{ color: "#52c41a" }}>Proposed</h4>
 
@@ -66,11 +63,14 @@ function PersonInstrumentList({ name }) {
 
 export default PersonInstrumentList;
 const containerStyle = {
-  marginTop: "20px",
-  padding: "15px",
-  border: "1px solid #ddd",
-  borderRadius: "8px",
-  background: "#fafafa"
+    border: "1px solid #ddd",
+    borderRadius: "12px",
+    backgroundColor: "#fff",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+    height: "500px",
+    display: "flex",
+    flexDirection: "column",
+    padding: "10px"
 };
 
 const gridStyle = {
