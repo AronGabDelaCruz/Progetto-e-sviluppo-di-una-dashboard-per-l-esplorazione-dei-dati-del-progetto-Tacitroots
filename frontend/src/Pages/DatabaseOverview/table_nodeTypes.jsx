@@ -49,7 +49,6 @@ const handleView = (label) => {
   );
 }
 
-const ROW_HEIGHT = 45; // altezza riga
 
 const styles = {
 container: {

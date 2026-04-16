@@ -56,12 +56,5 @@ function PersonFieldPie({ name }) {
   );
 }
 
-const containerStyle = {
-  marginTop: "20px",
-  padding: "15px",
-  border: "1px solid #ddd",
-  borderRadius: "8px",
-  background: "#fafafa"
-};
 
 export default PersonFieldPie;
