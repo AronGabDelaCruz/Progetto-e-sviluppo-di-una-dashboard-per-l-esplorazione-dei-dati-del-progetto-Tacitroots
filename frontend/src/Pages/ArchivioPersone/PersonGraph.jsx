@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { DataSet, Network } from "vis-network/standalone";
-
+const API_URL = process.env.REACT_APP_API_URL;
 function PersonGraph({ name }) {
   const ref = useRef(null);
   const networkRef = useRef(null);
@@ -14,7 +14,7 @@ function PersonGraph({ name }) {
     setEdges([]);
 
   if (!name) return;
-    fetch(`http://localhost:3001/person-graph/${name}`)
+    fetch(`${API_URL}/person-graph/${name}`)
       .then(res => res.json())
       .then(data => {
         setNodes(data.nodes);

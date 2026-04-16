@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-
+const API_URL = process.env.REACT_APP_API_URL;
 export default function DatabaseOverview() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3001/db-overview")
+  fetch(`${API_URL}/db-overview`)
       .then(res => res.json())
       .then(setData)
       .catch(console.error);

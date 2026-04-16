@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { DataSet, Network } from "vis-network/standalone";
-
+const API_URL = process.env.REACT_APP_API_URL;
 export default function RelationGraph({ relation }) {
   const ref = useRef(null);
   const networkRef = useRef(null);
@@ -11,7 +11,7 @@ export default function RelationGraph({ relation }) {
   useEffect(() => {
     if (!relation) return;
 
-    fetch(`http://localhost:3001/graph/relation/${relation}`)
+    fetch(`${API_URL}/graph/relation/${relation}`)
       .then(res => res.json())
       .then(data => {
         setNodes(data.nodes);

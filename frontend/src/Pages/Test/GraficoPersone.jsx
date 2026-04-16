@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
-
+const API_URL = process.env.REACT_APP_API_URL;
 export default function GraficoLettere() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/lettere-per-persona")
+    fetch(`${API_URL}/lettere-per-persona`)
       .then(res => res.json())
       .then(setData)
       .catch(err => console.error(err));

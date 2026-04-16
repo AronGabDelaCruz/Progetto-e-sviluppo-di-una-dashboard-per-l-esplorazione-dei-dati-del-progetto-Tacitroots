@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-
+const API_URL = process.env.REACT_APP_API_URL;
 function PersonDetail({ name }) {
   const [person, setPerson] = useState(null);
 
   useEffect(() => {
     if (!name) return;
     setPerson(null);
-    fetch(`http://localhost:3001/person/${name}`)
+    fetch(`${API_URL}/person/${name}`)
       .then(res => res.json())
       .then(setPerson)
       .catch(console.error);

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-
+const API_URL = process.env.REACT_APP_API_URL;
 export default function NodeTypesTable({ onView }) {
 const [data, setData] = useState([]);
 const handleView = (label) => {
   onView(label);
 };
   useEffect(() => {
-    fetch("http://localhost:3001/nodes-by-label")
+   fetch(`${API_URL}/nodes-by-label`)
       .then(res => res.json())
       .then(setData)
       .catch(console.error);

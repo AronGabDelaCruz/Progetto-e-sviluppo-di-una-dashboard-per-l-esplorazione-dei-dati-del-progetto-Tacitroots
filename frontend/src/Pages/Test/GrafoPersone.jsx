@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import ReactFlow, { Background, Controls } from "reactflow";
 import "reactflow/dist/style.css";
-
+const API_URL = process.env.REACT_APP_API_URL;
 export default function GrafoPersone() {
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState([]);
@@ -11,7 +11,7 @@ export default function GrafoPersone() {
 
   
   useEffect(() => {
-    fetch("http://localhost:3001/person-list")
+    fetch(`${API_URL}/person-list`)
       .then(res => res.json())
       .then(setPersoneDisponibili)
       .catch(err => console.error(err));

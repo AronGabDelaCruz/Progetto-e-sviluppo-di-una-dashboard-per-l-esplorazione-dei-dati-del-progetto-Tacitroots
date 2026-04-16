@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-
+const API_URL = process.env.REACT_APP_API_URL;
 function TableListaPersone({ onView }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/people-stats")
+    fetch(`${API_URL}/people-stats`)
       .then(res => res.json())
       .then(setData)
       .catch(err => console.error(err));

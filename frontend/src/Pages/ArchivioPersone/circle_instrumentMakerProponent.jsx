@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-
+const API_URL = process.env.REACT_APP_API_URL;
 function PersonInstrumentList({ name }) {
   const [invented, setInvented] = useState([]);
   const [proposed, setProposed] = useState([]);
 
   useEffect(() => {
     if (!name) return;
-
-    fetch(`http://localhost:3001/person-instrument-packing/${name}`)
+    
+    fetch(`${API_URL}/person-instrument-packing/${name}`)
       .then(res => res.json())
       .then(raw => {
         console.log("RAW:", raw);
@@ -26,7 +26,7 @@ function PersonInstrumentList({ name }) {
   return (
     <div style={containerStyle}>
       <h3>Strumenti di {name}</h3>
-
+      <p>API_URL: {API_URL || "NON DEFINITO"}</p>
       <div style={gridStyle}>
         {/* INVENTED */}
         <div style={columnStyle}>

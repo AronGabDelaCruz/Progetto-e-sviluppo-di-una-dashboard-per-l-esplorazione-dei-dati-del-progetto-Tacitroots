@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactFlow, { ReactFlowProvider } from "reactflow";
 import "reactflow/dist/style.css";
-
+const API_URL = process.env.REACT_APP_API_URL;
 
 const transformToGraph = (data) => {
   if (!data || Object.keys(data).length === 0) return { nodes: [], edges: [] };
@@ -89,7 +89,7 @@ const SchemaGraph = () => {
   const [elements, setElements] = useState({ nodes: [], edges: [] });
 
   useEffect(() => {
-    fetch("http://localhost:3001/schema-grafo")
+    fetch(`${API_URL}/schema-grafo`)
       .then(res => res.json())
       .then(data => {
         console.log("Dati dal server:", data); 

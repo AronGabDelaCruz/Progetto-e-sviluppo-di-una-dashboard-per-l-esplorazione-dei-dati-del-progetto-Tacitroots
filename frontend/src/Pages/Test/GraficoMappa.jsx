@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-
+const API_URL = process.env.REACT_APP_API_URL;
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -35,7 +35,7 @@ export default function GraficoMappa() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/citta-lettere")
+   fetch(`${API_URL}/citta-lettere`)
       .then(res => res.json())
       .then(data => {
         console.log(data); // 🔍 debug

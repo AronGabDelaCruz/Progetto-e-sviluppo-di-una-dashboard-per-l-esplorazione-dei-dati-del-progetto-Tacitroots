@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-
+const API_URL = process.env.REACT_APP_API_URL;
 export default function RelationTypesTable({ onView }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/relation-types")
+   fetch(`${API_URL}/relation-types`)
       .then(res => res.json())
       .then(setData)
       .catch(console.error);

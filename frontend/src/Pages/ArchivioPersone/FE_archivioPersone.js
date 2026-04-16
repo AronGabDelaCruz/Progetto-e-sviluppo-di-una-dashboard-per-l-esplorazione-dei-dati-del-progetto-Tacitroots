@@ -18,11 +18,11 @@ function PeoplePage() {
     <div>
       <h1>People</h1>
       <TableListaPersone onView={setSelectedPerson} />
+      <CircleInstrument name={selectedPerson} />
       <GraphNetworkIn name={selectedPerson} />
       <MapReceverPerson name={selectedPerson} />
       <TablePersonCited name={selectedPerson} />
       <CircleExperiment name={selectedPerson} />
-      <CircleInstrument name={selectedPerson} />
       <TablePersonCitedBy name={selectedPerson} />
       <LineCitedPerson name={selectedPerson} />
       <PersonDetail name={selectedPerson} />

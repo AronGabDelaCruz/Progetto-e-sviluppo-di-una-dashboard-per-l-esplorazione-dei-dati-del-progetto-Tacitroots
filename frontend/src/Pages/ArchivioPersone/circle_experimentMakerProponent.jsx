@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { DataSet, Network } from "vis-network/standalone";
 import "vis-network/styles/vis-network.css";
-
+const API_URL = process.env.REACT_APP_API_URL;
 function PersonExperimentPackingVis({ name }) {
   const containerRef = useRef(null);
   const networkRef = useRef(null);
@@ -9,7 +9,7 @@ function PersonExperimentPackingVis({ name }) {
   useEffect(() => {
     if (!name) return;
 
-    fetch(`http://localhost:3001/person-experiment-packing/${name}`)
+    fetch(`${API_URL}/person-experiment-packing/${name}`)
       .then(res => res.json())
       .then(raw => {
         console.log("RAW EXPERIMENTS:", raw);

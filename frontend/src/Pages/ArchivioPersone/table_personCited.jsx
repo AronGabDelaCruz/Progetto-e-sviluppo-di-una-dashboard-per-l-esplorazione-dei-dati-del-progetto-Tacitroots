@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-
+const API_URL = process.env.REACT_APP_API_URL;
 function PersonCitedByTable({ name }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     if (!name) return;
 
-    fetch(`http://localhost:3001/person-cited-by/${name}`)
+    fetch(`${API_URL}/person-cited-by/${name}`)
       .then(res => res.json())
       .then(setData)
       .catch(console.error);

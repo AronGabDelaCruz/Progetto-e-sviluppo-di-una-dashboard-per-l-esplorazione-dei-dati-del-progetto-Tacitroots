@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { DataSet, Network } from "vis-network/standalone";
 import "vis-network/styles/vis-network.css";
-
+const API_URL = process.env.REACT_APP_API_URL;
 const Graph = () => {
   const networkRef = useRef(null);
   const [nodes, setNodes] = useState([]);
@@ -10,7 +10,7 @@ const Graph = () => {
   useEffect(() => {
     const fetchGraph = async () => {
       try {
-        const res = await fetch("http://localhost:3001/schema-relazioni");
+        const res = await fetch(`${API_URL}/schema-relazioni`);
         const json = await res.json();
 
         setNodes(json.nodes);

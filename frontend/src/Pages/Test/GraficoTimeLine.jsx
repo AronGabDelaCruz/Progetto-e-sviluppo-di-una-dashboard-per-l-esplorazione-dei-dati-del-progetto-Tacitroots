@@ -1,7 +1,7 @@
 // src/components/TimelineChart.jsx
 import React, { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
-
+const API_URL = process.env.REACT_APP_API_URL;
 export default function TimelineChart() {
   const [data, setData] = useState([]);
 
@@ -10,7 +10,7 @@ export default function TimelineChart() {
     const field = params.get("field");
 
     const url = field
-      ? `http://localhost:3001/lettere-per-anno?field=${encodeURIComponent(field)}`
+      ? fetch(`${API_URL}/lettere-per-anno?field=${encodeURIComponent(field)}`)
       : "http://localhost:3001/lettere-per-anno";
 
     fetch(url)

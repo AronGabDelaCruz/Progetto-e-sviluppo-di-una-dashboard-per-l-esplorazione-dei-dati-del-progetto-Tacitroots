@@ -1,4 +1,6 @@
 // backend
+import dotenv from "dotenv";
+dotenv.config();
 import express from 'express';
 import neo4j from 'neo4j-driver';
 import cors from 'cors';
@@ -19,9 +21,11 @@ app.use(express.json());
 
 // connesione a neo4j
 const driver = neo4j.driver(
-  "bolt://localhost:7687",     // bolt://localhost:7687 per locale
-            // bolt://neo4j:7687 se usi Docker con nome servizio "neo4j"
-  neo4j.auth.basic("neo4j", "Nov081995")
+  process.env.NEO4J_URI,
+  neo4j.auth.basic(
+    process.env.NEO4J_USER,
+    process.env.NEO4J_PASSWORD
+  )
 );
 
 // Rotta di test

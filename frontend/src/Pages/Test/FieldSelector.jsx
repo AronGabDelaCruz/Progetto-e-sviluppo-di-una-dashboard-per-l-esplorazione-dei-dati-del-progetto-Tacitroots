@@ -1,12 +1,12 @@
 
 import React, { useEffect, useState } from "react";
-
+const API_URL = process.env.REACT_APP_API_URL;
 export default function FieldSelector() {
   const [fields, setFields] = useState([]);
   const [selectedField, setSelectedField] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3001/fields-list")
+   fetch(`${API_URL}/fields-list`)
       .then(res => res.json())
       .then(setFields)
       .catch(err => console.error(err));

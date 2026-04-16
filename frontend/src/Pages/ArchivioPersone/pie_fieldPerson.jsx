@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
-
+const API_URL = process.env.REACT_APP_API_URL;
 const COLORS = [
   "#8884d8",
   "#82ca9d",
@@ -18,7 +18,7 @@ function PersonFieldPie({ name }) {
   useEffect(() => {
     if (!name) return;
 
-    fetch(`http://localhost:3001/person-field-pie/${name}`)
+    fetch(`${API_URL}/person-field-pie/${name}`)
       .then(res => res.json())
       .then(setData)
       .catch(console.error);

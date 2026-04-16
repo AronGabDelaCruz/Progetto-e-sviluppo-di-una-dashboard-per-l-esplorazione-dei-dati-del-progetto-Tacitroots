@@ -8,14 +8,14 @@ import {
   CartesianGrid,
   ResponsiveContainer
 } from "recharts";
-
+const API_URL = process.env.REACT_APP_API_URL;
 function PersonCitationsLine({ name }) {
   const [data, setData] = useState([]);
 
 useEffect(() => {
   if (!name) return;
 
-  fetch(`http://localhost:3001/person-citation-timeline/${name}`)
+  fetch(`${API_URL}/person-citation-timeline/${name}`)
     .then(res => res.json())
     .then(data => {
       console.log("DATA BACKEND:", data); 

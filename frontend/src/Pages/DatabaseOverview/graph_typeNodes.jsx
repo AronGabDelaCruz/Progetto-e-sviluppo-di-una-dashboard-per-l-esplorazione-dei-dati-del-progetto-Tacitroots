@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { DataSet, Network } from "vis-network/standalone";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const Graph = ({ label }) => {
   const ref = useRef(null);
   const networkRef = useRef(null);
@@ -13,13 +15,18 @@ const Graph = ({ label }) => {
 
     const fetchGraph = async () => {
       try {
-        const res = await fetch(
-          `http://localhost:3001/graph/${label}`
-        );
+        console.log("API_URL:", API_URL);
+
+        if (!API_URL) {
+          console.error("REACT_APP_API_URL non definito!");
+          return;
+        }
+
+        const res = await fetch(`${API_URL}/graph/${label}`);
         const json = await res.json();
 
-        setNodes(json.nodes);
-        setEdges(json.edges);
+        setNodes(json.nodes || []);
+        setEdges(json.edges || []);
       } catch (err) {
         console.error("Errore fetch grafo:", err);
       }
