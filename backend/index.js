@@ -59,7 +59,7 @@ app.get("/person-citation-timeline/:name",handleRoute(driver, personCitationTime
 app.get("/person-cited-by/:name",handleRoute(driver, personCitedBy));
 app.get("/person-instrument-packing/:name",handleRoute(driver, personInstrumentPacking));
 app.get("/person-experiment-packing/:name",handleRoute(driver, personExperimentPacking));
-app.get("/person-cited-by/:name",handleRoute(driver, personCited));
+app.get("/person-cited/:name",handleRoute(driver, personCited));
 app.get("/person-receiver-map/:name",handleRoute(driver, personReceiverMap ));
 app.get("/person-graph-in/:name",handleRoute(driver, personGraphIn));
 

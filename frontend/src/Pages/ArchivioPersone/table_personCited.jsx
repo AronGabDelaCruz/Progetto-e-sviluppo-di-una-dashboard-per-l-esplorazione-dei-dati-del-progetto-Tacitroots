@@ -8,7 +8,7 @@ function PersonCitedByTable({ name }) {
   useEffect(() => {
     if (!name) return;
 
-    fetch(`${API_URL}/person-cited-by/${name}`)
+    fetch(`${API_URL}/person-cited/${name}`)
       .then(res => res.json())
       .then(setData)
       .catch(console.error);
