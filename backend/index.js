@@ -15,6 +15,9 @@ import {peopleStats, personDetail, personGraph,
    personCitedBy, personInstrumentPacking, personExperimentPacking,
   personCited, personReceiverMap, personGraphIn } from "./controllers/BE_archivioPersone.js"
 // configurazione express
+import {personsExchangeTimeline, personFieldPacking,
+  personCitedBetween, personExperimentHistogram
+} from "./controllers/BE_confrontiPersone.js";
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -63,5 +66,10 @@ app.get("/person-cited/:name",handleRoute(driver, personCited));
 app.get("/person-receiver-map/:name",handleRoute(driver, personReceiverMap ));
 app.get("/person-graph-in/:name",handleRoute(driver, personGraphIn));
 
+// Rotte utili per confronti tra Persone
+app.get("/persons-exchange-timeline/:name1/:name2",handleRoute(driver, personsExchangeTimeline));
+app.get("/person-field-packing/:name1/:name2",handleRoute(driver, personFieldPacking));
+app.get("/person-cited-between/:name1/:name2",handleRoute(driver, personCitedBetween));
+app.get("/person-experiment-histogram/:name1/:name2",handleRoute(driver, personExperimentHistogram));
 app.listen(3001, () => console.log("Server attivo su http://localhost:3001"));
 
