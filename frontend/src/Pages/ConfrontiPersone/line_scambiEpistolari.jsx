@@ -29,7 +29,7 @@ function PersonsExchangeLine({ person1, person2 }) {
     <div style={styles.container}>
       <div style={styles.header}>
         <h2 style={styles.title}>
-          Scambio lettere: {person1} ↔ {person2}
+          Scambio lettere negli anni: {person1} ↔ {person2}
         </h2>
       </div>
 

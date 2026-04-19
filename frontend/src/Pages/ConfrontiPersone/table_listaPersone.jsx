@@ -39,7 +39,7 @@ function TableListaPersone({ onView }) {
                     style={styles.button}
                     onClick={() => onView(person.name)}
                   >
-                    View
+                    Seleziona
                   </button>
                 </td>
               </tr>

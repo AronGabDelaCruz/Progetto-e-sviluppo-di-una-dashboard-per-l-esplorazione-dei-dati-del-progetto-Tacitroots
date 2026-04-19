@@ -93,7 +93,7 @@ const nodes = raw.map((d, i) => ({
 
   return (
     <div style={{ height: "500px", border: "1px solid #ddd" }}>
-      <h3>Field Packing</h3>
+      <h3>Temi di Discussione</h3>
 
       <div
         ref={containerRef}
