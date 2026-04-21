@@ -3,13 +3,19 @@ import "../../Styles/HorizontalBarStyle.css";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-function PersonCitedBetweenBar({ person1, person2 }) {
+function PersonCitedToggleBar({ name }) {
   const [data, setData] = useState([]);
+  const [mode, setMode] = useState("cited"); // cited | citedBy
 
   useEffect(() => {
-    if (!person1 || !person2) return;
+    if (!name) return;
 
-    fetch(`${API_URL}/person-cited-between/${person1}/${person2}`)
+    const endpoint =
+      mode === "cited"
+        ? "person-cited"
+        : "person-cited-by";
+
+    fetch(`${API_URL}/${endpoint}/${name}`)
       .then(res => res.json())
       .then(raw => {
         const formatted = raw.map(d => ({
@@ -21,26 +27,47 @@ function PersonCitedBetweenBar({ person1, person2 }) {
         setData(formatted);
       })
       .catch(console.error);
-  }, [person1, person2]);
+  }, [name, mode]);
 
-  if (!person1 || !person2) return null;
+  if (!name) return null;
 
   const max = Math.max(...data.map(d => d.count), 1);
+
+  const title =
+    mode === "cited"
+      ? "Persone Citate"
+      : "Da Chi è Stato Citato";
+
+  const color =
+    mode === "cited"
+      ? "#fa8c16"
+      : "#52c41a";
 
   return (
     <div className="horizontal-bar-container">
 
       <div className="horizontal-bar-header">
         <h2 className="horizontal-bar-title">
-          Persone citate
+          {title}
         </h2>
+
+        <button
+          className="horizontal-bar-toggle"
+          onClick={() =>
+            setMode(prev =>
+              prev === "cited" ? "citedBy" : "cited"
+            )
+          }
+        >
+          Capovolgi
+        </button>
       </div>
 
       <div className="horizontal-bar-wrapper">
 
         {data.length === 0 ? (
           <div style={{ color: "#888", fontSize: "14px" }}>
-            Nessun dato disponibile
+            Nessuna citazione trovata
           </div>
         ) : (
           data.map((d, i) => (
@@ -55,7 +82,7 @@ function PersonCitedBetweenBar({ person1, person2 }) {
                   className="horizontal-bar-fill"
                   style={{
                     width: `${(d.count / max) * 100}%`,
-                    background: "#1890ff"
+                    background: color
                   }}
                 />
               </div>
@@ -73,4 +100,4 @@ function PersonCitedBetweenBar({ person1, person2 }) {
   );
 }
 
-export default PersonCitedBetweenBar;
+export default PersonCitedToggleBar;

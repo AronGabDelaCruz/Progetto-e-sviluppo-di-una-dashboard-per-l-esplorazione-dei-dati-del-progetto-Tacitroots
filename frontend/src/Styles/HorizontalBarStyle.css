@@ -1,0 +1,67 @@
+.horizontal-bar-container {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.horizontal-bar-header {
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+
+.horizontal-bar-title {
+  margin-bottom: 10px;
+  flex-shrink: 0;
+  margin-top: 0;
+}
+
+/* 👇 QUESTA È LA PARTE IMPORTANTE (scrollbar) */
+.horizontal-bar-wrapper {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* ROW */
+.horizontal-bar-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* LABEL */
+.horizontal-bar-label {
+  width: 180px;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* TRACK */
+.horizontal-bar-track {
+  flex: 1;
+  background: #f0f0f0;
+  border-radius: 6px;
+  margin: 0 10px;
+  height: 12px;
+  overflow: hidden;
+}
+
+/* FILL */
+.horizontal-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+}
+
+/* VALUE */
+.horizontal-bar-value {
+  width: 40px;
+  text-align: right;
+  font-size: 12px;
+}

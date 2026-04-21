@@ -9,6 +9,8 @@ import {
   ResponsiveContainer
 } from "recharts";
 
+import "../../Styles/CircleStyle.css";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 function PersonCitationsLine({ name }) {
@@ -26,16 +28,24 @@ function PersonCitationsLine({ name }) {
   if (!name) return null;
 
   return (
-    <div style={styles.container}>
-      <div style={styles.header}>
-        <h2 style={styles.title}>
+    <div className="graph-container">
+
+      <div className="graph-header">
+        <h2 className="graph-title">
           Citazioni nel Tempo
         </h2>
       </div>
 
-      <div style={styles.chartWrapper}>
+      <div className="graph-wrapper">
+
         {!data.length ? (
-          <div style={styles.empty}>
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#888",
+            fontSize: "14px"
+          }}>
             Nessun dato citazioni per anno
           </div>
         ) : (
@@ -45,7 +55,6 @@ function PersonCitationsLine({ name }) {
               <XAxis dataKey="year" />
               <YAxis />
               <Tooltip />
-
               <Line
                 type="monotone"
                 dataKey="count"
@@ -55,45 +64,10 @@ function PersonCitationsLine({ name }) {
             </LineChart>
           </ResponsiveContainer>
         )}
+
       </div>
     </div>
   );
 }
 
 export default PersonCitationsLine;
-const styles = {
-  container: {
-    height: "500px",
-    display: "flex",
-    flexDirection: "column",
-    border: "1px solid #ddd",
-    borderRadius: "12px",
-    padding: "10px",
-    boxSizing: "border-box",
-    backgroundColor: "#fff",
-    overflow: "hidden"
-  },
-
-  header: {
-    flexShrink: 0,
-    marginBottom: "10px"
-  },
-
-  title: {
-    marginBottom: "10px",
-    flexShrink: 0
-  },
-
-  chartWrapper: {
-    flex: 1,
-    minHeight: 0,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-
-  empty: {
-    color: "#888",
-    fontSize: "14px"
-  }
-};

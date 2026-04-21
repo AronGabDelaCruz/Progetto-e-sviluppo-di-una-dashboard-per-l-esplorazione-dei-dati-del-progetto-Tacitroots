@@ -9,6 +9,8 @@ import {
   ResponsiveContainer
 } from "recharts";
 
+import "../../Styles/HistStyle.css";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 function PersonExperimentHistogram({ person1, person2 }) {
@@ -26,16 +28,17 @@ function PersonExperimentHistogram({ person1, person2 }) {
   if (!person1 || !person2) return null;
 
   return (
-    <div style={styles.container}>
-      <div style={styles.header}>
-        <h2 style={styles.title}>
-          Esperimenti citati: {person1} ↔ {person2}
+    <div className="hist-container">
+
+      <div className="hist-header">
+        <h2 className="hist-title">
+          Esperimenti citati
         </h2>
       </div>
 
-      <div style={styles.chartWrapper}>
+      <div className="hist-wrapper">
         {!data.length ? (
-          <div style={styles.empty}>
+          <div className="hist-empty">
             Nessun dato disponibile
           </div>
         ) : (
@@ -55,43 +58,9 @@ function PersonExperimentHistogram({ person1, person2 }) {
           </ResponsiveContainer>
         )}
       </div>
+
     </div>
   );
 }
 
 export default PersonExperimentHistogram;
-const styles = {
-  container: {
-    height: "500px",
-    display: "flex",
-    flexDirection: "column",
-    border: "1px solid #ddd",
-    borderRadius: "12px",
-    padding: "10px",
-    boxSizing: "border-box",
-    backgroundColor: "#fff",
-    overflow: "hidden"
-  },
-
-  header: {
-    flexShrink: 0,
-    marginBottom: "10px"
-  },
-
-  title: {
-    marginBottom: "10px"
-  },
-
-  chartWrapper: {
-    flex: 1,
-    minHeight: 0,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-
-  empty: {
-    color: "#888",
-    fontSize: "14px"
-  }
-};

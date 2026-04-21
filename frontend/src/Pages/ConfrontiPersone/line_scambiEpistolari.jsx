@@ -9,6 +9,8 @@ import {
   ResponsiveContainer
 } from "recharts";
 
+import "../../Styles/CircleStyle.css";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 function PersonsExchangeLine({ person1, person2 }) {
@@ -26,16 +28,17 @@ function PersonsExchangeLine({ person1, person2 }) {
   if (!person1 || !person2) return null;
 
   return (
-    <div style={styles.container}>
-      <div style={styles.header}>
-        <h2 style={styles.title}>
-          Scambio lettere negli anni: {person1} ↔ {person2}
+    <div className="graph-container">
+
+      <div className="graph-header">
+        <h2 className="graph-title">
+          Scambio lettere negli anni
         </h2>
       </div>
 
-      <div style={styles.chartWrapper}>
+      <div className="graph-wrapper">
         {!data.length ? (
-          <div style={styles.empty}>
+          <div style={{ color: "#888", fontSize: "14px" }}>
             Nessun dato disponibile
           </div>
         ) : (
@@ -45,7 +48,6 @@ function PersonsExchangeLine({ person1, person2 }) {
               <XAxis dataKey="year" />
               <YAxis />
               <Tooltip />
-
               <Line
                 type="monotone"
                 dataKey="count"
@@ -56,43 +58,9 @@ function PersonsExchangeLine({ person1, person2 }) {
           </ResponsiveContainer>
         )}
       </div>
+
     </div>
   );
 }
 
 export default PersonsExchangeLine;
-const styles = {
-  container: {
-    height: "500px",
-    display: "flex",
-    flexDirection: "column",
-    border: "1px solid #ddd",
-    borderRadius: "12px",
-    padding: "10px",
-    boxSizing: "border-box",
-    backgroundColor: "#fff",
-    overflow: "hidden"
-  },
-
-  header: {
-    flexShrink: 0,
-    marginBottom: "10px"
-  },
-
-  title: {
-    marginBottom: "10px"
-  },
-
-  chartWrapper: {
-    flex: 1,
-    minHeight: 0,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-
-  empty: {
-    color: "#888",
-    fontSize: "14px"
-  }
-};

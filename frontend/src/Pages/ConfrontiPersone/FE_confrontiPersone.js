@@ -41,23 +41,27 @@ function PeoplePage() {
 
       {error && <p>{error}</p>}
 
-      <div className="grid-3">
+      <div className="grid-2">
         <TableListaPersone onView={handleSelect1} />
 
-        <LineScambiEpistolari
-          person1={selectedPerson1}
-          person2={selectedPerson2}
-        />
+
 
         <TableListaPersone onView={handleSelect2} />
       </div>
 
-      <div className="grid-3">
+      <div className="grid-2">
+        <LineScambiEpistolari
+          person1={selectedPerson1}
+          person2={selectedPerson2}
+        />
         <CircleFieldScambi
           person1={selectedPerson1}
           person2={selectedPerson2}
         />
 
+
+      </div>
+      <div className="grid-2">
         <TablePersonCitedBtw
           person1={selectedPerson1}
           person2={selectedPerson2}
@@ -68,7 +72,6 @@ function PeoplePage() {
           person2={selectedPerson2}
         />
       </div>
-
     </div>
   );
 }

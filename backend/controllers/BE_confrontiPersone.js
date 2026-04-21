@@ -39,8 +39,7 @@ export const personFieldPacking = async (session, req) => {
 MATCH (p1:Person {name: $name1})
 MATCH (p2:Person {name: $name2})
 
-MATCH (d:Document)
-MATCH (d)-[:WRITTEN_BY]->(sender:Person)
+MATCH (d:Document)-[:WRITTEN_BY]->(sender:Person)
 MATCH (d)-[:RECEIVED_BY]->(receiver:Person)
 
 WHERE 
@@ -48,7 +47,7 @@ WHERE
   OR
   (sender = p2 AND receiver = p1)
 
-MATCH (d)-[:TAGGED_WITH]->(f:Field)
+OPTIONAL MATCH (d)-[:TAGGED_WITH]->(f:Field)
 
 RETURN 
   f.name AS field,

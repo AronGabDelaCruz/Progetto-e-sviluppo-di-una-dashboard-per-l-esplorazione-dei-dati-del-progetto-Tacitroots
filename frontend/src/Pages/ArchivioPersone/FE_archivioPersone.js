@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import "./PeoplePage.css";
 import TableListaPersone from "./Table_listaPersone";
 import PersonDetail from "./PersonDetail";
-import PersonGraph from "./graph_networkUscita";
+
 import PiePersonField from "./pie_fieldPerson";
-import MapWritingPerson from "./map_writingPerson";
+
 import LineCitedPerson from "./line_citedPerson";
 import InfoInstrument from "./info_instrumentMakerProponent";
 import CircleExperiment from "./circle_experimentMakerProponent";
-import TablePersonCited from "./table_personCited";
+
 import MapReceverPerson from "./map_receverPerson";
-import GraphNetworkIn from "./graph_networkEntrata";
-import TableCitedBy from "./table_listaCitedBy";
+import GraphNetworkIn from "./horizontalBar_networkEntrata";
+import TableCitedBy from "./HorizontalBar_listaCitedBy";
 
 function PeoplePage() {
   const [selectedPerson, setSelectedPerson] =
@@ -26,21 +26,14 @@ function PeoplePage() {
       </div>
 
 
-      <div className="grid-3">
+      <div className="grid-2">
+      <TableListaPersone onView={setSelectedPerson} />
 
-        <TableListaPersone onView={setSelectedPerson} />
+      <div className="grid-1-2">
         <PersonDetail name={selectedPerson} />
         <InfoInstrument name={selectedPerson} />
-
       </div>
-
-    
-      <div className="grid-2">
-
-        
-        <MapWritingPerson name={selectedPerson} />
-        <PersonGraph name={selectedPerson} />
-      </div>
+    </div>
 
       <div className="grid-2">
 
@@ -58,13 +51,10 @@ function PeoplePage() {
       </div>
 
 
-      <div className="grid-3">
-        <TableCitedBy name={selectedPerson} />
-        <PiePersonField name={selectedPerson} />
-        <TablePersonCited name={selectedPerson} />
-
-      </div>
-
+      <div className="grid-2">
+        <TableCitedBy name={selectedPerson} />  
+        <PiePersonField name={selectedPerson} />    
+      </div> 
     </div>
   );
 }

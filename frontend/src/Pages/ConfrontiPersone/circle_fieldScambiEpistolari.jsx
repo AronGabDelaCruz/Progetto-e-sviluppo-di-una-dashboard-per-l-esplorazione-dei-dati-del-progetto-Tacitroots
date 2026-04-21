@@ -1,12 +1,14 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { DataSet, Network } from "vis-network/standalone";
 import "vis-network/styles/vis-network.css";
+import "../../Styles/CircleStyle.css";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 function PersonFieldPackingVis({ person1, person2 }) {
   const containerRef = useRef(null);
   const networkRef = useRef(null);
+  const [hasData, setHasData] = useState(true);
 
   useEffect(() => {
     if (!person1 || !person2) return;
@@ -14,51 +16,54 @@ function PersonFieldPackingVis({ person1, person2 }) {
     fetch(`${API_URL}/person-field-packing/${person1}/${person2}`)
       .then(res => res.json())
       .then(raw => {
-        console.log("RAW BACKEND:", raw);
+        if (networkRef.current) {
+          networkRef.current.destroy();
+          networkRef.current = null;
+        }
 
         if (!raw || raw.length === 0) {
-          console.warn("NO DATA FROM BACKEND");
+          setHasData(false);
+          if (containerRef.current) {
+            containerRef.current.innerHTML = "";
+          }
           return;
         }
 
-        if (!containerRef.current) {
-          console.warn("CONTAINER NOT READY");
-          return;
-        }
-const colorMap = {};
+        setHasData(true);
 
-function getRandomColor(key) {
-  if (colorMap[key]) return colorMap[key];
+        const colorMap = {};
 
-  const color =
-    "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, "0");
+        const getRandomColor = (key) => {
+          if (colorMap[key]) return colorMap[key];
 
-  colorMap[key] = color;
-  return color;
-}
-const nodes = raw.map((d, i) => ({
-  id: i,
-  label: d.field || "unknown",
-  value: Number(d.count) || 1,
-  shape: "dot",
+          const color =
+            "#" + Math.floor(Math.random() * 16777215)
+              .toString(16)
+              .padStart(6, "0");
 
-  color: {
-    background: getRandomColor(d.field),
-    border: "#333"
-  },
+          colorMap[key] = color;
+          return color;
+        };
 
-  scaling: {
-    min: 15,
-    max: 60
-  },
-
-  font: {
-    size: 12,
-    color: "#111"
-  },
-
-  title: `${d.field} - ${d.count}`
-}));
+        const nodes = raw.map((d, i) => ({
+          id: i,
+          label: d.field || "unknown",
+          value: Number(d.count) || 1,
+          shape: "dot",
+          color: {
+            background: getRandomColor(d.field),
+            border: "#333"
+          },
+          scaling: {
+            min: 15,
+            max: 60
+          },
+          font: {
+            size: 12,
+            color: "#111"
+          },
+          title: `${d.field} - ${d.count}`
+        }));
 
         const data = {
           nodes: new DataSet(nodes),
@@ -66,21 +71,13 @@ const nodes = raw.map((d, i) => ({
         };
 
         const options = {
-          physics: {
-            enabled: true
-          },
-          interaction: {
-            hover: true
-          }
+          physics: { enabled: true },
+          interaction: { hover: true }
         };
 
-
-        if (networkRef.current) {
-          networkRef.current.destroy();
-          networkRef.current = null;
-        }
-
         setTimeout(() => {
+          if (!containerRef.current) return;
+
           networkRef.current = new Network(
             containerRef.current,
             data,
@@ -88,16 +85,37 @@ const nodes = raw.map((d, i) => ({
           );
         }, 50);
       })
-      .catch(err => console.error("FETCH ERROR:", err));
+      .catch(err => {
+        console.error("FETCH ERROR:", err);
+        setHasData(false);
+      });
+
   }, [person1, person2]);
 
   return (
-    <div style={{ height: "500px", border: "1px solid #ddd" }}>
-      <h3>Temi di Discussione</h3>
+    <div className="graph-container">
+
+      <div className="graph-header">
+        <h2 className="graph-title">Temi di Discussione</h2>
+      </div>
+
+      {!hasData && (
+        <div className="graph-wrapper" style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "#888",
+          fontSize: "14px",
+          fontStyle: "italic"
+        }}>
+          Nessun dato disponibile
+        </div>
+      )}
 
       <div
         ref={containerRef}
-        style={{ height: "450px", width: "100%" }}
+        className="graph-wrapper"
+        style={{ display: hasData ? "block" : "none" }}
       />
     </div>
   );

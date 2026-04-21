@@ -3,13 +3,13 @@ import "../../Styles/HorizontalBarStyle.css";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-function PersonCitedBetweenBar({ person1, person2 }) {
+function PersonCitedBar({ name }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    if (!person1 || !person2) return;
+    if (!name) return;
 
-    fetch(`${API_URL}/person-cited-between/${person1}/${person2}`)
+    fetch(`${API_URL}/person-cited/${name}`)
       .then(res => res.json())
       .then(raw => {
         const formatted = raw.map(d => ({
@@ -21,9 +21,9 @@ function PersonCitedBetweenBar({ person1, person2 }) {
         setData(formatted);
       })
       .catch(console.error);
-  }, [person1, person2]);
+  }, [name]);
 
-  if (!person1 || !person2) return null;
+  if (!name) return null;
 
   const max = Math.max(...data.map(d => d.count), 1);
 
@@ -32,7 +32,7 @@ function PersonCitedBetweenBar({ person1, person2 }) {
 
       <div className="horizontal-bar-header">
         <h2 className="horizontal-bar-title">
-          Persone citate
+          Persone Citate
         </h2>
       </div>
 
@@ -40,7 +40,7 @@ function PersonCitedBetweenBar({ person1, person2 }) {
 
         {data.length === 0 ? (
           <div style={{ color: "#888", fontSize: "14px" }}>
-            Nessun dato disponibile
+            Nessuna citazione trovata
           </div>
         ) : (
           data.map((d, i) => (
@@ -55,7 +55,7 @@ function PersonCitedBetweenBar({ person1, person2 }) {
                   className="horizontal-bar-fill"
                   style={{
                     width: `${(d.count / max) * 100}%`,
-                    background: "#1890ff"
+                    background: "#fa8c16"
                   }}
                 />
               </div>
@@ -73,4 +73,4 @@ function PersonCitedBetweenBar({ person1, person2 }) {
   );
 }
 
-export default PersonCitedBetweenBar;
+export default PersonCitedBar;
