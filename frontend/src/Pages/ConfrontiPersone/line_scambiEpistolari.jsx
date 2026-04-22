@@ -28,15 +28,15 @@ function PersonsExchangeLine({ person1, person2 }) {
   if (!person1 || !person2) return null;
 
   return (
-    <div className="graph-container">
+    <div className="circle-container">
 
-      <div className="graph-header">
-        <h2 className="graph-title">
+      <div className="circle-header">
+        <h2 className="circle-title">
           Scambio lettere negli anni
         </h2>
       </div>
 
-      <div className="graph-wrapper">
+      <div className="circle-wrapper">
         {!data.length ? (
           <div style={{ color: "#888", fontSize: "14px" }}>
             Nessun dato disponibile
