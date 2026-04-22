@@ -33,7 +33,6 @@ function PersonInstrumentList({ name }) {
 
     <div className="card-grid-compact">
 
-      {/* INVENTED */}
       <div className="card-column-compact">
         <h4 className="card-subtitle-invented">
           Invented

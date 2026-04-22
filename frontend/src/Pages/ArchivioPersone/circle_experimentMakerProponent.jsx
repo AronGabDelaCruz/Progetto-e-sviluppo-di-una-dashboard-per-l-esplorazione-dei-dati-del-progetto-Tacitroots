@@ -57,7 +57,6 @@ function PersonExperimentPackingVis({ name }) {
             stabilization: false,
             solver: "barnesHut"
           },
-
           interaction: {
             hover: true,
             dragNodes: true,
@@ -81,27 +80,28 @@ function PersonExperimentPackingVis({ name }) {
   if (!name) return null;
 
   return (
-    <div className="graph-container">
+    <div className="circle-container">
 
-      <div className="graph-header">
-        <h2 className="graph-title">
+      <div className="circle-header">
+        <h2 className="circle-title">
           Esperimenti Proposti/Inventati
         </h2>
 
-        <div className="graph-legend">
-          <div className="graph-legend-item">
-            <span className="graph-dot" style={{ background: "#ff4d4f" }} />
+        <div className="circle-legend">
+          <div className="circle-legend-item">
+            <span className="circle-dot" style={{ background: "#ff4d4f" }} />
             Invented
           </div>
 
-          <div className="graph-legend-item">
-            <span className="graph-dot" style={{ background: "#52c41a" }} />
+          <div className="circle-legend-item">
+            <span className="circle-dot" style={{ background: "#52c41a" }} />
             Proposed
           </div>
         </div>
       </div>
 
-      <div ref={containerRef} className="graph-wrapper" />
+      <div ref={containerRef} className="circle-wrapper" />
+
     </div>
   );
 }

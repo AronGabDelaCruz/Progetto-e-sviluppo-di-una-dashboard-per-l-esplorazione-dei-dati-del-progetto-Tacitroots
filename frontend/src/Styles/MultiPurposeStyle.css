@@ -1,0 +1,83 @@
+
+
+.card-container {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  flex-shrink: 0;
+  margin-bottom: 10px;
+}
+
+
+.card-title {
+  margin-bottom: 10px;
+  flex-shrink: 0;
+  margin-top: 0;
+}
+
+.card-wrapper {
+  flex: 1;
+  min-height: 0;
+}
+
+.card-wrapper-scroll{
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .card-container {
+    height: 380px;
+    padding: 8px;
+  }
+
+  .card-title {
+    font-size: 14px;
+  }
+}
+
+/* TELEFONO */
+@media (max-width: 768px) {
+  .card-container {
+    height: 300px;        /* leggermente più compatta */
+    padding: 6px;
+  }
+
+  .card-title {
+    font-size: 13px;
+    text-align: center;
+  }
+}
+
+/* TELEFONO */
+@media (max-width: 480px) {
+  .card-container {
+    height: 240px;        /* più compatto, evita scroll inutile */
+    padding: 5px;
+  }
+
+  .card-title {
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .card-wrapper-scroll {
+    border-radius: 6px;
+  }
+}

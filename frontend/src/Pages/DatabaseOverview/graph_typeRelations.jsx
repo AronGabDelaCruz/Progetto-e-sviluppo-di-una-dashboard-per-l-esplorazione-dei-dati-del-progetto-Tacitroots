@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { DataSet, Network } from "vis-network/standalone";
+import "../../Styles/MultiPurposeStyle.css";
+
 const API_URL = process.env.REACT_APP_API_URL;
+
 export default function RelationGraph({ relation }) {
   const ref = useRef(null);
   const networkRef = useRef(null);
@@ -14,8 +17,8 @@ export default function RelationGraph({ relation }) {
     fetch(`${API_URL}/graph/relation/${relation}`)
       .then(res => res.json())
       .then(data => {
-        setNodes(data.nodes);
-        setEdges(data.edges);
+        setNodes(data.nodes || []);
+        setEdges(data.edges || []);
       });
   }, [relation]);
 
@@ -50,45 +53,35 @@ export default function RelationGraph({ relation }) {
 
     if (networkRef.current) {
       networkRef.current.destroy();
+      networkRef.current = null;
     }
 
-    const network = new Network(ref.current, data, options);
-    networkRef.current = network;
+    networkRef.current = new Network(ref.current, data, options);
 
-    return () => network.destroy();
+    requestAnimationFrame(() => {
+      if (networkRef.current) {
+        networkRef.current.fit();
+        networkRef.current.redraw();
+      }
+    });
+
+    return () => {
+      if (networkRef.current) {
+        networkRef.current.destroy();
+        networkRef.current = null;
+      }
+    };
   }, [nodes, edges]);
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.title}>
+    <div className="card-container">
+
+      <h2 className="card-title">
         Grafo Relazioni: {relation || "Seleziona una relazione"}
       </h2>
 
-      <div ref={ref} style={styles.graphWrapper} />
+      <div ref={ref} className="card-wrapper" />
+
     </div>
   );
 }
-const styles = {
-  container: {
-    height: "500px",
-    display: "flex",
-    flexDirection: "column",
-    border: "1px solid #ddd",
-    borderRadius: "12px",
-    padding: "10px",
-    boxSizing: "border-box",
-    backgroundColor: "#fff",
-    overflow: "hidden",
-  },
-
-  title: {
-    margin: 0,
-    marginBottom: "10px",
-    flexShrink: 0,
-  },
-
-  graphWrapper: {
-    flex: 1,
-    minHeight: 0,
-  }
-};

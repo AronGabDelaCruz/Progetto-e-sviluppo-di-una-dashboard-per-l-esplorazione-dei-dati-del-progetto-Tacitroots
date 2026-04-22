@@ -1,0 +1,88 @@
+.db-container {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.db-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+
+.db-stat {
+  text-align: center;
+  flex: 1;
+  min-width: 0;
+}
+
+
+.db-value {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.db-label {
+  font-size: 14px;
+  color: #666;
+}
+
+@media (max-width: 1024px) {
+  .db-card {
+    padding: 16px;
+  }
+
+  .db-value {
+    font-size: 24px;
+  }
+
+  .db-label {
+    font-size: 13px;
+  }
+}
+
+/* MOBILE: 2 + 2 */
+@media (max-width: 768px) {
+  .db-card {
+    flex-wrap: wrap;
+    padding: 14px;
+  }
+
+  .db-stat {
+    flex: 0 0 50%;   /* 🔥 2 colonne */
+    padding: 10px 0;
+  }
+
+  .db-value {
+    font-size: 22px;
+  }
+
+  .db-label {
+    font-size: 13px;
+  }
+}
+
+/* PICOLI TELEFONI */
+@media (max-width: 480px) {
+  .db-card {
+    padding: 12px;
+  }
+
+  .db-stat {
+    flex: 0 0 50%;   /* sempre 2 + 2 */
+  }
+
+  .db-value {
+    font-size: 20px;
+  }
+
+  .db-label {
+    font-size: 12px;
+  }
+}

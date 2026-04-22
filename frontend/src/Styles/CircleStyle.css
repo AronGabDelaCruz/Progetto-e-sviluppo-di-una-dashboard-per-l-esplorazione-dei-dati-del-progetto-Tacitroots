@@ -1,4 +1,4 @@
-.graph-container {
+.circle-container {
   border: 1px solid #ddd;
   border-radius: 12px;
   background-color: #fff;
@@ -9,7 +9,7 @@
   padding: 10px;
 }
 
-.graph-header {
+.circle-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -17,24 +17,25 @@
   flex-shrink: 0;
 }
 
-.graph-title {
+.circle-title {
   margin-bottom: 10px;
   flex-shrink: 0;
   margin-top: 0;
 }
 
-.graph-subtitle {
+.circle-subtitle {
   font-size: 12px;
   color: #666;
 }
 
-.graph-wrapper {
+.circle-wrapper {
   flex: 1;
   min-height: 0;
+  height: 100%;
 }
 
-/* LEGEND */
-.graph-legend {
+
+.circle-legend {
   display: flex;
   gap: 12px;
   font-size: 12px;
@@ -42,13 +43,13 @@
   align-items: center;
 }
 
-.graph-legend-item {
+.circle-legend-item {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.graph-dot {
+.circle-dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;

@@ -16,11 +16,14 @@ function PersonFieldPackingVis({ person1, person2 }) {
     fetch(`${API_URL}/person-field-packing/${person1}/${person2}`)
       .then(res => res.json())
       .then(raw => {
+
+        // distruggi vecchio grafo
         if (networkRef.current) {
           networkRef.current.destroy();
           networkRef.current = null;
         }
 
+        // nessun dato
         if (!raw || raw.length === 0) {
           setHasData(false);
           if (containerRef.current) {
@@ -75,6 +78,7 @@ function PersonFieldPackingVis({ person1, person2 }) {
           interaction: { hover: true }
         };
 
+        // piccolo delay per evitare bug resize
         setTimeout(() => {
           if (!containerRef.current) return;
 
@@ -93,30 +97,36 @@ function PersonFieldPackingVis({ person1, person2 }) {
   }, [person1, person2]);
 
   return (
-    <div className="graph-container">
+    <div className="circle-container">
 
-      <div className="graph-header">
-        <h2 className="graph-title">Temi di Discussione</h2>
+      <div className="circle-header">
+        <h2 className="circle-title">
+          Temi di Discussione
+        </h2>
       </div>
 
       {!hasData && (
-        <div className="graph-wrapper" style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "#888",
-          fontSize: "14px",
-          fontStyle: "italic"
-        }}>
+        <div
+          className="circle-wrapper"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#888",
+            fontSize: "14px",
+            fontStyle: "italic"
+          }}
+        >
           Nessun dato disponibile
         </div>
       )}
 
       <div
         ref={containerRef}
-        className="graph-wrapper"
+        className="circle-wrapper"
         style={{ display: hasData ? "block" : "none" }}
       />
+
     </div>
   );
 }

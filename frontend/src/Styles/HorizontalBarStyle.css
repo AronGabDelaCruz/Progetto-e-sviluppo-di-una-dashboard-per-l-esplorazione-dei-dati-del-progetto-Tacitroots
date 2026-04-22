@@ -20,7 +20,7 @@
   margin-top: 0;
 }
 
-/* 👇 QUESTA È LA PARTE IMPORTANTE (scrollbar) */
+
 .horizontal-bar-wrapper {
   flex: 1;
   min-height: 0;

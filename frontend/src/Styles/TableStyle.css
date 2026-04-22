@@ -60,3 +60,82 @@
 .table-button:hover {
   background-color: #cfcfcf;
 }
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .table-container {
+    height: 360px;
+    padding: 8px;
+  }
+
+  .table th,
+  .table td {
+    padding: 7px;
+    font-size: 13px;
+  }
+
+  .table-title {
+    font-size: 17px;
+  }
+
+  .table-button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+
+/* TELEFONO */
+@media (max-width: 768px) {
+  .table-container {
+    height: 300px;
+    padding: 6px;
+  }
+
+  .table th,
+  .table td {
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  .table-title {
+    font-size: 15px;
+    text-align: center;
+  }
+
+  .table-button {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+}
+
+/* PICCOLI TELEFONI */
+@media (max-width: 480px) {
+  .table-container {
+    height: 240px;
+    padding: 5px;
+  }
+
+  .table th,
+  .table td {
+    padding: 4px 5px;
+    font-size: 11px;
+    line-height: 1.2;
+  }
+
+  .table-title {
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .table-button {
+    padding: 4px 6px;
+    font-size: 11px;
+    width: auto; /* importante: evita bottone enorme */
+  }
+
+  .table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

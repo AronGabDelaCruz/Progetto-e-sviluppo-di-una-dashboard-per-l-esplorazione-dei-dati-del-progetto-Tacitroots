@@ -28,15 +28,15 @@ function PersonCitationsLine({ name }) {
   if (!name) return null;
 
   return (
-    <div className="graph-container">
+    <div className="circle-container">
 
-      <div className="graph-header">
-        <h2 className="graph-title">
+      <div className="circle-header">
+        <h2 className="circle-title">
           Citazioni nel Tempo
         </h2>
       </div>
 
-      <div className="graph-wrapper">
+      <div className="circle-wrapper">
 
         {!data.length ? (
           <div style={{
@@ -66,6 +66,7 @@ function PersonCitationsLine({ name }) {
         )}
 
       </div>
+
     </div>
   );
 }

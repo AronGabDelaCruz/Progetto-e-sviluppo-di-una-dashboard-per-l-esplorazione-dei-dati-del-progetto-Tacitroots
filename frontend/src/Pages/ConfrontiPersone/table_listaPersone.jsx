@@ -22,8 +22,6 @@ function TableListaPersone({ onView }) {
           <thead>
             <tr>
               <th>Nome</th>
-              <th>Sent</th>
-              <th>Received</th>
               <th>Totale</th>
               <th>Azione</th>
             </tr>
@@ -32,7 +30,7 @@ function TableListaPersone({ onView }) {
           <tbody>
             {data.length === 0 ? (
               <tr>
-                <td className="table-empty" colSpan={5}>
+                <td className="table-empty" colSpan={3}>
                   Nessun dato disponibile
                 </td>
               </tr>
@@ -40,8 +38,6 @@ function TableListaPersone({ onView }) {
               data.map((person, index) => (
                 <tr key={index}>
                   <td>{person.name}</td>
-                  <td>{person.sent}</td>
-                  <td>{person.received}</td>
                   <td>{person.totalLetters}</td>
                   <td>
                     <button

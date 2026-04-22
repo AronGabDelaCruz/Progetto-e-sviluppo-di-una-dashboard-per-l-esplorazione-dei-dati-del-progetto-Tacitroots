@@ -68,10 +68,24 @@ const Graph = () => {
   }, [nodes, edges]);
 
   return (
+  <div
+    style={{
+      width: "400px",
+      height: "300px",
+      border: "2px solid red",
+      borderRadius: "10px",
+      padding: "5px",
+      boxSizing: "border-box",
+    }}
+  >
     <div
       ref={networkRef}
-      style={{ height: "500px", border: "1px solid lightgray" }}
+      style={{
+        width: "100%",
+        height: "100%",
+      }}
     />
+  </div>
   );
 };
 

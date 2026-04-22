@@ -1,4 +1,4 @@
-.card-container {
+.info-container {
   border: 1px solid #ddd;
   border-radius: 12px;
   background-color: #fff;
@@ -10,34 +10,34 @@
   overflow: hidden;
 }
 
-.card-title {
+.info-title {
   margin-bottom: 10px;
   flex-shrink: 0;
   margin-top: 0;
 }
 
-.card-content {
+.info-content {
   flex: 1;
   overflow-y: auto;
   font-size: 14px;
   color: #333;
 }
 
-.card-content p {
+.info-content p {
   margin: 8px 0;
   line-height: 1.4;
 }
 
-.card-link {
+.info-link {
   color: #1677ff;
   text-decoration: none;
 }
 
-.card-link:hover {
+.info-link:hover {
   text-decoration: underline;
 }
 
-.card-loading {
+.info-loading {
   color: #888;
   font-size: 14px;
 }
