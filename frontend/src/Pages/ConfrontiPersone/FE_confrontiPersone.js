@@ -4,7 +4,7 @@ import LineScambiEpistolari from "./line_scambiEpistolari";
 import CircleFieldScambi from "./circle_fieldScambiEpistolari";
 import TablePersonCitedBtw from "./table_personeCitateScambioEpistolare";
 import HistExperimentCitedBtw from "./hist_experimentCitedBtw";
-import "./confronti.css";
+import "../../Styles/PageLayoutStyle.css";
 
 function PeoplePage() {
   const [selectedPerson1, setSelectedPerson1] = useState("Vincenzo Viviani");

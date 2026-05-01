@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../Styles/HorizontalBarStyle.css";
-
+import "../../Styles/MultiPurposeStyle.css";
 const API_URL = process.env.REACT_APP_API_URL;
 
 function PersonGraphBar({ name }) {
@@ -48,11 +48,11 @@ function PersonGraphBar({ name }) {
     mode === "in" ? "Lettere ricevute" : "Lettere inviate";
 
   return (
-    <div className="horizontal-bar-container">
+    <div className="card-container">
 
-      <div className="horizontal-bar-header">
+      <div className="card-header">
 
-        <h2 className="horizontal-bar-title">
+        <h2 className="card-title">
           {title}
         </h2>
 
@@ -73,7 +73,7 @@ function PersonGraphBar({ name }) {
 
       </div>
 
-      <div className="horizontal-bar-wrapper">
+      <div className="card-wrapper-scroll">
 
         {data.length === 0 ? (
           <div style={{ color: "#888", fontSize: "14px" }}>

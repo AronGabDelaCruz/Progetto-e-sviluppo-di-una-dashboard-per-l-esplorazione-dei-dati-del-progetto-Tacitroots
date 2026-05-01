@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { DataSet, Network } from "vis-network/standalone";
 import "vis-network/styles/vis-network.css";
 import "../../Styles/CircleStyle.css";
-
+import "../../Styles/MultiPurposeStyle.css";
 const API_URL = process.env.REACT_APP_API_URL;
 
 function PersonExperimentPackingVis({ name }) {
@@ -55,13 +55,30 @@ function PersonExperimentPackingVis({ name }) {
           physics: {
             enabled: true,
             stabilization: false,
-            solver: "barnesHut"
+            solver: "barnesHut",
+                barnesHut: {
+      gravitationalConstant: -900,  
+      centralGravity: 0.3,
+      springLength: 200,            
+      springConstant: 0.04,
+      damping: 0.09
+    }
+    
           },
           interaction: {
             hover: true,
             dragNodes: true,
             zoomView: true
-          }
+          },
+            nodes: {
+    shape: "dot",
+    font: {
+      size: 30,
+      face: "arial",
+      color: "#1f1f1f",
+      bold: true
+    }
+  },
         };
 
         if (networkRef.current) {
@@ -80,10 +97,10 @@ function PersonExperimentPackingVis({ name }) {
   if (!name) return null;
 
   return (
-    <div className="circle-container">
+    <div className="card-container">
 
-      <div className="circle-header">
-        <h2 className="circle-title">
+      <div className="card-header">
+        <h2 className="card-title">
           Esperimenti Proposti/Inventati
         </h2>
 
@@ -100,7 +117,7 @@ function PersonExperimentPackingVis({ name }) {
         </div>
       </div>
 
-      <div ref={containerRef} className="circle-wrapper" />
+      <div ref={containerRef} className="card-wrapper" />
 
     </div>
   );

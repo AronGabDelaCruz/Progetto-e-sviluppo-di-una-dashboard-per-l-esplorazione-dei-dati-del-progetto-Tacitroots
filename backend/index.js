@@ -72,4 +72,3 @@ app.get("/person-field-packing/:name1/:name2",handleRoute(driver, personFieldPac
 app.get("/person-cited-between/:name1/:name2",handleRoute(driver, personCitedBetween));
 app.get("/person-experiment-histogram/:name1/:name2",handleRoute(driver, personExperimentHistogram));
 app.listen(3001, () => console.log("Server attivo su http://localhost:3001"));
-

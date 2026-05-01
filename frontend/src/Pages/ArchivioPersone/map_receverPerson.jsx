@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "../../Styles/MapStyle.css";
-
+import "../../Styles/MultiPurposeStyle.css";
 const API_URL = process.env.REACT_APP_API_URL;
 
 // fix icone leaflet
@@ -62,10 +62,10 @@ function PersonMapToggle({ name }) {
     });
 
   return (
-    <div className="map-container">
+    <div className="card-container">
 
-      <div className="map-header">
-        <h2 className="map-title">{title}</h2>
+      <div className="card-header">
+        <h2 className="card-title">{title}</h2>
 
         <button
           className="map-toggle-btn"
@@ -79,7 +79,7 @@ function PersonMapToggle({ name }) {
         </button>
       </div>
 
-      <div className="map-wrapper">
+      <div className="card-wrapper">
         <MapContainer center={[45, 10]} zoom={5} className="map">
 
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />

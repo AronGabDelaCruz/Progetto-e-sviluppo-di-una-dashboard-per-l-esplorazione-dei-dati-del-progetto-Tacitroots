@@ -59,3 +59,70 @@
   gap: 12px;
   margin-bottom: 12px;
 }
+
+/* Tablet*/
+@media (max-width: 1024px) {
+  .title {
+    font-size: 26px;
+  }
+
+  .subtitle {
+    font-size: 20px;
+  }
+
+  .card {
+    height: 420px;
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr); /* 🔥 3 → 2 */
+  }
+}
+
+/* Telefono */
+@media (max-width: 768px) {
+  .title {
+    font-size: 22px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+  }
+
+  .card {
+    height: 340px;
+  }
+
+  .grid-3 {
+    grid-template-columns: 1fr; 
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr; 
+  }
+}
+/* piccoli telefoni */
+@media (max-width: 480px) {
+  .people-page {
+    padding: 15px 4%;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+  }
+
+  .card {
+    height: 280px;
+    padding: 8px;
+  }
+
+  .grid-3,
+  .grid-2 {
+    grid-template-columns: 1fr; 
+    gap: 10px;
+  }
+}

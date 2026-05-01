@@ -14,10 +14,10 @@ function TableListaPersone({ onView }) {
   }, []);
 
   return (
-    <div className="table-container">
-      <h2 className="table-title">Lista Persone</h2>
+    <div className="card-container">
+      <h2 className="card-title">Lista Persone</h2>
 
-      <div className="table-wrapper">
+      <div className="card-wrapper-scroll">
         <table className="table">
           <thead>
             <tr>

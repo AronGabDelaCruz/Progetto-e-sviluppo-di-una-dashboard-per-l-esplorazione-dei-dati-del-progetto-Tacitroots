@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
-
+import "../../Styles/MultiPurposeStyle.css";
 const API_URL = process.env.REACT_APP_API_URL;
 
 const COLORS = [
@@ -29,14 +29,14 @@ function PersonFieldPie({ name }) {
   if (!name) return null;
 
   return (
-    <div style={styles.container}>
-      <div style={styles.header}>
-        <h2 style={styles.title}>
+    <div class="card-container">
+      <div class="card-header">
+        <h2 class="card-title">
           Principali Materie di Studio
         </h2>
       </div>
 
-      <div style={styles.chartWrapper}>
+      <div class="card-wrapper">
         {data.length === 0 ? (
           <div style={styles.empty}>
             No field data for this person

@@ -1,32 +1,3 @@
-.horizontal-bar-container {
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  height: 500px;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-}
-
-.horizontal-bar-header {
-  margin-bottom: 10px;
-  flex-shrink: 0;
-}
-
-.horizontal-bar-title {
-  margin-bottom: 10px;
-  flex-shrink: 0;
-  margin-top: 0;
-}
-
-
-.horizontal-bar-wrapper {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-}
-
 /* ROW */
 .horizontal-bar-row {
   display: flex;
@@ -38,9 +9,6 @@
 .horizontal-bar-label {
   width: 180px;
   font-size: 13px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 /* TRACK */
@@ -64,4 +32,46 @@
   width: 40px;
   text-align: right;
   font-size: 12px;
+}
+
+@media (max-width: 1024px) {
+  .horizontal-bar-label {
+    width: 140px;
+    font-size: 12px;
+  }
+
+  .horizontal-bar-track {
+    height: 10px;
+  }
+
+  .horizontal-bar-value {
+    font-size: 11px;
+    width: 35px;
+  }
+}
+
+@media (max-width: 768px) {
+
+
+  .horizontal-bar-label {
+    width: 150px;
+    font-size: 11px;
+  }
+
+  .horizontal-bar-track {
+    margin: 0 6px;
+    height: 8px;
+  }
+
+  .horizontal-bar-value {
+    font-size: 10px;
+    width: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .horizontal-bar-label {
+    width: 90px;
+    font-size: 11px;
+  }
 }

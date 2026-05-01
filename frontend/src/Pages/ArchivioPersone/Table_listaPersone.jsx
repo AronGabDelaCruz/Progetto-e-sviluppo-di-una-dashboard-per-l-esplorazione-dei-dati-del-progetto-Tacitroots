@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "../../Styles/TableStyle.css";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -14,17 +13,16 @@ function TableListaPersone({ onView }) {
   }, []);
 
   return (
-    <div className="table-container">
-      <h2 className="table-title">Lista Persone</h2>
+    <div className="card-container">
+      <h2 className="card-title">Lista Persone</h2>
 
-      <div className="table-wrapper">
+      <div className="card-wrapper-scroll">
         <table className="table">
           <thead>
             <tr>
               <th>Nome</th>
               <th>Sent</th>
-              <th>Received</th>
-              <th>Totale</th>
+              <th>Receive</th>
               <th>Azione</th>
             </tr>
           </thead>
@@ -42,7 +40,6 @@ function TableListaPersone({ onView }) {
                   <td>{person.name}</td>
                   <td>{person.sent}</td>
                   <td>{person.received}</td>
-                  <td>{person.totalLetters}</td>
                   <td>
                     <button
                       className="table-button"

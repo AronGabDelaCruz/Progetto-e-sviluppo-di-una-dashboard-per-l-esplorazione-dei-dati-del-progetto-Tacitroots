@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./PageLayoutStyle.css";
+import "../../Styles/PageLayoutStyle.css";
 import TableListaPersone from "./Table_listaPersone";
 import PersonDetail from "./PersonDetail";
 

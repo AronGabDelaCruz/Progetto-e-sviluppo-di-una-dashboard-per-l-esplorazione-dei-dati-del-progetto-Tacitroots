@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { DataSet, Network } from "vis-network/standalone";
 import "vis-network/styles/vis-network.css";
 import "../../Styles/CircleStyle.css";
-
+import "../../Styles/MultiPurposeStyle.css";
 const API_URL = process.env.REACT_APP_API_URL;
 
 function PersonFieldPackingVis({ person1, person2 }) {
@@ -97,17 +97,17 @@ function PersonFieldPackingVis({ person1, person2 }) {
   }, [person1, person2]);
 
   return (
-    <div className="circle-container">
+    <div className="card-container">
 
-      <div className="circle-header">
-        <h2 className="circle-title">
+      <div className="card-header">
+        <h2 className="card-title">
           Temi di Discussione
         </h2>
       </div>
 
       {!hasData && (
         <div
-          className="circle-wrapper"
+          className="card-wrapper"
           style={{
             display: "flex",
             alignItems: "center",
@@ -123,7 +123,7 @@ function PersonFieldPackingVis({ person1, person2 }) {
 
       <div
         ref={containerRef}
-        className="circle-wrapper"
+        className="card-wrapper"
         style={{ display: hasData ? "block" : "none" }}
       />
 

@@ -57,3 +57,79 @@
   font-size: 12px;
   color: #888;
 }
+
+@media (max-width: 1024px) {
+  .card-compact {
+    padding: 8px;
+  }
+
+  .card-title-compact {
+    font-size: 15px;
+  }
+
+  .card-subtitle-invented,
+  .card-subtitle-proposed {
+    font-size: 13px;
+  }
+
+  .card-item-compact {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-grid-compact {
+    flex-direction: column; /* 🔥 colonne sotto */
+  }
+
+  .card-column-compact {
+    max-height: 140px; /* 🔥 evita card enorme */
+  }
+
+  .card-title-compact {
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .card-subtitle-invented,
+  .card-subtitle-proposed {
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .card-item-compact {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-compact {
+    padding: 6px;
+  }
+
+  .card-title-compact {
+    font-size: 13px;
+  }
+
+  .card-subtitle-invented,
+  .card-subtitle-proposed {
+    font-size: 11px;
+  }
+
+  .card-column-compact {
+    padding: 5px;
+    max-height: 120px;
+  }
+
+  .card-item-compact {
+    font-size: 10px;
+
+    /* 🔥 stack testo se troppo lungo */
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card-empty {
+    font-size: 10px;
+  }
+}

@@ -10,7 +10,7 @@ import {
 } from "recharts";
 
 import "../../Styles/HistStyle.css";
-
+import "../../Styles/MultiPurposeStyle.css";
 const API_URL = process.env.REACT_APP_API_URL;
 
 function PersonExperimentHistogram({ person1, person2 }) {
@@ -28,15 +28,15 @@ function PersonExperimentHistogram({ person1, person2 }) {
   if (!person1 || !person2) return null;
 
   return (
-    <div className="hist-container">
+    <div className="card-container">
 
-      <div className="hist-header">
-        <h2 className="hist-title">
+      <div className="card-header">
+        <h2 className="card-title">
           Esperimenti citati
         </h2>
       </div>
 
-      <div className="hist-wrapper">
+      <div className="card-wrapper">
         {!data.length ? (
           <div className="hist-empty">
             Nessun dato disponibile

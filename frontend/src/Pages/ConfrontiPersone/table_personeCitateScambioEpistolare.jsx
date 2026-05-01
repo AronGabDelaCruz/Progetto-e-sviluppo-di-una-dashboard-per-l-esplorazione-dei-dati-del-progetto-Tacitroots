@@ -28,15 +28,15 @@ function PersonCitedBetweenBar({ person1, person2 }) {
   const max = Math.max(...data.map(d => d.count), 1);
 
   return (
-    <div className="horizontal-bar-container">
+    <div className="card-container">
 
-      <div className="horizontal-bar-header">
-        <h2 className="horizontal-bar-title">
+      <div className="card-header">
+        <h2 className="card-title">
           Persone citate
         </h2>
       </div>
 
-      <div className="horizontal-bar-wrapper">
+      <div className="card-wrapper-scroll">
 
         {data.length === 0 ? (
           <div style={{ color: "#888", fontSize: "14px" }}>

@@ -10,7 +10,7 @@ import {
 } from "recharts";
 
 import "../../Styles/CircleStyle.css";
-
+import "../../Styles/MultiPurposeStyle.css";
 const API_URL = process.env.REACT_APP_API_URL;
 
 function PersonsExchangeLine({ person1, person2 }) {
@@ -28,15 +28,15 @@ function PersonsExchangeLine({ person1, person2 }) {
   if (!person1 || !person2) return null;
 
   return (
-    <div className="circle-container">
+    <div className="card-container">
 
-      <div className="circle-header">
-        <h2 className="circle-title">
+      <div className="card-header">
+        <h2 className="card-title">
           Scambio lettere negli anni
         </h2>
       </div>
 
-      <div className="circle-wrapper">
+      <div className="card-wrapper">
         {!data.length ? (
           <div style={{ color: "#888", fontSize: "14px" }}>
             Nessun dato disponibile

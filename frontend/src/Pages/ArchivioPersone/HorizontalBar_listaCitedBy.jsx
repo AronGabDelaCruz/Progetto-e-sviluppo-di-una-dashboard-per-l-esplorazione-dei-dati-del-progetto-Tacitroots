@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../Styles/HorizontalBarStyle.css";
-
+import "../../Styles/MultiPurposeStyle.css";
 const API_URL = process.env.REACT_APP_API_URL;
 
 function PersonCitedToggleBar({ name }) {
@@ -44,10 +44,10 @@ function PersonCitedToggleBar({ name }) {
       : "#52c41a";
 
   return (
-    <div className="horizontal-bar-container">
+    <div className="card-container">
 
-      <div className="horizontal-bar-header">
-        <h2 className="horizontal-bar-title">
+      <div className="card-header">
+        <h2 className="card-title">
           {title}
         </h2>
 
@@ -63,7 +63,7 @@ function PersonCitedToggleBar({ name }) {
         </button>
       </div>
 
-      <div className="horizontal-bar-wrapper">
+      <div className="card-wrapper-scroll">
 
         {data.length === 0 ? (
           <div style={{ color: "#888", fontSize: "14px" }}>
