@@ -20,10 +20,10 @@ function Navbar() {
 
     
         <div className="navbar-links">
-          <Link to="/" className="nav-link">Database Overview</Link>
-          <Link to="/test" className="nav-link">Test Grafici</Link>
-          <Link to="/persone" className="nav-link">Persone</Link>
+          <Link to="/Database" className="nav-link">Database Overview</Link>
+          <Link to="/" className="nav-link">Persone</Link>
           <Link to="/Confronti" className="nav-link">Confronti</Link>
+          <Link to="/Esperimenti" className="nav-link">Esperimenti</Link>
         </div>
 
       </div>
@@ -31,10 +31,10 @@ function Navbar() {
    
       {open && (
         <div className="mobile-menu">
-          <Link to="/" className="mobile-link" onClick={() => setOpen(false)}>Database Overview</Link>
-          <Link to="/test" className="mobile-link" onClick={() => setOpen(false)}>Test Grafici</Link>
-          <Link to="/persone" className="mobile-link" onClick={() => setOpen(false)}>Persone</Link>
+          <Link to="/Database" className="mobile-link" onClick={() => setOpen(false)}>Database Overview</Link>
+          <Link to="/" className="mobile-link" onClick={() => setOpen(false)}>Persone</Link>
           <Link to="/Confronti" className="mobile-link" onClick={() => setOpen(false)}>Confronti</Link>
+          <Link to="/Esperimenti" className="mobile-link" onClick={() => setOpen(false)}>Esperimenti</Link>
         </div>
       )}
 

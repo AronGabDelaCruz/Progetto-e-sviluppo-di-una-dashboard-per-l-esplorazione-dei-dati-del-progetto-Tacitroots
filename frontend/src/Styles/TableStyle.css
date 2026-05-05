@@ -39,6 +39,15 @@
   background-color: #cfcfcf;
 }
 
+.table-row-active {
+  background-color: #e6f4ff;
+  transition: background-color 0.2s ease;
+}
+
+.table-row-active:hover {
+  background-color: #d6ecff;
+}
+
 /* TABLET */
 @media (max-width: 1024px) {
 

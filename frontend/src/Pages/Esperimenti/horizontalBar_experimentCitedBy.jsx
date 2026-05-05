@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "../../Styles/HorizontalBarStyle.css";
-
+import "../../Styles/MultiPurposeStyle.css";
+import InfoBubble from "../../Utility/Bubble";
 const API_URL = process.env.REACT_APP_API_URL;
 
-function PersonCitedBetweenBar({ person1, person2 }) {
+function ExperimentPeopleBar({ name }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    if (!person1 || !person2) return;
+    if (!name) return;
 
-    fetch(`${API_URL}/person-cited-between/${person1}/${person2}`)
+    fetch(`${API_URL}/experiment-person-citations/${name}`)
       .then(res => res.json())
       .then(raw => {
         const formatted = raw.map(d => ({
@@ -21,19 +22,21 @@ function PersonCitedBetweenBar({ person1, person2 }) {
         setData(formatted);
       })
       .catch(console.error);
-  }, [person1, person2]);
+  }, [name]);
 
-  if (!person1 || !person2) return null;
+  if (!name) return null;
 
   const max = Math.max(...data.map(d => d.count), 1);
 
   return (
     <div className="card-container">
 
-      <div className="card-header">
+      <div className="card-header-legend">
         <h2 className="card-title">
-          Persone citate
+          Citazioni per persona
         </h2>
+              <InfoBubble 
+              text="TBD" />
       </div>
 
       <div className="card-wrapper-scroll">
@@ -55,7 +58,7 @@ function PersonCitedBetweenBar({ person1, person2 }) {
                   className="horizontal-bar-fill"
                   style={{
                     width: `${(d.count / max) * 100}%`,
-                    background: "#1890ff"
+                    background: "#1677ff"
                   }}
                 />
               </div>
@@ -69,8 +72,9 @@ function PersonCitedBetweenBar({ person1, person2 }) {
         )}
 
       </div>
+
     </div>
   );
 }
 
-export default PersonCitedBetweenBar;
+export default ExperimentPeopleBar;

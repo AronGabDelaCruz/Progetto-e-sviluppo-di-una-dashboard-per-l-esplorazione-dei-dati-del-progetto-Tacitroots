@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../Styles/ColumnListStyle.css";
-
+import InfoBubble from "../../Utility/Bubble";
 const API_URL = process.env.REACT_APP_API_URL;
 
 function PersonInstrumentList({ name }) {
@@ -30,7 +30,8 @@ function PersonInstrumentList({ name }) {
     <h3 className="card-title-compact">
       Strumenti
     </h3>
-
+      <InfoBubble 
+      text="TBD" />
     <div className="card-grid-compact">
 
       <div className="card-column-compact">

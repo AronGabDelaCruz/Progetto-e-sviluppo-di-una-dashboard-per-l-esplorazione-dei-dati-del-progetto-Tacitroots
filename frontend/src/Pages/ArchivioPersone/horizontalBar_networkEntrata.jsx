@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../Styles/HorizontalBarStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
+import InfoBubble from "../../Utility/Bubble";
 const API_URL = process.env.REACT_APP_API_URL;
 
 function PersonGraphBar({ name }) {
@@ -50,27 +51,23 @@ function PersonGraphBar({ name }) {
   return (
     <div className="card-container">
 
-      <div className="card-header">
+      <div className="card-header-legend">
 
         <h2 className="card-title">
           {title}
         </h2>
-
+        <div className="card-header-buttons">
         <button
+        className="horizontal-bar-toggle"
           onClick={() =>
             setMode(prev => (prev === "in" ? "out" : "in"))
           }
-          style={{
-            padding: "6px 10px",
-            borderRadius: "6px",
-            border: "1px solid #ddd",
-            cursor: "pointer",
-            background: "#f5f5f5"
-          }}
         >
           Capovolgi
         </button>
-
+                    <InfoBubble 
+                  text="TBD" />
+        </div>
       </div>
 
       <div className="card-wrapper-scroll">

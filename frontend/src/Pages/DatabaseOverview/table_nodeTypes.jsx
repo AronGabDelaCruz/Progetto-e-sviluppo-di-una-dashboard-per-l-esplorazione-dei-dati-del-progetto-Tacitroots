@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import "../../Styles/TableStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
-export default function NodeTypesTable({ onView }) {
+export default function NodeTypesTable({ onView, selectedLabel }) {
   const [data, setData] = useState([]);
 
   const handleView = (label) => {
-    onView(label);
+    if (onView) onView(label);
   };
 
   useEffect(() => {
@@ -36,13 +37,21 @@ export default function NodeTypesTable({ onView }) {
 
           <tbody>
             {data.map((row, index) => (
-              <tr key={index}>
+              <tr
+                key={index}
+                onClick={() => handleView(row.label)}
+                className={selectedLabel === row.label ? "table-row-active" : ""}
+                style={{ cursor: "pointer" }}
+              >
                 <td>{row.label}</td>
                 <td>{row.count}</td>
                 <td>
                   <button
                     className="table-button"
-                    onClick={() => handleView(row.label)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleView(row.label);
+                    }}
                   >
                     View
                   </button>

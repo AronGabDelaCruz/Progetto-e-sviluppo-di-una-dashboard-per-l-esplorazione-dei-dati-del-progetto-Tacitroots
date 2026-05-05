@@ -1,73 +1,82 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../../Styles/TableStyle.css";
-import InfoBubble from "../../Utility/Bubble";
+import "../../Styles/MultiPurposeStyle.css";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
-function TableListaPersone({ onView, selectedPerson }) {
+export default function ExperimentsTable({ onView, selectedExperiment }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch(`${API_URL}/people-stats`)
+    fetch(`${API_URL}/experiments-stats`)
       .then(res => res.json())
       .then(setData)
-      .catch(err => console.error(err));
+      .catch(console.error);
   }, []);
+
+  const handleView = (name) => {
+    if (onView) onView(name);
+  };
 
   return (
     <div className="card-container">
-      <h2 className="card-title">Lista Persone</h2>
-                 <InfoBubble 
-                   text="TBD" />
+
+      <h2 className="card-title">
+        Esperimenti
+      </h2>
+
       <div className="card-wrapper-scroll">
+
         <table className="table">
+
           <thead>
             <tr>
-              <th>Nome</th>
-              <th>Totale</th>
-              <th>Azione</th>
+              <th>Experiment</th>
+              <th>Citations</th>
+              <th>Action</th>
             </tr>
           </thead>
 
           <tbody>
             {data.length === 0 ? (
               <tr>
-                <td className="table-empty" colSpan={3}>
+                <td colSpan={3} className="table-empty">
                   Nessun dato disponibile
                 </td>
               </tr>
             ) : (
-              data.map((person, index) => (
+              data.map((row, index) => (
                 <tr
                   key={index}
-                  onClick={() => onView(person.name)}
+                  onClick={() => handleView(row.experiment)}
                   className={
-                    selectedPerson === person.name
+                    selectedExperiment === row.experiment
                       ? "table-row-active"
                       : ""
                   }
                   style={{ cursor: "pointer" }}
                 >
-                  <td>{person.name}</td>
-                  <td>{person.totalLetters}</td>
+                  <td>{row.experiment}</td>
+                  <td>{row.count}</td>
                   <td>
                     <button
                       className="table-button"
                       onClick={(e) => {
                         e.stopPropagation();
-                        onView(person.name);
+                        handleView(row.experiment);
                       }}
                     >
-                      Seleziona
+                      View
                     </button>
                   </td>
                 </tr>
               ))
             )}
           </tbody>
+
         </table>
+
       </div>
     </div>
   );
 }
-
-export default TableListaPersone;

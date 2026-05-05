@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-function TableListaPersone({ onView }) {
+function TableListaPersone({ onView, selectedPerson }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -11,6 +11,10 @@ function TableListaPersone({ onView }) {
       .then(setData)
       .catch(err => console.error(err));
   }, []);
+
+  const handleView = (name) => {
+    if (onView) onView(name);
+  };
 
   return (
     <div className="card-container">
@@ -30,20 +34,32 @@ function TableListaPersone({ onView }) {
           <tbody>
             {data.length === 0 ? (
               <tr>
-                <td className="table-empty" colSpan={5}>
+                <td className="table-empty" colSpan={4}>
                   Nessun dato disponibile
                 </td>
               </tr>
             ) : (
               data.map((person, index) => (
-                <tr key={index}>
+                <tr
+                  key={index}
+                  onClick={() => handleView(person.name)}
+                  className={
+                    selectedPerson === person.name
+                      ? "table-row-active"
+                      : ""
+                  }
+                  style={{ cursor: "pointer" }}
+                >
                   <td>{person.name}</td>
                   <td>{person.sent}</td>
                   <td>{person.received}</td>
                   <td>
                     <button
                       className="table-button"
-                      onClick={() => onView(person.name)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleView(person.name);
+                      }}
                     >
                       View
                     </button>

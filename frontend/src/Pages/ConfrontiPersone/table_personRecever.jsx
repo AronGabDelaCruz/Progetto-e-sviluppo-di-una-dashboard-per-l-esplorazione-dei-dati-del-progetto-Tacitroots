@@ -3,27 +3,48 @@ import "../../Styles/TableStyle.css";
 import InfoBubble from "../../Utility/Bubble";
 const API_URL = process.env.REACT_APP_API_URL;
 
-function TableListaPersone({ onView, selectedPerson }) {
+function PersonReceivedTable({ person1, onView, selectedPerson }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch(`${API_URL}/people-stats`)
+    if (!person1) return;
+
+    fetch(`${API_URL}/person-received-letters/${person1}`)
       .then(res => res.json())
       .then(setData)
-      .catch(err => console.error(err));
-  }, []);
+      .catch(console.error);
+  }, [person1]);
+
+  useEffect(() => {
+  if (data.length === 0) return;
+
+  if (!selectedPerson || !data.find(d => d.person === selectedPerson)) {
+    onView?.(data[0].person);
+  }
+}, [data]);
+
+  if (!person1) return null;
+
+  const handleView = (name) => {
+    if (onView) onView(name);
+  };
 
   return (
     <div className="card-container">
-      <h2 className="card-title">Lista Persone</h2>
-                 <InfoBubble 
-                   text="TBD" />
+
+      <h2 className="card-title">
+        Riceventi di: {person1}
+      </h2>
+      <InfoBubble 
+      text="TBD" />
       <div className="card-wrapper-scroll">
+
         <table className="table">
+
           <thead>
             <tr>
               <th>Nome</th>
-              <th>Totale</th>
+              <th>Lettere ricevute</th>
               <th>Azione</th>
             </tr>
           </thead>
@@ -36,38 +57,36 @@ function TableListaPersone({ onView, selectedPerson }) {
                 </td>
               </tr>
             ) : (
-              data.map((person, index) => (
+              data.map((row, index) => (
                 <tr
                   key={index}
-                  onClick={() => onView(person.name)}
-                  className={
-                    selectedPerson === person.name
-                      ? "table-row-active"
-                      : ""
-                  }
+                  onClick={() => handleView(row.person)}
+                  className={selectedPerson === row.person ? "table-row-active" : ""}
                   style={{ cursor: "pointer" }}
                 >
-                  <td>{person.name}</td>
-                  <td>{person.totalLetters}</td>
+                  <td>{row.person}</td>
+                  <td>{row.letters}</td>
                   <td>
                     <button
                       className="table-button"
                       onClick={(e) => {
                         e.stopPropagation();
-                        onView(person.name);
+                        handleView(row.person);
                       }}
                     >
-                      Seleziona
+                      View
                     </button>
                   </td>
                 </tr>
               ))
             )}
           </tbody>
+
         </table>
+
       </div>
     </div>
   );
 }
 
-export default TableListaPersone;
+export default PersonReceivedTable;

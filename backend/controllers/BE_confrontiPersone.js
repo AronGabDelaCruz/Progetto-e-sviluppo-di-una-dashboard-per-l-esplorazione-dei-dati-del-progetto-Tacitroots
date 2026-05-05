@@ -129,3 +129,26 @@ ORDER BY count DESC
     count: r.get("count").toNumber()
   }));
 };
+
+export const personReceivedLetters = async (session, req) => {
+  const { name } = req.params;
+
+  const result = await session.run(
+    `
+    MATCH (p:Person {name: $name})
+
+    MATCH (p)<-[:WRITTEN_BY]-(d:Document)-[:RECEIVED_BY]->(other:Person)
+
+    RETURN 
+        other.name AS person,
+        count(DISTINCT d) AS letters
+    ORDER BY letters DESC
+    `,
+    { name }
+  );
+
+  return result.records.map(r => ({
+    person: r.get("person"),
+    letters: r.get("letters").toNumber()
+  }));
+};

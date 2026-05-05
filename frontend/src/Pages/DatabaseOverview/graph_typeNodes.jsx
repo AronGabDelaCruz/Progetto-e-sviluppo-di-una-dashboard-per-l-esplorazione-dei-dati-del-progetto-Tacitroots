@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { DataSet, Network } from "vis-network/standalone";
 import "../../Styles/MultiPurposeStyle.css";
-
+import InfoBubble from "../../Utility/Bubble";
 const API_URL = process.env.REACT_APP_API_URL;
 
 const Graph = ({ label }) => {
@@ -10,14 +10,13 @@ const Graph = ({ label }) => {
 
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState([]);
+  const [showInfo, setShowInfo] = useState(false);
 
   useEffect(() => {
     if (!label) return;
 
     const fetchGraph = async () => {
       try {
-        if (!API_URL) return;
-
         const res = await fetch(`${API_URL}/graph/${label}`);
         const json = await res.json();
 
@@ -32,8 +31,7 @@ const Graph = ({ label }) => {
   }, [label]);
 
   useEffect(() => {
-    if (!ref.current) return;
-    if (nodes.length === 0) return;
+    if (!ref.current || nodes.length === 0) return;
 
     const normalizedEdges = edges.map((e, i) => ({
       id: `${e.from}-${e.to}-${i}`,
@@ -41,7 +39,6 @@ const Graph = ({ label }) => {
       to: e.to,
       label: `${e.rels.length}`,
       title: e.rels.join("\n"),
-      rels: e.rels,
       smooth: {
         enabled: true,
         type: "curvedCW",
@@ -58,54 +55,38 @@ const Graph = ({ label }) => {
       nodes: {
         shape: "dot",
         size: 18,
-        font: { size: 14, face: "arial" },
+        font: { size: 14 }
       },
       edges: {
         arrows: { to: true },
-        font: { size: 10, align: "middle" },
-        smooth: false,
+        font: { size: 10 },
       },
-      physics: {
-        enabled: true,
-        stabilization: false,
-      },
-      interaction: {
-        hover: true,
-      },
+      physics: { enabled: true },
+      interaction: { hover: true }
     };
 
     if (networkRef.current) {
       networkRef.current.destroy();
-      networkRef.current = null;
     }
 
- 
     networkRef.current = new Network(ref.current, data, options);
 
-
-    requestAnimationFrame(() => {
-      if (networkRef.current) {
-        networkRef.current.fit();
-        networkRef.current.redraw();
-      }
-    });
-
-
-    return () => {
-      if (networkRef.current) {
-        networkRef.current.destroy();
-        networkRef.current = null;
-      }
-    };
   }, [nodes, edges]);
 
   return (
     <div className="card-container">
-      <h2 className="card-title">
-        Grafo Nodo: {label || "Seleziona un nodo"}
-      </h2>
+
+      <div className="card-header">
+        <h2 className="card-title">
+          Grafo Nodo: {label || "Seleziona un nodo"}
+        </h2>
+      </div>
+
+      <InfoBubble 
+      text="TBD" />
 
       <div ref={ref} className="card-wrapper" />
+
     </div>
   );
 };

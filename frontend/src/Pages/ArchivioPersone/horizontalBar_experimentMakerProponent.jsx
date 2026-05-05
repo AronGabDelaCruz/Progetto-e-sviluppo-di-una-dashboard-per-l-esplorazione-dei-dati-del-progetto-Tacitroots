@@ -4,28 +4,25 @@ import "../../Styles/MultiPurposeStyle.css";
 import InfoBubble from "../../Utility/Bubble";
 const API_URL = process.env.REACT_APP_API_URL;
 
-function PersonCitedToggleBar({ name }) {
+function PersonExperimentPackingBar({ name }) {
   const [data, setData] = useState([]);
-  const [mode, setMode] = useState("cited"); // cited | citedBy
+  const [mode, setMode] = useState("invented"); // invented | proposed
 
   useEffect(() => {
     if (!name) return;
 
-    const endpoint =
-      mode === "cited"
-        ? "person-cited"
-        : "person-cited-by";
-
-    fetch(`${API_URL}/${endpoint}/${name}`)
+    fetch(`${API_URL}/person-experiment-packing/${name}`)
       .then(res => res.json())
       .then(raw => {
-        const formatted = raw.map(d => ({
-          person: d.person,
-          count: Number(d.count) || 0
-        }));
+        const filtered = raw
+          .filter(d => d.type === mode)
+          .map(d => ({
+            experiment: d.experiment,
+            count: Number(d.count) || 0
+          }))
+          .sort((a, b) => b.count - a.count);
 
-        formatted.sort((a, b) => b.count - a.count);
-        setData(formatted);
+        setData(filtered);
       })
       .catch(console.error);
   }, [name, mode]);
@@ -35,20 +32,20 @@ function PersonCitedToggleBar({ name }) {
   const max = Math.max(...data.map(d => d.count), 1);
 
   const title =
-    mode === "cited"
-      ? "Persone Citate"
-      : "Da Chi è Stato Citato";
+    mode === "invented"
+      ? "Experiments Invented"
+      : "Experiments Proposed";
 
   const color =
-    mode === "cited"
-      ? "#fa8c16"
+    mode === "invented"
+      ? "#ff4d4f"
       : "#52c41a";
 
   return (
     <div className="card-container">
 
       <div className="card-header-legend">
-        
+
         <h2 className="card-title">
           {title}
         </h2>
@@ -57,29 +54,30 @@ function PersonCitedToggleBar({ name }) {
           className="horizontal-bar-toggle"
           onClick={() =>
             setMode(prev =>
-              prev === "cited" ? "citedBy" : "cited"
+              prev === "invented" ? "proposed" : "invented"
             )
           }
         >
           Capovolgi
         </button>
-          <InfoBubble 
-        text="TBD" />
-        </div>
+              <InfoBubble 
+              text="TBD" />
+
+              </div>
       </div>
 
       <div className="card-wrapper-scroll">
 
         {data.length === 0 ? (
           <div style={{ color: "#888", fontSize: "14px" }}>
-            Nessuna citazione trovata
+            Nessun dato disponibile
           </div>
         ) : (
           data.map((d, i) => (
             <div key={i} className="horizontal-bar-row">
 
               <div className="horizontal-bar-label">
-                {d.person}
+                {d.experiment}
               </div>
 
               <div className="horizontal-bar-track">
@@ -105,4 +103,4 @@ function PersonCitedToggleBar({ name }) {
   );
 }
 
-export default PersonCitedToggleBar;
+export default PersonExperimentPackingBar;

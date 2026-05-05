@@ -7,7 +7,7 @@ import PiePersonField from "./pie_fieldPerson";
 
 import LineCitedPerson from "./line_citedPerson";
 import InfoInstrument from "./info_instrumentMakerProponent";
-import CircleExperiment from "./circle_experimentMakerProponent";
+import Experiment from "./horizontalBar_experimentMakerProponent";
 
 import MapReceverPerson from "./map_receverPerson";
 import GraphNetworkIn from "./horizontalBar_networkEntrata";
@@ -27,7 +27,10 @@ function PeoplePage() {
 
 
       <div className="grid-2">
-      <TableListaPersone onView={setSelectedPerson} />
+    <TableListaPersone
+  onView={setSelectedPerson}
+  selectedPerson={selectedPerson}
+/>
 
       <div className="grid-1-2">
         <PersonDetail name={selectedPerson} />
@@ -46,7 +49,7 @@ function PeoplePage() {
       <div className="grid-2">
 
         <LineCitedPerson name={selectedPerson} />
-        <CircleExperiment name={selectedPerson} />
+        <Experiment name={selectedPerson} />
 
       </div>
 

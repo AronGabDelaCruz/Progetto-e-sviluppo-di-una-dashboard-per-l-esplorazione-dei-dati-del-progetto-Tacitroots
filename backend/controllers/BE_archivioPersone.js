@@ -240,24 +240,29 @@ export const personExperimentPacking = async (session, req) => {
 
   const result = await session.run(
     `
-    MATCH (p:Person {name: $name})
 
-    CALL {
-      WITH p
-      MATCH (p)-[:MAKER_OF]->(e:Experiment)
-      OPTIONAL MATCH (e)-[:CITED_IN]->(d:Document)
-      RETURN "invented" AS type, e.name AS experiment, COUNT(DISTINCT d) AS num_citations
+MATCH (p:Person {name: $name})
 
-      UNION
+CALL {
+    WITH p
+    MATCH (p)-[:MAKER_OF]->(e:Experiment)
+    OPTIONAL MATCH (e)-[:CITED_IN]->(d:Document)
+    RETURN "invented" AS type, e, count(DISTINCT d) AS num_citations
 
-      WITH p
-      MATCH (p)-[:PROPONENT_OF]->(e:Experiment)
-      OPTIONAL MATCH (e)-[:CITED_IN]->(d:Document)
-      RETURN "proposed" AS type, e.name AS experiment, COUNT(DISTINCT d) AS num_citations
-    }
+    UNION
 
-    RETURN type, experiment, num_citations
-    ORDER BY num_citations DESC
+    WITH p
+    MATCH (p)-[:PROPONENT_OF]->(e:Experiment)
+    WHERE NOT (p)-[:MAKER_OF]->(e)
+    OPTIONAL MATCH (e)-[:CITED_IN]->(d:Document)
+    RETURN "proposed" AS type, e, count(DISTINCT d) AS num_citations
+}
+
+RETURN 
+    type,
+    e.name AS experiment,
+    num_citations
+ORDER BY num_citations DESC
     `,
     { name }
   );

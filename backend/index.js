@@ -16,8 +16,11 @@ import {peopleStats, personDetail, personGraph,
   personCited, personReceiverMap, personGraphIn } from "./controllers/BE_archivioPersone.js"
 // configurazione express
 import {personsExchangeTimeline, personFieldPacking,
-  personCitedBetween, personExperimentHistogram
+  personCitedBetween, personExperimentHistogram, personReceivedLetters
 } from "./controllers/BE_confrontiPersone.js";
+
+import { experimentsStats, experimentTimeline, experimentPeopleCitations,
+  experimentLocationsMap, experimentGraph, experimentPeople} from "./controllers/BE_esperimenti.js";
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -71,4 +74,13 @@ app.get("/persons-exchange-timeline/:name1/:name2",handleRoute(driver, personsEx
 app.get("/person-field-packing/:name1/:name2",handleRoute(driver, personFieldPacking));
 app.get("/person-cited-between/:name1/:name2",handleRoute(driver, personCitedBetween));
 app.get("/person-experiment-histogram/:name1/:name2",handleRoute(driver, personExperimentHistogram));
+app.get("/person-received-letters/:name",handleRoute(driver, personReceivedLetters));
+// Rotte utili per Experiement
+app.get("/experiments-stats",handleRoute(driver, experimentsStats));
+app.get("/experiment-timeline/:name",handleRoute(driver, experimentTimeline));
+app.get("/experiment-person-citations/:name",handleRoute(driver, experimentPeopleCitations));
+app.get("/experiment-map/:name",handleRoute(driver, experimentLocationsMap));
+app.get("/experiment-graph/:name", handleRoute(driver, experimentGraph));
+app.get("/experiment-people/:name", handleRoute(driver, experimentPeople));
+
 app.listen(3001, () => console.log("Server attivo su http://localhost:3001"));

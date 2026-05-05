@@ -55,7 +55,7 @@
   }
 
   .db-stat {
-    flex: 0 0 50%;   /* 🔥 2 colonne */
+    flex: 0 0 50%;  
     padding: 10px 0;
   }
 
@@ -75,7 +75,7 @@
   }
 
   .db-stat {
-    flex: 0 0 50%;   /* sempre 2 + 2 */
+    flex: 0 0 50%;   
   }
 
   .db-value {

@@ -10,7 +10,7 @@ import {
 } from "recharts";
 
 import "../../Styles/MultiPurposeStyle.css";
-
+import InfoBubble from "../../Utility/Bubble";
 const API_URL = process.env.REACT_APP_API_URL;
 
 function PersonCitationsLine({ name }) {
@@ -30,10 +30,12 @@ function PersonCitationsLine({ name }) {
   return (
     <div className="card-container">
 
-      <div className="card-header">
+      <div className="card-header-legend">
         <h2 className="card-title">
           Citazioni nel Tempo
         </h2>
+           <InfoBubble 
+            text="TBD" />
       </div>
 
       <div className="card-wrapper">

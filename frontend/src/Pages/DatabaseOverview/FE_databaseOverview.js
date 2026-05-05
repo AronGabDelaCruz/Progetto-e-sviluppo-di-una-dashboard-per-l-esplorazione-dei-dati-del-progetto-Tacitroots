@@ -19,14 +19,14 @@ function DatabaseOverviewPage() {
   
       <div className="grid-container">
        
-          <NodeTypesTable onView={setSelectedLabel} />
+          <NodeTypesTable onView={setSelectedLabel} selectedLabel={selectedLabel} />
           <Graph label={selectedLabel} />
       </div>
 
 
       <div className="grid-container">
         
-          <RelationTypesTable onView={setSelectedRelation} />
+          <RelationTypesTable onView={setSelectedRelation} selectedRelation={selectedRelation} />
           <GraphRel relation={selectedRelation} />
       </div>
     </div>

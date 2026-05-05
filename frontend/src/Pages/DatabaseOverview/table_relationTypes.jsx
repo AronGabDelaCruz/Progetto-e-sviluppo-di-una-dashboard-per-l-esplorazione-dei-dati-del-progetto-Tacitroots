@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import "../../Styles/TableStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
-export default function RelationTypesTable({ onView }) {
+export default function RelationTypesTable({ onView, selectedRelation }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -12,6 +13,10 @@ export default function RelationTypesTable({ onView }) {
       .then(setData)
       .catch(console.error);
   }, []);
+
+  const handleView = (relation) => {
+    if (onView) onView(relation);
+  };
 
   return (
     <div className="card-container">
@@ -32,13 +37,21 @@ export default function RelationTypesTable({ onView }) {
 
           <tbody>
             {data.map((row, i) => (
-              <tr key={i}>
+              <tr
+                key={i}
+                onClick={() => handleView(row.relation)}
+                className={selectedRelation === row.relation ? "table-row-active" : ""}
+                style={{ cursor: "pointer" }}
+              >
                 <td>{row.relation}</td>
                 <td>{row.count}</td>
                 <td>
                   <button
                     className="table-button"
-                    onClick={() => onView(row.relation)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleView(row.relation);
+                    }}
                   >
                     View
                   </button>

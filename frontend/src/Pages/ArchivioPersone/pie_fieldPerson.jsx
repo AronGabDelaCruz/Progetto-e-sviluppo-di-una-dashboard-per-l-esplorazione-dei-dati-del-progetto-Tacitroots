@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import "../../Styles/MultiPurposeStyle.css";
+import InfoBubble from "../../Utility/Bubble";
 const API_URL = process.env.REACT_APP_API_URL;
 
 const COLORS = [
@@ -16,6 +17,30 @@ const COLORS = [
 
 function PersonFieldPie({ name }) {
   const [data, setData] = useState([]);
+  const [radius, setRadius] = useState(100);
+  const [fontSize, setFontSize] = useState(12);
+
+  useEffect(() => {
+    const updateSize = () => {
+      const w = window.innerWidth;
+
+      if (w < 480) {
+        setRadius(60);
+        setFontSize(9);
+      } else if (w < 768) {
+        setRadius(80);
+        setFontSize(10);
+      } else {
+        setRadius(100);
+        setFontSize(12);
+      }
+    };
+
+    updateSize();
+    window.addEventListener("resize", updateSize);
+
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
 
   useEffect(() => {
     if (!name) return;
@@ -29,29 +54,35 @@ function PersonFieldPie({ name }) {
   if (!name) return null;
 
   return (
-    <div class="card-container">
-      <div class="card-header">
-        <h2 class="card-title">
+    <div className="card-container">
+
+      <div className="card-header-legend">
+        <h2 className="card-title">
           Principali Materie di Studio
         </h2>
+        <InfoBubble 
+        text="TBD" />
+
       </div>
 
-      <div class="card-wrapper">
+      <div className="card-wrapper">
+
         {data.length === 0 ? (
-          <div style={styles.empty}>
+          <div className="pie-empty">
             No field data for this person
           </div>
         ) : (
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
+
               <Pie
                 data={data}
                 dataKey="count"
                 nameKey="field"
                 cx="50%"
                 cy="50%"
-                outerRadius={100}
-                label
+                outerRadius={radius}
+                label={{ fontSize }}
               >
                 {data.map((_, index) => (
                   <Cell
@@ -61,50 +92,21 @@ function PersonFieldPie({ name }) {
                 ))}
               </Pie>
 
-              <Tooltip />
-              <Legend />
+              <Tooltip
+                contentStyle={{ fontSize }}
+              />
+
+              <Legend
+                wrapperStyle={{ fontSize }}
+              />
+
             </PieChart>
           </ResponsiveContainer>
         )}
+
       </div>
     </div>
   );
 }
 
 export default PersonFieldPie;
-const styles = {
-  container: {
-    height: "500px",
-    display: "flex",
-    flexDirection: "column",
-    border: "1px solid #ddd",
-    borderRadius: "12px",
-    padding: "10px",
-    boxSizing: "border-box",
-    backgroundColor: "#fff",
-    overflow: "hidden"
-  },
-
-  header: {
-    flexShrink: 0,
-    marginBottom: "10px"
-  },
-
-  title: {
-    marginBottom: "10px",
-    flexShrink: 0
-  },
-
-  chartWrapper: {
-    flex: 1,
-    minHeight: 0,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-
-  empty: {
-    color: "#888",
-    fontSize: "14px"
-  }
-};
