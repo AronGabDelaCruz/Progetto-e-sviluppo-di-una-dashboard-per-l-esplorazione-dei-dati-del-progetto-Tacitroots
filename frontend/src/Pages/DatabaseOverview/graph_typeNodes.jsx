@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { DataSet, Network } from "vis-network/standalone";
 import "../../Styles/MultiPurposeStyle.css";
 import InfoBubble from "../../Utility/Bubble";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 const Graph = ({ label }) => {
@@ -10,7 +11,6 @@ const Graph = ({ label }) => {
 
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState([]);
-  const [showInfo, setShowInfo] = useState(false);
 
   useEffect(() => {
     if (!label) return;
@@ -75,18 +75,15 @@ const Graph = ({ label }) => {
 
   return (
     <div className="card-container">
-
       <div className="card-header">
         <h2 className="card-title">
           Grafo Nodo: {label || "Seleziona un nodo"}
         </h2>
       </div>
 
-      <InfoBubble 
-      text="TBD" />
+      <InfoBubble text="TBD" />
 
       <div ref={ref} className="card-wrapper" />
-
     </div>
   );
 };

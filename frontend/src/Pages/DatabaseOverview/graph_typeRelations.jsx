@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { DataSet, Network } from "vis-network/standalone";
 import "../../Styles/MultiPurposeStyle.css";
 import InfoBubble from "../../Utility/Bubble";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 export default function RelationGraph({ relation }) {
@@ -11,8 +12,6 @@ export default function RelationGraph({ relation }) {
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState([]);
 
-  const [showInfo, setShowInfo] = useState(false); // 👈 nuovo stato
-
   useEffect(() => {
     if (!relation) return;
 
@@ -21,12 +20,12 @@ export default function RelationGraph({ relation }) {
       .then(data => {
         setNodes(data.nodes || []);
         setEdges(data.edges || []);
-      });
+      })
+      .catch(console.error);
   }, [relation]);
 
   useEffect(() => {
-    if (!ref.current) return;
-    if (nodes.length === 0) return;
+    if (!ref.current || nodes.length === 0) return;
 
     const data = {
       nodes: new DataSet(nodes),
@@ -75,21 +74,17 @@ export default function RelationGraph({ relation }) {
     };
   }, [nodes, edges]);
 
-return (
-  <div className="card-container">
+  return (
+    <div className="card-container">
+      <div className="card-header-legend">
+        <h2 className="card-title">
+          Grafo Relazioni: {relation || "Seleziona una relazione"}
+        </h2>
 
-    {/* HEADER */}
-    <div className="card-header-legend">
-
-      <h2 className="card-title">
-        Grafo Relazioni: {relation || "Seleziona una relazione"}
-      </h2>
-      <InfoBubble 
-      text="TBD" />
-
+        <InfoBubble text="TBD" />
       </div>
-    <div ref={ref} className="card-wrapper" />
 
-  </div>
-);
+      <div ref={ref} className="card-wrapper" />
+    </div>
+  );
 }

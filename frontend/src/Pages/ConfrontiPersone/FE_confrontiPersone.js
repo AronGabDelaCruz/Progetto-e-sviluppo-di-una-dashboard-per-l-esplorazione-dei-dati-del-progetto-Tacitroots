@@ -8,47 +8,40 @@ import TableRecever from "./table_personRecever";
 import "../../Styles/PageLayoutStyle.css";
 
 function PeoplePage() {
-  const [people, setPeople] = useState([]);
+const [selectedPerson1, setSelectedPerson1] = useState("Vincenzo Viviani");
+const [selectedPerson2, setSelectedPerson2] = useState(null);
+const [error, setError] = useState("");
 
-  const [selectedPerson1, setSelectedPerson1] = useState("Vincenzo Viviani");
-  const [selectedPerson2, setSelectedPerson2] = useState(null);
+useEffect(() => {
+  fetch(`${process.env.REACT_APP_API_URL}/people-stats`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.length > 0) {
+        setSelectedPerson2(data[0].name);
+      }
+    })
+    .catch(console.error);
+}, []);
 
-  const [error, setError] = useState("");
+const handleSelect1 = (name) => {
+  if (name === selectedPerson2) {
+    setError("Non puoi selezionare la stessa persona");
+    return;
+  }
+  setError("");
+  setSelectedPerson1(name);
+};
 
-  // prende lista persone UNA volta
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/people-stats`)
-      .then(res => res.json())
-      .then(data => {
-        setPeople(data);
+const handleSelect2 = (name) => {
+  if (name === selectedPerson1) {
+    setError("Non puoi selezionare la stessa persona");
+    return;
+  }
+  setError("");
+  setSelectedPerson2(name);
+};
 
-        // 👇 default dinamico = prima persona della tabella
-        if (data.length > 0) {
-          setSelectedPerson2(data[0].name);
-        }
-      })
-      .catch(console.error);
-  }, []);
-
-  const handleSelect1 = (name) => {
-    if (name === selectedPerson2) {
-      setError("Non puoi selezionare la stessa persona");
-      return;
-    }
-    setError("");
-    setSelectedPerson1(name);
-  };
-
-  const handleSelect2 = (name) => {
-    if (name === selectedPerson1) {
-      setError("Non puoi selezionare la stessa persona");
-      return;
-    }
-    setError("");
-    setSelectedPerson2(name);
-  };
-
-  if (!selectedPerson2) return null; // evita render iniziale vuoto
+if (!selectedPerson2) return null;
 
   return (
     <div className="people-page">

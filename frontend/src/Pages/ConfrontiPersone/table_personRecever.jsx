@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "../../Styles/TableStyle.css";
 import InfoBubble from "../../Utility/Bubble";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 function PersonReceivedTable({ person1, onView, selectedPerson }) {
   const [data, setData] = useState([]);
 
+  // Fetch dati
   useEffect(() => {
     if (!person1) return;
 
@@ -15,13 +17,14 @@ function PersonReceivedTable({ person1, onView, selectedPerson }) {
       .catch(console.error);
   }, [person1]);
 
+  // Gestione selezione automatica
   useEffect(() => {
-  if (data.length === 0) return;
+    if (data.length === 0) return;
 
-  if (!selectedPerson || !data.find(d => d.person === selectedPerson)) {
-    onView?.(data[0].person);
-  }
-}, [data]);
+    if (!selectedPerson || !data.find(d => d.person === selectedPerson)) {
+      onView?.(data[0].person);
+    }
+  }, [data, selectedPerson, onView]); 
 
   if (!person1) return null;
 
@@ -31,16 +34,14 @@ function PersonReceivedTable({ person1, onView, selectedPerson }) {
 
   return (
     <div className="card-container">
-
       <h2 className="card-title">
         Riceventi di: {person1}
       </h2>
-      <InfoBubble 
-      text="TBD" />
+
+      <InfoBubble text="TBD" />
+
       <div className="card-wrapper-scroll">
-
         <table className="table">
-
           <thead>
             <tr>
               <th>Nome</th>
@@ -61,7 +62,11 @@ function PersonReceivedTable({ person1, onView, selectedPerson }) {
                 <tr
                   key={index}
                   onClick={() => handleView(row.person)}
-                  className={selectedPerson === row.person ? "table-row-active" : ""}
+                  className={
+                    selectedPerson === row.person
+                      ? "table-row-active"
+                      : ""
+                  }
                   style={{ cursor: "pointer" }}
                 >
                   <td>{row.person}</td>
@@ -81,9 +86,7 @@ function PersonReceivedTable({ person1, onView, selectedPerson }) {
               ))
             )}
           </tbody>
-
         </table>
-
       </div>
     </div>
   );
