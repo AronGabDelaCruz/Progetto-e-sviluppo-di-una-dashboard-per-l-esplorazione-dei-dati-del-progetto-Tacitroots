@@ -79,24 +79,24 @@ function ExperimentGraph({ name }) {
 
   <div className="card-header-legend">
     <h2 className="card-title">
-      Esperimento: {name}
+      Elements used in {name}
     </h2>
           <InfoBubble 
           text="TBD" />
     <div className="legend">
       <div className="legend-item">
         <span className="legend-dot" style={{ background: "#1677ff" }} />
-        Esperimento
+        Experiments
       </div>
 
       <div className="legend-item">
         <span className="legend-dot" style={{ background: "#52c41a" }} />
-        Materiali
+        Materials
       </div>
 
       <div className="legend-item">
         <span className="legend-dot" style={{ background: "#fa8c16" }} />
-        Strumenti
+        Instruments
       </div>
     </div>
   </div>
@@ -105,7 +105,7 @@ function ExperimentGraph({ name }) {
 
         {error ? (
           <div style={{ color: "#888", fontSize: "14px" }}>
-            Nessun dato disponibile per questo esperimento
+            No data available
           </div>
         ) : (
           <div ref={ref} style={{ width: "100%", height: "100%" }} />

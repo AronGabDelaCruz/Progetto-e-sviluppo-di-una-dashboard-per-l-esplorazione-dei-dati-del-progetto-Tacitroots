@@ -27,11 +27,10 @@ function PersonInstrumentList({ name }) {
   return (
   <div className="card-compact">
 
-    <h3 className="card-title-compact">
-      Strumenti
-    </h3>
-      <InfoBubble 
-      text="TBD" />
+    <h2 className="card-title-compact">
+      Instrument Created
+    </h2>
+<div className="card-header-legend"><InfoBubble text="TBD" /></div>
     <div className="card-grid-compact">
 
       <div className="card-column-compact">
@@ -41,7 +40,7 @@ function PersonInstrumentList({ name }) {
 
         {invented.length === 0 ? (
           <div className="card-empty">
-            Nessuno elemento
+            No data avilable
           </div>
         ) : (
           invented.map((d, i) => (

@@ -35,6 +35,11 @@ function PersonExperimentPackingBar({ name }) {
     mode === "invented"
       ? "Experiments Invented"
       : "Experiments Proposed";
+  
+  const buttonLabel =
+  mode === "invented"
+    ? "Experiments Proposed"
+    : "Experiments Invented";
 
   const color =
     mode === "invented"
@@ -58,11 +63,11 @@ function PersonExperimentPackingBar({ name }) {
             )
           }
         >
-          Capovolgi
+          {buttonLabel}
         </button>
               <InfoBubble 
               text="TBD" />
-
+      
               </div>
       </div>
 
@@ -70,7 +75,7 @@ function PersonExperimentPackingBar({ name }) {
 
         {data.length === 0 ? (
           <div style={{ color: "#888", fontSize: "14px" }}>
-            Nessun dato disponibile
+            No data available
           </div>
         ) : (
           data.map((d, i) => (

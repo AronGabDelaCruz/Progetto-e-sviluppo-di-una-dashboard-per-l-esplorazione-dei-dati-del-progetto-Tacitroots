@@ -33,7 +33,7 @@ function ExperimentTimeline({ name }) {
 
       <div className="card-header-legend">
         <h2 className="card-title">
-          Citazioni esperimento nel tempo
+          Citation over the years
         </h2>
                   <InfoBubble 
                   text="TBD" />
@@ -43,7 +43,7 @@ function ExperimentTimeline({ name }) {
 
         {!data.length ? (
           <div style={{ color: "#888", fontSize: "14px" }}>
-            Nessun dato disponibile
+            No data available
           </div>
         ) : (
           <ResponsiveContainer width="100%" height="100%">

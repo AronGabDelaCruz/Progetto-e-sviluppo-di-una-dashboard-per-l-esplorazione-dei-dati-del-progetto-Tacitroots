@@ -47,7 +47,7 @@ if (!selectedPerson2) return null;
     <div className="people-page">
 
       <div className="header">
-        <h1 className="title">Confronto Tra Persone</h1>
+        <h1 className="title">Comperisons Between People</h1>
         <div className="subtitle">
           {selectedPerson1} ↔ {selectedPerson2}
         </div>

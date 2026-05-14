@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../Styles/ColumnListStyle.css";
+import "../../Styles/MultiPurposeStyle.css";
 import InfoBubble from "../../Utility/Bubble";
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -24,11 +25,13 @@ function ExperimentPeopleList({ name }) {
   return (
     <div className="card-compact">
 
-      <h3 className="card-title-compact">
-        Persone coinvolte
-      </h3>
-                <InfoBubble 
-                text="TBD" />
+      <h2 className="card-title-compact">
+        People involved
+      </h2>
+      <div className="card-header-legend">
+      <InfoBubble 
+      text="TBD" />
+      </div>
       <div className="card-grid-compact">
 
 
@@ -50,7 +53,6 @@ function ExperimentPeopleList({ name }) {
           )}
         </div>
 
-        {/* PROPONENTS */}
         <div className="card-column-compact">
           <h4 className="card-subtitle-proposed">
             Proponents

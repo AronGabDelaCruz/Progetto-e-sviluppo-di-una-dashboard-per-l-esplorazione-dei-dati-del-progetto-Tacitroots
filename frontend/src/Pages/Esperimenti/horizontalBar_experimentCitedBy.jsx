@@ -33,7 +33,7 @@ function ExperimentPeopleBar({ name }) {
 
       <div className="card-header-legend">
         <h2 className="card-title">
-          Citazioni per persona
+          Citing people
         </h2>
               <InfoBubble 
               text="TBD" />
@@ -43,7 +43,7 @@ function ExperimentPeopleBar({ name }) {
 
         {data.length === 0 ? (
           <div style={{ color: "#888", fontSize: "14px" }}>
-            Nessun dato disponibile
+            No data available
           </div>
         ) : (
           data.map((d, i) => (

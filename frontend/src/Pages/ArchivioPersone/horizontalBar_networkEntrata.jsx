@@ -46,8 +46,11 @@ function PersonGraphBar({ name }) {
   const max = Math.max(...data.map(d => d.count), 1);
 
   const title =
-    mode === "in" ? "Lettere ricevute" : "Lettere inviate";
-
+    mode === "in" ? "Letters received" : "Letters sent";
+const buttonLabel =
+  mode === "in"
+    ? "Letters sent"
+    : "Letters received";
   return (
     <div className="card-container">
 
@@ -63,7 +66,7 @@ function PersonGraphBar({ name }) {
             setMode(prev => (prev === "in" ? "out" : "in"))
           }
         >
-          Capovolgi
+          {buttonLabel}
         </button>
                     <InfoBubble 
                   text="TBD" />
@@ -74,7 +77,7 @@ function PersonGraphBar({ name }) {
 
         {data.length === 0 ? (
           <div style={{ color: "#888", fontSize: "14px" }}>
-            Nessun dato disponibile
+            No data available
           </div>
         ) : (
           data.map((d, i) => (

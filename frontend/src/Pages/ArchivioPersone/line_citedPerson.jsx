@@ -32,7 +32,7 @@ function PersonCitationsLine({ name }) {
 
       <div className="card-header-legend">
         <h2 className="card-title">
-          Citazioni nel Tempo
+          Citations Over The Years
         </h2>
            <InfoBubble 
             text="TBD" />

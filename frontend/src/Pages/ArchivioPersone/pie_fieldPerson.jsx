@@ -58,7 +58,7 @@ function PersonFieldPie({ name }) {
 
       <div className="card-header-legend">
         <h2 className="card-title">
-          Principali Materie di Studio
+          Main topics
         </h2>
         <InfoBubble 
         text="TBD" />

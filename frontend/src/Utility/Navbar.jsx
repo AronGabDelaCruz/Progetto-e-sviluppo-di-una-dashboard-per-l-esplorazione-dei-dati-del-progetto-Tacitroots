@@ -21,9 +21,9 @@ function Navbar() {
     
         <div className="navbar-links">
           <Link to="/Database" className="nav-link">Database Overview</Link>
-          <Link to="/" className="nav-link">Persone</Link>
-          <Link to="/Confronti" className="nav-link">Confronti</Link>
-          <Link to="/Esperimenti" className="nav-link">Esperimenti</Link>
+          <Link to="/" className="nav-link">People</Link>
+          <Link to="/Confronti" className="nav-link">Comparisons</Link>
+          <Link to="/Esperimenti" className="nav-link">Experiments</Link>
         </div>
 
       </div>
@@ -32,9 +32,9 @@ function Navbar() {
       {open && (
         <div className="mobile-menu">
           <Link to="/Database" className="mobile-link" onClick={() => setOpen(false)}>Database Overview</Link>
-          <Link to="/" className="mobile-link" onClick={() => setOpen(false)}>Persone</Link>
-          <Link to="/Confronti" className="mobile-link" onClick={() => setOpen(false)}>Confronti</Link>
-          <Link to="/Esperimenti" className="mobile-link" onClick={() => setOpen(false)}>Esperimenti</Link>
+          <Link to="/" className="mobile-link" onClick={() => setOpen(false)}>People</Link>
+          <Link to="/Confronti" className="mobile-link" onClick={() => setOpen(false)}>Comparisons</Link>
+          <Link to="/Esperimenti" className="mobile-link" onClick={() => setOpen(false)}>Esperiments</Link>
         </div>
       )}
 
@@ -78,14 +78,12 @@ function Navbar() {
           color: #000;
         }
 
-        /* HAMBURGER (desktop hidden) */
         .hamburger {
           display: none;
           font-size: 26px;
           cursor: pointer;
         }
 
-        /* MOBILE MENU */
         .mobile-menu {
           display: flex;
           flex-direction: column;
@@ -101,7 +99,6 @@ function Navbar() {
           border-bottom: 1px solid #f0f0f0;
         }
 
-        /* RESPONSIVE */
         @media (max-width: 768px) {
           .navbar-links {
             display: none;

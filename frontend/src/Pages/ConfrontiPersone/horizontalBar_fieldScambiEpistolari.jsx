@@ -36,7 +36,7 @@ function PersonFieldPackingBar({ person1, person2 }) {
 
       <div className="card-header-legend">
         <h2 className="card-title">
-          Temi di Discussione
+          Discussed Field
         </h2>
                 <InfoBubble 
                 text="TBD" />

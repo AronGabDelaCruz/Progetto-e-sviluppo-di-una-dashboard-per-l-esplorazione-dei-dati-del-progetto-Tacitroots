@@ -22,7 +22,7 @@ export default function ExperimentsTable({ onView, selectedExperiment }) {
     <div className="card-container">
 
       <h2 className="card-title">
-        Esperimenti
+        Experiments
       </h2>
 
       <div className="card-wrapper-scroll">

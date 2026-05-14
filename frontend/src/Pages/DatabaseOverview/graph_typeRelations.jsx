@@ -78,7 +78,7 @@ export default function RelationGraph({ relation }) {
     <div className="card-container">
       <div className="card-header-legend">
         <h2 className="card-title">
-          Grafo Relazioni: {relation || "Seleziona una relazione"}
+          Graph Relation: {relation || "Seleziona una relazione"}
         </h2>
 
         <InfoBubble text="TBD" />

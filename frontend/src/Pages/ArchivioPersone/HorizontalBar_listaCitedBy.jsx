@@ -36,9 +36,12 @@ function PersonCitedToggleBar({ name }) {
 
   const title =
     mode === "cited"
-      ? "Persone Citate"
-      : "Da Chi è Stato Citato";
-
+      ? "Persons citing"
+      : "Persons cited by";
+const buttonLabel =
+  mode === "cited"
+    ? "Persons cited by"
+    : "Persons citing";
   const color =
     mode === "cited"
       ? "#fa8c16"
@@ -50,7 +53,7 @@ function PersonCitedToggleBar({ name }) {
       <div className="card-header-legend">
         
         <h2 className="card-title">
-          {title}
+          {title} {name}
         </h2>
         <div className="card-header-buttons">
         <button
@@ -61,7 +64,7 @@ function PersonCitedToggleBar({ name }) {
             )
           }
         >
-          Capovolgi
+          {buttonLabel}
         </button>
           <InfoBubble 
         text="TBD" />
@@ -72,7 +75,7 @@ function PersonCitedToggleBar({ name }) {
 
         {data.length === 0 ? (
           <div style={{ color: "#888", fontSize: "14px" }}>
-            Nessuna citazione trovata
+            No data available
           </div>
         ) : (
           data.map((d, i) => (

@@ -35,18 +35,18 @@ function PersonReceivedTable({ person1, onView, selectedPerson }) {
   return (
     <div className="card-container">
       <h2 className="card-title">
-        Riceventi di: {person1}
+        Recever of: {person1}
       </h2>
-
-      <InfoBubble text="TBD" />
+    <div className="card-header-legend"><InfoBubble text="TBD" /></div>
+      
 
       <div className="card-wrapper-scroll">
         <table className="table">
           <thead>
             <tr>
-              <th>Nome</th>
-              <th>Lettere ricevute</th>
-              <th>Azione</th>
+              <th>Name</th>
+              <th>Receved</th>
+              <th>Action</th>
             </tr>
           </thead>
 
@@ -54,7 +54,7 @@ function PersonReceivedTable({ person1, onView, selectedPerson }) {
             {data.length === 0 ? (
               <tr>
                 <td className="table-empty" colSpan={3}>
-                  Nessun dato disponibile
+                  No Data Available
                 </td>
               </tr>
             ) : (

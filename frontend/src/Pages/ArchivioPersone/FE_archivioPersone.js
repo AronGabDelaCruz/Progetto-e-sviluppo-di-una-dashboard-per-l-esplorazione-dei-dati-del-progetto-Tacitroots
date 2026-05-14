@@ -21,7 +21,7 @@ function PeoplePage() {
     <div className="people-page">
 
       <div className="header">
-        <h1 className="title">Archivio Persone</h1>
+        <h1 className="title">People</h1>
         <div className="subtitle">Persona Selezionata: {selectedPerson}</div>
       </div>
 

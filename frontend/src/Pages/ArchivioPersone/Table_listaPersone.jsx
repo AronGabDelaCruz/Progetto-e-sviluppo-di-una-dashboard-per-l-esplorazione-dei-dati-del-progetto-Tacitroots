@@ -18,16 +18,16 @@ function TableListaPersone({ onView, selectedPerson }) {
 
   return (
     <div className="card-container">
-      <h2 className="card-title">Lista Persone</h2>
+      <h2 className="card-title">People list</h2>
 
       <div className="card-wrapper-scroll">
         <table className="table">
           <thead>
             <tr>
-              <th>Nome</th>
+              <th>Name</th>
               <th>Sent</th>
               <th>Receive</th>
-              <th>Azione</th>
+              <th>action</th>
             </tr>
           </thead>
 
@@ -35,7 +35,7 @@ function TableListaPersone({ onView, selectedPerson }) {
             {data.length === 0 ? (
               <tr>
                 <td className="table-empty" colSpan={4}>
-                  Nessun dato disponibile
+                  No data available
                 </td>
               </tr>
             ) : (

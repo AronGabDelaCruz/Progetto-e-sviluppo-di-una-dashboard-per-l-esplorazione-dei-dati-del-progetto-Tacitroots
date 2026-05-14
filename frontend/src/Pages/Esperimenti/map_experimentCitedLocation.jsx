@@ -53,7 +53,7 @@ function ExperimentMap({ name }) {
 
       <div className="card-header-legend">
         <h2 className="card-title">
-          Distribuzione geografica citazioni
+          Citation map
         </h2>
         <InfoBubble 
         text="TBD" />
@@ -62,7 +62,7 @@ function ExperimentMap({ name }) {
       <div className="card-wrapper">
 
         <MapContainer
-          center={[45, 10]}   // Italia default
+          center={[45, 10]}   
           zoom={5}
           className="map"
         >
@@ -79,7 +79,7 @@ function ExperimentMap({ name }) {
                 <Popup>
                   <strong>{d.location}</strong>
                   <br />
-                  {d.count} citazioni
+                  {d.count} Citations
                 </Popup>
               </Marker>
             ))}

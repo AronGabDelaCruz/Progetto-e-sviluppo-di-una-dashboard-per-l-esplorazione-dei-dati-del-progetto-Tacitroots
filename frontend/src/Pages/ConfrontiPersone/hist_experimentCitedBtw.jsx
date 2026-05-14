@@ -32,7 +32,7 @@ function PersonExperimentHistogram({ person1, person2 }) {
 
       <div className="card-header-legend">
         <h2 className="card-title">
-          Esperimenti citati
+          Cited Experiments
         </h2>
               <InfoBubble 
               text="TBD" />
@@ -41,7 +41,7 @@ function PersonExperimentHistogram({ person1, person2 }) {
       <div className="card-wrapper">
         {!data.length ? (
           <div className="hist-empty">
-            Nessun dato disponibile
+            No data available
           </div>
         ) : (
           <ResponsiveContainer width="100%" height="100%">

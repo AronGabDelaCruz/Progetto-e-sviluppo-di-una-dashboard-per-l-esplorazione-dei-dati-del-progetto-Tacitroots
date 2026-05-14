@@ -33,7 +33,7 @@ function PersonsExchangeLine({ person1, person2 }) {
 
       <div className="card-header-legend">
         <h2 className="card-title">
-          Scambio lettere negli anni
+          Letter exchanges over the years
         </h2>
            <InfoBubble 
             text="TBD" />
@@ -42,7 +42,7 @@ function PersonsExchangeLine({ person1, person2 }) {
       <div className="card-wrapper">
         {!data.length ? (
           <div style={{ color: "#888", fontSize: "14px" }}>
-            Nessun dato disponibile
+            No data available
           </div>
         ) : (
           <ResponsiveContainer width="100%" height="100%">

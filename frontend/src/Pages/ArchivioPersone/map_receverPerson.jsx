@@ -40,13 +40,14 @@ function PersonMapToggle({ name }) {
 
   if (!name) return null;
 
-  // titolo dinamico
   const title =
     mode === "receiver"
-      ? "Luoghi di Provenienza dei Mittenti"
-      : "Da Dove Scriveva?";
-
-  // colore dinamico
+      ? "Senders’ Locations"
+      : "Recipent’s Locations";
+const buttonLabel =
+  mode === "receiver"
+    ? "Recipient’s Locations"
+    : "Senders’ Locations";
   const color = mode === "receiver" ? "#1677ff" : "#ff4d4f";
 
   const customIcon = (size) =>
@@ -76,7 +77,7 @@ function PersonMapToggle({ name }) {
             )
           }
         >
-          Capovolgi
+          {buttonLabel}
         </button>
                    <InfoBubble 
                     text="TBD" />

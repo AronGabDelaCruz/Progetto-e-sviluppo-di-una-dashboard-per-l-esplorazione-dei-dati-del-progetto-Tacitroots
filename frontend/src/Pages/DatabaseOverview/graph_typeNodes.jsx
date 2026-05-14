@@ -75,14 +75,12 @@ const Graph = ({ label }) => {
 
   return (
     <div className="card-container">
-      <div className="card-header">
+      <div className="card-header-legend">
         <h2 className="card-title">
-          Grafo Nodo: {label || "Seleziona un nodo"}
+          Graph Node: {label || "Seleziona un nodo"}
         </h2>
+             <InfoBubble text="TBD" />
       </div>
-
-      <InfoBubble text="TBD" />
-
       <div ref={ref} className="card-wrapper" />
     </div>
   );

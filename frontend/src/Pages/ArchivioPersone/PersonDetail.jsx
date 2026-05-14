@@ -25,7 +25,7 @@ function PersonDetail({ name }) {
   return (
     <div className="info-container">
       <h2 className="info-title">
-        Informazioni Generali
+        General Information
       </h2>
 
       {!person ? (
@@ -46,7 +46,7 @@ function PersonDetail({ name }) {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Vai alla pagina
+                More information
               </a>
             ) : (
               "Non disponibile"
