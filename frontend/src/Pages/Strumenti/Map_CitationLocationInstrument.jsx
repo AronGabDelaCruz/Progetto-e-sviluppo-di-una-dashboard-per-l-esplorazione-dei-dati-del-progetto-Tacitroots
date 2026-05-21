@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
+
 import "leaflet/dist/leaflet.css";
+
 import "../../Styles/MapStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
+
 import InfoBubble from "../../Utility/Bubble";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 // fix icone leaflet
@@ -20,40 +24,27 @@ L.Icon.Default.mergeOptions({
 
 const getSize = (n) => Math.max(12, Math.min(40, n * 4));
 
-function PersonMapToggle({ name }) {
+function InstrumentMap({ selectedInstrument }) {
+
   const [data, setData] = useState([]);
-  const [mode, setMode] = useState("receiver"); // receiver | writing
 
   useEffect(() => {
-    if (!name) return;
 
-    const endpoint =
-      mode === "receiver"
-        ? "person-receiver-map"
-        : "person-writing-map";
+    if (!selectedInstrument) return;
 
-    fetch(`${API_URL}/${endpoint}/${name}`)
+    fetch(`${API_URL}/instrument-map/${selectedInstrument}`)
       .then((res) => res.json())
       .then(setData)
       .catch(console.error);
-  }, [name, mode]);
 
-  if (!name) return null;
+  }, [selectedInstrument]);
 
-  const title =
-    mode === "receiver"
-      ? "Senders’ Locations"
-      : "Recipent’s Locations";
-const buttonLabel =
-  mode === "receiver"
-    ? "Recipient’s Locations"
-    : "Senders’ Locations";
-  const color = mode === "receiver" ? "#1677ff" : "#ff4d4f";
+  if (!selectedInstrument) return null;
 
   const customIcon = (size) =>
     L.divIcon({
       html: `<div style="
-        background: ${color};
+        background: #1677ff;
         width: ${size}px;
         height: ${size}px;
         border-radius: 50%;
@@ -67,53 +58,47 @@ const buttonLabel =
     <div className="card-container">
 
       <div className="card-header-legend">
-        <h2 className="card-title">{title}</h2>
-      <div className="card-header-buttons">
-                           <InfoBubble 
-                    text="TBD" />
-        <button
-          className="horizontal-bar-toggle"
-          onClick={() =>
-            setMode((prev) =>
-              prev === "receiver" ? "writing" : "receiver"
-            )
-          }
-        >
-          {buttonLabel}
-        </button>
 
-                    </div>
+        <h2 className="card-title">
+          Instrument citation map
+        </h2>
+
+        <InfoBubble text="Shows geographical distribution of documents/letters citing this instrument." />
+
       </div>
 
       <div className="card-wrapper">
-        <MapContainer center={[45, 10]} zoom={5} className="map">
+
+        <MapContainer
+          center={[45, 10]}
+          zoom={5}
+          className="map"
+        >
 
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
           {data
-            .filter(c => typeof c.lat === "number" && typeof c.lng === "number")
-            .map((c, i) => (
+            .filter(d => typeof d.lat === "number" && typeof d.lng === "number")
+            .map((d, i) => (
               <Marker
                 key={i}
-                position={[c.lat, c.lng]}
-                icon={customIcon(getSize(c.count))}
+                position={[d.lat, d.lng]}
+                icon={customIcon(getSize(d.count))}
               >
                 <Popup>
-                  <strong>{c.location}</strong>
+                  <strong>{d.location}</strong>
                   <br />
-                  {c.count}{" "}
-                  {mode === "receiver"
-                    ? "lettere ricevute"
-                    : "lettere scritte"}
+                  {d.count} citations
                 </Popup>
               </Marker>
             ))}
 
         </MapContainer>
+
       </div>
 
     </div>
   );
 }
 
-export default PersonMapToggle;
+export default InstrumentMap;

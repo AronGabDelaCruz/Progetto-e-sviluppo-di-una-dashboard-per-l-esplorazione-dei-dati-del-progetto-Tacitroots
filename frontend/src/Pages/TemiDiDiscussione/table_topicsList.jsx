@@ -1,29 +1,32 @@
 import React, { useEffect, useState } from "react";
-import "../../Styles/TableStyle.css";
-import InfoBubble from "../../Utility/Bubble";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
-function TableListaPersone({ onView, selectedPerson }) {
+function TableListaTopics({ onView, selectedTopic }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch(`${API_URL}/people-stats`)
-      .then(res => res.json())
+    fetch(`${API_URL}/topics-stats`)
+      .then((res) => res.json())
       .then(setData)
-      .catch(err => console.error(err));
+      .catch((err) => console.error(err));
   }, []);
+
+  const handleView = (topic) => {
+    if (onView) onView(topic);
+  };
 
   return (
     <div className="card-container">
-      <h2 className="card-title">People List</h2>
-<div className="card-header-legend"><InfoBubble text="TBD" /></div>
+      <h2 className="card-title">Topics list</h2>
+
       <div className="card-wrapper-scroll">
         <table className="table">
           <thead>
             <tr>
-              <th>Nome</th>
-              <th>Total</th>
-              <th>action</th>
+              <th>Topic</th>
+              <th>N Doc</th>
+              <th>Action</th>
             </tr>
           </thead>
 
@@ -35,28 +38,29 @@ function TableListaPersone({ onView, selectedPerson }) {
                 </td>
               </tr>
             ) : (
-              data.map((person, index) => (
+              data.map((topic, index) => (
                 <tr
                   key={index}
-                  onClick={() => onView(person.name)}
+                  onClick={() => handleView(topic.field)}
                   className={
-                    selectedPerson === person.name
+                    selectedTopic === topic.field
                       ? "table-row-active"
                       : ""
                   }
                   style={{ cursor: "pointer" }}
                 >
-                  <td>{person.name}</td>
-                  <td>{person.totalLetters}</td>
+                  <td>{topic.field}</td>
+                  <td>{topic.num_documents}</td>
+
                   <td>
                     <button
                       className="table-button"
                       onClick={(e) => {
                         e.stopPropagation();
-                        onView(person.name);
+                        handleView(topic.field);
                       }}
                     >
-                      Select
+                      View
                     </button>
                   </td>
                 </tr>
@@ -69,4 +73,4 @@ function TableListaPersone({ onView, selectedPerson }) {
   );
 }
 
-export default TableListaPersone;
+export default TableListaTopics;

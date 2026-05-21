@@ -1,95 +1,100 @@
 import React, { useEffect, useState } from "react";
-import "../../Styles/TableStyle.css";
-import InfoBubble from "../../Utility/Bubble";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-function PersonReceivedTable({ person1, onView, selectedPerson }) {
+function TableListaInstruments({ onView, selectedInstrument }) {
+
   const [data, setData] = useState([]);
 
-  // Fetch dati
   useEffect(() => {
-    if (!person1) return;
 
-    fetch(`${API_URL}/person-received-letters/${person1}`)
-      .then(res => res.json())
+    fetch(`${API_URL}/instrument-stats`)
+      .then((res) => res.json())
       .then(setData)
-      .catch(console.error);
-  }, [person1]);
+      .catch((err) => console.error(err));
 
-  // Gestione selezione automatica
-  useEffect(() => {
-    if (data.length === 0) return;
+  }, []);
 
-    if (!selectedPerson || !data.find(d => d.person === selectedPerson)) {
-      onView?.(data[0].person);
-    }
-  }, [data, selectedPerson, onView]); 
-
-  if (!person1) return null;
-
-  const handleView = (name) => {
-    if (onView) onView(name);
+  const handleView = (instrument) => {
+    if (onView) onView(instrument);
   };
 
   return (
     <div className="card-container">
+
       <h2 className="card-title">
-        Recever of: {person1}
+        Instruments list
       </h2>
-    <div className="card-header-legend"><InfoBubble text="TBD" /></div>
-      
 
       <div className="card-wrapper-scroll">
+
         <table className="table">
+
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Receved</th>
+              <th>Instrument</th>
+              <th>Citations</th>
               <th>Action</th>
             </tr>
           </thead>
 
           <tbody>
+
             {data.length === 0 ? (
+
               <tr>
                 <td className="table-empty" colSpan={3}>
-                  No Data Available
+                  No data available
                 </td>
               </tr>
+
             ) : (
-              data.map((row, index) => (
+
+              data.map((instrument, index) => (
+
                 <tr
                   key={index}
-                  onClick={() => handleView(row.person)}
+                  onClick={() =>
+                    handleView(instrument.instrument)
+                  }
                   className={
-                    selectedPerson === row.person
+                    selectedInstrument === instrument.instrument
                       ? "table-row-active"
                       : ""
                   }
                   style={{ cursor: "pointer" }}
                 >
-                  <td>{row.person}</td>
-                  <td>{row.letters}</td>
+
+                  <td>{instrument.instrument}</td>
+
+                  <td>{instrument.num_citations}</td>
+
                   <td>
                     <button
                       className="table-button"
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleView(row.person);
+                        handleView(instrument.instrument);
                       }}
                     >
-                      Selcet
+                      View
                     </button>
                   </td>
+
                 </tr>
+
               ))
+
             )}
+
           </tbody>
+
         </table>
+
       </div>
+
     </div>
   );
 }
 
-export default PersonReceivedTable;
+export default TableListaInstruments;

@@ -1,50 +1,41 @@
 import React, { useEffect, useState } from "react";
+
 import "../../Styles/HorizontalBarStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
+
 import InfoBubble from "../../Utility/Bubble";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
-function PersonExperimentPackingBar({ name }) {
+function InstrumentExperimentBar({ selectedInstrument }) {
+
   const [data, setData] = useState([]);
-  const [mode, setMode] = useState("invented"); // invented | proposed
 
   useEffect(() => {
-    if (!name) return;
 
-    fetch(`${API_URL}/person-experiment-packing/${name}`)
+    if (!selectedInstrument) return;
+
+    fetch(`${API_URL}/instrument-experiment-shared/${selectedInstrument}`)
       .then(res => res.json())
       .then(raw => {
-        const filtered = raw
-          .filter(d => d.type === mode)
-          .map(d => ({
-            experiment: d.experiment,
-            count: Number(d.count) || 0
-          }))
-          .sort((a, b) => b.count - a.count);
 
-        setData(filtered);
+        const formatted = raw.map(d => ({
+          experiment: d.experiment,
+          count: Number(d.count) || 0
+        }));
+
+        formatted.sort((a, b) => b.count - a.count);
+
+        setData(formatted);
+
       })
       .catch(console.error);
-  }, [name, mode]);
 
-  if (!name) return null;
+  }, [selectedInstrument]);
+
+  if (!selectedInstrument) return null;
 
   const max = Math.max(...data.map(d => d.count), 1);
-
-  const title =
-    mode === "invented"
-      ? "Experiments Invented"
-      : "Experiments Proposed";
-  
-  const buttonLabel =
-  mode === "invented"
-    ? "Experiments Proposed"
-    : "Experiments Invented";
-
-  const color =
-    mode === "invented"
-      ? "#ff4d4f"
-      : "#52c41a";
 
   return (
     <div className="card-container">
@@ -52,34 +43,25 @@ function PersonExperimentPackingBar({ name }) {
       <div className="card-header-legend">
 
         <h2 className="card-title">
-          {title}
+          Linked experiments
         </h2>
-        <div className="card-header-buttons">
-                        <InfoBubble 
-              text="TBD" />
-        <button
-          className="horizontal-bar-toggle"
-          onClick={() =>
-            setMode(prev =>
-              prev === "invented" ? "proposed" : "invented"
-            )
-          }
-        >
-          {buttonLabel}
-        </button>
 
-      
-              </div>
+        <InfoBubble text="Shows experiments that share documents/letters citing this instrument." />
+
       </div>
 
       <div className="card-wrapper-scroll">
 
         {data.length === 0 ? (
+
           <div style={{ color: "#888", fontSize: "14px" }}>
             No data available
           </div>
+
         ) : (
+
           data.map((d, i) => (
+
             <div key={i} className="horizontal-bar-row">
 
               <div className="horizontal-bar-label">
@@ -87,13 +69,15 @@ function PersonExperimentPackingBar({ name }) {
               </div>
 
               <div className="horizontal-bar-track">
+
                 <div
                   className="horizontal-bar-fill"
                   style={{
                     width: `${(d.count / max) * 100}%`,
-                    background: color
+                    background: "#1677ff"
                   }}
                 />
+
               </div>
 
               <div className="horizontal-bar-value">
@@ -101,12 +85,15 @@ function PersonExperimentPackingBar({ name }) {
               </div>
 
             </div>
+
           ))
+
         )}
 
       </div>
+
     </div>
   );
 }
 
-export default PersonExperimentPackingBar;
+export default InstrumentExperimentBar;

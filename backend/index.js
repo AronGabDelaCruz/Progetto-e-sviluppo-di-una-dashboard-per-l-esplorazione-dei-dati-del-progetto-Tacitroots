@@ -13,7 +13,8 @@ import { dbOverview, nodesByLabel, graphByNodeLabels, relationTypes, graphByRela
 import {peopleStats, personDetail, personGraph,
    personFieldPie, personWritingMap, personCitationTimeline, 
    personCitedBy, personInstrumentPacking, personExperimentPacking,
-  personCited, personReceiverMap, personGraphIn } from "./controllers/BE_archivioPersone.js"
+  personCited, personReceiverMap, personGraphIn, personSharedCitedEntities,
+personQuotedSimilarity, personSharedFields, personBooksBar, personTagsBar } from "./controllers/BE_archivioPersone.js"
 // configurazione express
 import {personsExchangeTimeline, personFieldPacking,
   personCitedBetween, personExperimentHistogram, personReceivedLetters
@@ -21,6 +22,14 @@ import {personsExchangeTimeline, personFieldPacking,
 
 import { experimentsStats, experimentTimeline, experimentPeopleCitations,
   experimentLocationsMap, experimentGraph, experimentPeople} from "./controllers/BE_esperimenti.js";
+
+import {topicsStats, topicTimeline, topicPeopleSent, topicPeopleReceived,
+  topicInstruments, topicExperiments, topicSenderLocations, topicReceiverLocations, topicBooks,
+  fieldTags
+} from "./controllers/BE_temiDiDIscussione.js"
+import {instrumentStats, instrumentTimeline, instrumentPeopleBar, instrumentMap, instrumentPeople
+  ,instrumentExperimentShared
+} from "./controllers/BE_strumenti.js"
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -68,7 +77,11 @@ app.get("/person-experiment-packing/:name",handleRoute(driver, personExperimentP
 app.get("/person-cited/:name",handleRoute(driver, personCited));
 app.get("/person-receiver-map/:name",handleRoute(driver, personReceiverMap ));
 app.get("/person-graph-in/:name",handleRoute(driver, personGraphIn));
-
+app.get("/person-cited-entity-similarity/:name",handleRoute(driver, personSharedCitedEntities));
+app.get("/person-quoted-sim/:name", handleRoute(driver, personQuotedSimilarity));
+app.get("/person-sim-fields/:name", handleRoute(driver, personSharedFields));
+app.get("/person-books/:name", handleRoute(driver, personBooksBar));
+app.get("/person-tags/:name",handleRoute(driver, personTagsBar));
 // Rotte utili per confronti tra Persone
 app.get("/persons-exchange-timeline/:name1/:name2",handleRoute(driver, personsExchangeTimeline));
 app.get("/person-field-packing/:name1/:name2",handleRoute(driver, personFieldPacking));
@@ -82,5 +95,25 @@ app.get("/experiment-person-citations/:name",handleRoute(driver, experimentPeopl
 app.get("/experiment-map/:name",handleRoute(driver, experimentLocationsMap));
 app.get("/experiment-graph/:name", handleRoute(driver, experimentGraph));
 app.get("/experiment-people/:name", handleRoute(driver, experimentPeople));
+
+// Rotte utili per Topics
+app.get("/topics-stats",handleRoute(driver, topicsStats));
+app.get("/topic-timeline/:name",handleRoute(driver, topicTimeline));
+app.get("/topic-people-sent/:name",handleRoute(driver, topicPeopleSent));
+app.get("/topic-people-received/:name",handleRoute(driver, topicPeopleReceived));
+app.get("/topic-experiments/:name",handleRoute(driver, topicExperiments));
+app.get("/topic-instruments/:name",handleRoute(driver, topicInstruments));
+app.get("/topic-sender-map/:name",handleRoute(driver, topicSenderLocations));
+app.get("/topic-receiver-map/:name",handleRoute(driver, topicReceiverLocations));
+app.get("/topic-books/:name",handleRoute(driver, topicBooks));
+app.get("/field-tags/:field", handleRoute(driver, fieldTags));
+
+// Rotte utili per Instrument
+app.get("/instrument-stats",handleRoute(driver, instrumentStats));
+app.get("/instrument-timeline/:name",handleRoute(driver, instrumentTimeline));
+app.get("/instrument-person-citations/:name",handleRoute(driver, instrumentPeopleBar));
+app.get("/instrument-map/:name",handleRoute(driver, instrumentMap));
+app.get("/instrument-people/:name",handleRoute(driver, instrumentPeople));
+app.get("/instrument-experiment-shared/:name",handleRoute(driver, instrumentExperimentShared));
 
 app.listen(3001, () => console.log("Server attivo su http://localhost:3001"));

@@ -56,6 +56,8 @@ const buttonLabel =
           {title} {name}
         </h2>
         <div className="card-header-buttons">
+                    <InfoBubble 
+        text="TBD" />
         <button
           className="horizontal-bar-toggle"
           onClick={() =>
@@ -66,8 +68,7 @@ const buttonLabel =
         >
           {buttonLabel}
         </button>
-          <InfoBubble 
-        text="TBD" />
+
         </div>
       </div>
 

@@ -8,7 +8,7 @@
   height: 500px;
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 15px;
   position: relative;
 }
 
@@ -26,14 +26,17 @@
   align-items: center;
   gap: 6px;
   width: 100%;
+  margin-bottom: 5px;
 }
 .card-header-buttons {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 8px;
+  margin-bottom: 5px;
 }
 .card-title {
+  margin-top: 10px;
   margin-bottom: 10px;
   flex-shrink: 0;
   margin-top: 0;
@@ -46,14 +49,17 @@
   min-height: 0;
   position: relative;
   z-index: 1;
+    margin-left: 7px;
+  margin-right: 7px;
 }
 
 .card-wrapper-scroll{
   flex: 1;
   overflow-y: auto;
   overflow-x: auto;
-  border: 1px solid #eee;
   border-radius: 8px;
+  margin-left: 7px;
+  margin-right: 7px;
 }
 .legend {
   display: flex;

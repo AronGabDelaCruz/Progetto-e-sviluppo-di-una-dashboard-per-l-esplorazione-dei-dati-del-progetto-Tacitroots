@@ -24,6 +24,8 @@ function Navbar() {
           <Link to="/" className="nav-link">People</Link>
           <Link to="/Confronti" className="nav-link">Comparisons</Link>
           <Link to="/Esperimenti" className="nav-link">Experiments</Link>
+          <Link to="/Temi" className="nav-link">Topics</Link>
+          <Link to="/Strumenti" className="nav-link">Instrument</Link>
         </div>
 
       </div>
@@ -35,6 +37,8 @@ function Navbar() {
           <Link to="/" className="mobile-link" onClick={() => setOpen(false)}>People</Link>
           <Link to="/Confronti" className="mobile-link" onClick={() => setOpen(false)}>Comparisons</Link>
           <Link to="/Esperimenti" className="mobile-link" onClick={() => setOpen(false)}>Esperiments</Link>
+          <Link to="/Temi" className="mobile-link" onClick={() => setOpen(false)}>Topics</Link>
+          <Link to="/Strumenti" className="mobile-link" onClick={() => setOpen(false)}>Instrument</Link>
         </div>
       )}
 

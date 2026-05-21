@@ -1,87 +1,106 @@
 import React, { useEffect, useState } from "react";
+
 import "../../Styles/HorizontalBarStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
+
 import InfoBubble from "../../Utility/Bubble";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
-function PersonGraphBar({ name }) {
+function TopicPeopleBar({ selectedTopic }) {
+
   const [data, setData] = useState([]);
-  const [mode, setMode] = useState("in"); // "in" = ricevute, "out" = inviate
+  const [mode, setMode] = useState("sent");
+
+ 
+  const colors = {
+    sent: "#1890ff",
+    received: "#fa541c"
+  };
 
   useEffect(() => {
-    if (!name) return;
+
+    if (!selectedTopic) return;
 
     const endpoint =
-      mode === "in"
-        ? `${API_URL}/person-graph-in/${name}`
-        : `${API_URL}/person-graph/${name}`;
+      mode === "sent"
+        ? `${API_URL}/topic-people-sent/${selectedTopic}`
+        : `${API_URL}/topic-people-received/${selectedTopic}`;
 
     fetch(endpoint)
-      .then(res => res.json())
-      .then(raw => {
-        const formatted = raw.edges.map(e => {
-          const label = e.rels?.[0] || "LETTERS: 0";
-          const count = parseInt(label.replace("LETTERS: ", "")) || 0;
+      .then((res) => res.json())
+      .then((raw) => {
 
-          return {
-            person:
-              mode === "in"
-                ? raw.nodes.find(n => n.id === e.from)?.label
-                : raw.nodes.find(n => n.id === e.to)?.label,
-            count
-          };
-        });
+        const formatted = raw.map((r) => ({
+          person: r.person,
+          count: Number(r.count) || 0
+        }));
 
         formatted.sort((a, b) => b.count - a.count);
 
-        // opzionale: limita solo per "out"
-        setData(mode === "out" ? formatted.slice(0, 20) : formatted);
+        setData(formatted);
+
       })
       .catch(console.error);
 
-  }, [name, mode]);
+  }, [selectedTopic, mode]);
 
-  if (!name) return null;
+  if (!selectedTopic) return null;
 
-  const max = Math.max(...data.map(d => d.count), 1);
+  const max = Math.max(...data.map((d) => d.count), 1);
 
   const title =
-    mode === "in" ? "Letters received" : "Letters sent";
-const buttonLabel =
-  mode === "in"
-    ? "Letters sent"
-    : "Letters received";
+    mode === "sent"
+      ? "Senders Related to"
+      : "Recepist Related to";
+
+  const buttonLabel =
+    mode === "sent"
+      ? "Received documents"
+      : "Sent documents";
+
   return (
     <div className="card-container">
 
       <div className="card-header-legend">
 
         <h2 className="card-title">
-          {title}
+          {title} {selectedTopic}
         </h2>
+
         <div className="card-header-buttons">
-                              <InfoBubble 
-                  text="TBD" />
-        <button
-        className="horizontal-bar-toggle"
-          onClick={() =>
-            setMode(prev => (prev === "in" ? "out" : "in"))
-          }
-        >
-          {buttonLabel}
-        </button>
+         <InfoBubble
+            text="Shows the senders/recipist associated with documents/letters related to the selected topic."
+          />
+          <button
+            className="horizontal-bar-toggle"
+            onClick={() =>
+              setMode((prev) =>
+                prev === "sent"
+                  ? "received"
+                  : "sent"
+              )
+            }
+          >
+            {buttonLabel}
+          </button>
 
         </div>
+
       </div>
 
       <div className="card-wrapper-scroll">
 
         {data.length === 0 ? (
+
           <div style={{ color: "#888", fontSize: "14px" }}>
             No data available
           </div>
+
         ) : (
+
           data.map((d, i) => (
+
             <div key={i} className="horizontal-bar-row">
 
               <div className="horizontal-bar-label">
@@ -89,13 +108,15 @@ const buttonLabel =
               </div>
 
               <div className="horizontal-bar-track">
+
                 <div
                   className="horizontal-bar-fill"
                   style={{
                     width: `${(d.count / max) * 100}%`,
-                    background: "#1890ff"
+                    background: colors[mode]
                   }}
                 />
+
               </div>
 
               <div className="horizontal-bar-value">
@@ -103,12 +124,15 @@ const buttonLabel =
               </div>
 
             </div>
+
           ))
+
         )}
 
       </div>
+
     </div>
   );
 }
 
-export default PersonGraphBar;
+export default TopicPeopleBar;

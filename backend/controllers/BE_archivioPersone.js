@@ -1,3 +1,4 @@
+// Tabella che elenca le persone
 export const peopleStats = async (session) => {
   const result = await session.run(`
     MATCH (p:Person)
@@ -23,7 +24,7 @@ export const peopleStats = async (session) => {
     totalLetters: r.get("totalLetters").toNumber()
   }));
 };
-
+// informazioni generali della persona selezionata
 export const personDetail = async (session, req) => {
   const { name } = req.params;
 
@@ -53,7 +54,7 @@ export const personDetail = async (session, req) => {
   };
 };
 
-
+// Network in uscita
 export const personGraph = async (session, req) => {
   const { name } = req.params;
 
@@ -105,7 +106,7 @@ export const personGraph = async (session, req) => {
     edges
   };
 };
-
+// Principali Field
 export const personFieldPie = async (session, req) => {
   const { name } = req.params;
 
@@ -125,7 +126,7 @@ export const personFieldPie = async (session, req) => {
     count: r.get("count").toNumber()
   }));
 };
-
+// Mappa dei senders
 export const personWritingMap = async (session, req) => {
   const { name } = req.params;
 
@@ -156,7 +157,7 @@ export const personWritingMap = async (session, req) => {
     };
   });
 };
-
+// Timeline delle citazioni alla persona seleziona nel corso degli anni
 export const personCitationTimeline = async (session, req) => {
   const { name } = req.params;
 
@@ -177,7 +178,7 @@ export const personCitationTimeline = async (session, req) => {
     count: r.get("count").toNumber()
   }));
 };
-
+// da chi è stato citato la persona selezionata
 export const personCitedBy = async (session, req) => {
   const { name } = req.params;
 
@@ -200,7 +201,7 @@ export const personCitedBy = async (session, req) => {
   }));
 };
 
-
+// strumnti proposti o citati dalla persona selezionata
 export const personInstrumentPacking = async (session, req) => {
   const { name } = req.params;
 
@@ -234,7 +235,7 @@ export const personInstrumentPacking = async (session, req) => {
     count: r.get("num_citations").toNumber()  
   }));
 };
-
+// esperimenti inventati o proposti dalla persona citata
 export const personExperimentPacking = async (session, req) => {
   const { name } = req.params;
 
@@ -273,7 +274,7 @@ ORDER BY num_citations DESC
     count: r.get("num_citations").toNumber()
   }));
 };
-
+// le persone cha ha citato la persona selezionata
 export const personCited = async (session, req) => {
   const { name } = req.params;
 
@@ -298,7 +299,7 @@ export const personCited = async (session, req) => {
     count: r.get("num_citations").toNumber()
   }));
 };
-
+// Mappa dei recever
 export const personReceiverMap = async (session, req) => {
   const { name } = req.params;
 
@@ -330,7 +331,7 @@ export const personReceiverMap = async (session, req) => {
     };
   });
 };
-
+// network in entrata
 export const personGraphIn = async (session, req) => {
   const { name } = req.params;
 
@@ -387,4 +388,130 @@ export const personGraphIn = async (session, req) => {
     nodes: Array.from(nodesMap.values()),
     edges
   };
+};
+// similarità per field
+export const personSharedFields = async (session, req) => {
+  const { name } = req.params;
+
+  const result = await session.run(
+    `
+    MATCH (p:Person {name: $name})-[:SIMILAR_TO]->(other:Person)
+    WHERE other <> p
+
+    MATCH (p)-[:CITED_FIELD|TAGGED_WITH]->(f:Field)
+    MATCH (other)-[:CITED_FIELD|TAGGED_WITH]->(f)
+
+    RETURN 
+        other.name AS person,
+        count(DISTINCT f) AS count
+    ORDER BY count DESC
+    `,
+    { name }
+  );
+
+  return result.records.map(r => ({
+    person: r.get("person"),
+    count: r.get("count").toNumber()
+  }));
+};
+// similarità per quotazione
+export const personQuotedSimilarity = async (session, req) => {
+  const { name } = req.params;
+
+  const result = await session.run(
+    `
+    MATCH (p:Person {name: $name})-[:SIMILAR_TO_QUOTED]->(other:Person)
+
+    MATCH (p)-[:QUOTED_IN]->(d:Document)
+    MATCH (other)-[:QUOTED_IN]->(d)
+
+    RETURN 
+        other.name AS person,
+        count(DISTINCT d) AS count
+    ORDER BY count DESC
+    `,
+    { name }
+  );
+
+  return result.records.map(r => ({
+    person: r.get("person"),
+    count: r.get("count").toNumber()
+  }));
+};
+// similarità per citazioni a diverse entità
+export const personSharedCitedEntities = async (session, req) => {
+  const { name } = req.params;
+
+  const result = await session.run(
+    `
+    MATCH (p:Person {name: $name})-[:SIMILAR_TO_CITED]->(other:Person)
+
+    MATCH (p)<-[:WRITTEN_BY]-(d1:Document)
+    MATCH (other)<-[:WRITTEN_BY]-(d2:Document)
+
+    MATCH (entity)-[:CITED_IN]->(d1)
+    MATCH (entity)-[:CITED_IN]->(d2)
+
+    WHERE entity:Book 
+       OR entity:Experiment 
+       OR entity:Instrument
+
+    RETURN 
+        other.name AS person,
+        count(DISTINCT entity) AS count
+    ORDER BY count DESC
+    `,
+    { name }
+  );
+
+  return result.records.map(r => ({
+    person: r.get("person"),
+    count: r.get("count").toNumber()
+  }));
+};
+
+// dato una persona restituisce i libri che ha citato
+export const personBooksBar = async (session, req) => {
+  const { name } = req.params;
+
+  const result = await session.run(
+    `
+    MATCH (p:Person {name: $name})<-[:WRITTEN_BY|RECEIVED_BY]-(d:Document)
+    MATCH (d)<-[:CITED_IN]-(b:Book)
+    WHERE b.title IS NOT NULL
+
+    RETURN 
+        b.title AS book,
+        count(DISTINCT d) AS num_citations
+    ORDER BY num_citations DESC
+    `,
+    { name }
+  );
+
+  return result.records.map((r) => ({
+    book: r.get("book"),
+    count: r.get("num_citations").toNumber()
+  }));
+};
+// themes citati
+export const personTagsBar = async (session, req) => {
+  const { name } = req.params;
+
+  const result = await session.run(
+    `
+    MATCH (p:Person {name: $name})<-[:WRITTEN_BY|RECEIVED_BY]-(d:Document)
+    MATCH (d)-[:TAGGED_WITH]->(t:Tag)
+
+    RETURN 
+        t.name AS tag,
+        count(DISTINCT d) AS num_documents
+    ORDER BY num_documents DESC
+    `,
+    { name }
+  );
+
+  return result.records.map((r) => ({
+    tag: r.get("tag"),
+    count: r.get("num_documents").toNumber()
+  }));
 };
