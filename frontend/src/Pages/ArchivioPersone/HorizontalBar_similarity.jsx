@@ -11,7 +11,7 @@ function PersonSimilarityToggleBar({ name }) {
 
   const [data, setData] = useState([]);
   const [mode, setMode] = useState("fields");
-  // fields | quoted | entitySimilarity
+
 
   useEffect(() => {
 
@@ -71,12 +71,6 @@ function PersonSimilarityToggleBar({ name }) {
 
   const c = config[mode];
 
-  const nextMode =
-    mode === "fields"
-      ? "quoted"
-      : mode === "quoted"
-        ? "entitySimilarity"
-        : "fields";
 
   return (
     <div className="card-container">
