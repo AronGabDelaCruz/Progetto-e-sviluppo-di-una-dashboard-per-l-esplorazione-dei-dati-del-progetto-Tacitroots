@@ -25,7 +25,7 @@ function PersonDetail({ name }) {
   return (
     <div className="info-container">
       <h2 className="info-title">
-        General Information
+        General information
       </h2>
 
       {!person ? (

@@ -15,15 +15,15 @@ function TableListaPersone({ onView, selectedPerson }) {
 
   return (
     <div className="card-container">
-      <h2 className="card-title">People List</h2>
+      <h2 className="card-title">Letter writers</h2>
 <div className="card-header-legend"><InfoBubble text="TBD" /></div>
       <div className="card-wrapper-scroll">
         <table className="table">
           <thead>
             <tr>
-              <th>Nome</th>
+              <th>Name</th>
               <th>Total</th>
-              <th>action</th>
+              <th>Action</th>
             </tr>
           </thead>
 

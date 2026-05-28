@@ -35,8 +35,7 @@ function ExperimentPeopleBar({ name }) {
         <h2 className="card-title">
           Citing people
         </h2>
-              <InfoBubble 
-              text="TBD" />
+        <InfoBubble text="TBD" />
       </div>
 
       <div className="card-wrapper-scroll">

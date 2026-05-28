@@ -51,8 +51,8 @@ function TopicPeopleBar({ selectedTopic }) {
 
   const title =
     mode === "sent"
-      ? "Senders Related to"
-      : "Recepist Related to";
+      ? "Senders related to"
+      : "Recepist related to";
 
   const buttonLabel =
     mode === "sent"

@@ -42,12 +42,12 @@ function PersonMapToggle({ name }) {
 
   const title =
     mode === "receiver"
-      ? "Senders’ Locations"
-      : "Recipent’s Locations";
+      ? "Senders’ locations"
+      : "Recipient’s locations";
 const buttonLabel =
   mode === "receiver"
-    ? "Recipient’s Locations"
-    : "Senders’ Locations";
+    ? "Recipient’s locations"
+    : "Senders’ locations";
   const color = mode === "receiver" ? "#1677ff" : "#ff4d4f";
 
   const customIcon = (size) =>
@@ -69,8 +69,8 @@ const buttonLabel =
       <div className="card-header-legend">
         <h2 className="card-title">{title}</h2>
       <div className="card-header-buttons">
-                           <InfoBubble 
-                    text="TBD" />
+       
+          <InfoBubble text="TBD" />
         <button
           className="horizontal-bar-toggle"
           onClick={() =>
@@ -82,7 +82,7 @@ const buttonLabel =
           {buttonLabel}
         </button>
 
-                    </div>
+        </div>
       </div>
 
       <div className="card-wrapper">

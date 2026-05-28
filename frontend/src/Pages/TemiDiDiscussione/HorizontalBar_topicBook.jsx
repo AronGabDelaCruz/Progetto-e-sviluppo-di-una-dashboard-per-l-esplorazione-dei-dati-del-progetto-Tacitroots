@@ -60,13 +60,13 @@ function TopicBooksTagsBar({ selectedTopic }) {
 
   const title =
     mode === "books"
-      ? "Cited Books Linked to"
-      : "Cited themes Linked to";
+      ? "Cited books linked to"
+      : "Cited themes linked to";
 
   const buttonLabel =
     mode === "books"
-      ? "Show Themes"
-      : "Show Books";
+      ? "Show themes"
+      : "Show books";
 
 
   return (

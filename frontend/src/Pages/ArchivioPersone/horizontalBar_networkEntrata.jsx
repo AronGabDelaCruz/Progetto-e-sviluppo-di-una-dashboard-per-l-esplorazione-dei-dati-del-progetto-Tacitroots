@@ -34,7 +34,6 @@ function PersonGraphBar({ name }) {
 
         formatted.sort((a, b) => b.count - a.count);
 
-        // opzionale: limita solo per "out"
         setData(mode === "out" ? formatted.slice(0, 20) : formatted);
       })
       .catch(console.error);

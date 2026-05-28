@@ -33,13 +33,13 @@ function PersonExperimentPackingBar({ name }) {
 
   const title =
     mode === "invented"
-      ? "Experiments Invented"
-      : "Experiments Proposed";
+      ? "Experiments made"
+      : "Experiments proposed";
   
   const buttonLabel =
   mode === "invented"
-    ? "Experiments Proposed"
-    : "Experiments Invented";
+    ? "Experiments proposed"
+    : "Experiments made";
 
   const color =
     mode === "invented"
@@ -55,8 +55,7 @@ function PersonExperimentPackingBar({ name }) {
           {title}
         </h2>
         <div className="card-header-buttons">
-                        <InfoBubble 
-              text="TBD" />
+          <InfoBubble text="TBD" />
         <button
           className="horizontal-bar-toggle"
           onClick={() =>
@@ -67,9 +66,7 @@ function PersonExperimentPackingBar({ name }) {
         >
           {buttonLabel}
         </button>
-
-      
-              </div>
+        </div>
       </div>
 
       <div className="card-wrapper-scroll">

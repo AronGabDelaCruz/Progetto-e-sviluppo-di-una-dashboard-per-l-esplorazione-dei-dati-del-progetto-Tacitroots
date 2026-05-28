@@ -30,6 +30,8 @@ import {topicsStats, topicTimeline, topicPeopleSent, topicPeopleReceived,
 import {instrumentStats, instrumentTimeline, instrumentPeopleBar, instrumentMap, instrumentPeople
   ,instrumentExperimentShared
 } from "./controllers/BE_strumenti.js"
+
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -116,4 +118,8 @@ app.get("/instrument-map/:name",handleRoute(driver, instrumentMap));
 app.get("/instrument-people/:name",handleRoute(driver, instrumentPeople));
 app.get("/instrument-experiment-shared/:name",handleRoute(driver, instrumentExperimentShared));
 
-app.listen(3001, () => console.log("Server attivo su http://localhost:3001"));
+const PORT = process.env.PORT || 3001;
+
+app.listen(PORT, () => {
+  console.log(`Server attivo su http://localhost:${PORT}`);
+});

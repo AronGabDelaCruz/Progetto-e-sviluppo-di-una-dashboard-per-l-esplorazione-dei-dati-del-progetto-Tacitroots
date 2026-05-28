@@ -35,7 +35,7 @@ function PersonReceivedTable({ person1, onView, selectedPerson }) {
   return (
     <div className="card-container">
       <h2 className="card-title">
-        Recever of: {person1}
+        Letter receivers
       </h2>
     <div className="card-header-legend"><InfoBubble text="TBD" /></div>
       
@@ -45,7 +45,7 @@ function PersonReceivedTable({ person1, onView, selectedPerson }) {
           <thead>
             <tr>
               <th>Name</th>
-              <th>Receved</th>
+              <th>Received</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -79,7 +79,7 @@ function PersonReceivedTable({ person1, onView, selectedPerson }) {
                         handleView(row.person);
                       }}
                     >
-                      Selcet
+                      Select
                     </button>
                   </td>
                 </tr>

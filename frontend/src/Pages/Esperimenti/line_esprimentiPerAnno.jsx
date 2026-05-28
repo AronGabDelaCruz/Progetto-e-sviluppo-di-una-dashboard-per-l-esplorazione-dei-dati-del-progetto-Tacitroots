@@ -35,8 +35,7 @@ function ExperimentTimeline({ name }) {
         <h2 className="card-title">
           Citation over the years
         </h2>
-                  <InfoBubble 
-                  text="TBD" />
+        <InfoBubble text="TBD" />
       </div>
 
       <div className="card-wrapper">

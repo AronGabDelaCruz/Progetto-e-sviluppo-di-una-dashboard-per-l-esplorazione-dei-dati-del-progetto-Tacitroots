@@ -48,8 +48,8 @@ function TopicLocationMap({ selectedTopic }) {
 
   const title =
     mode === "receiver"
-      ? "Recipients’ Locations"
-      : "Senders’ Locations";
+      ? "Recipients’ locations"
+      : "Senders’ locations";
 
   const buttonLabel =
     mode === "receiver"

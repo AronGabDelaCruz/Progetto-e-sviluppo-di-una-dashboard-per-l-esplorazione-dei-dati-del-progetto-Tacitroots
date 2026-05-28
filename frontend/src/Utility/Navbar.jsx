@@ -9,9 +9,14 @@ function Navbar() {
 
       <div className="navbar-inner">
 
-        <div className="navbar-brand">
-          Neo4j Dashboard
-        </div>
+      <a
+        href="https://sites.unimi.it/tacitroots/"
+        className="navbar-brand"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        The Tacitroots Dataset Analysis
+      </a>
 
      
         <div className="hamburger" onClick={() => setOpen(!open)}>
@@ -21,11 +26,12 @@ function Navbar() {
     
         <div className="navbar-links">
           <Link to="/Database" className="nav-link">Database Overview</Link>
-          <Link to="/" className="nav-link">People</Link>
-          <Link to="/Confronti" className="nav-link">Comparisons</Link>
+          <Link to="/" className="nav-link">Authors</Link>
+          <Link to="/Confronti" className="nav-link">Exchanges</Link>
           <Link to="/Esperimenti" className="nav-link">Experiments</Link>
           <Link to="/Temi" className="nav-link">Topics</Link>
-          <Link to="/Strumenti" className="nav-link">Instrument</Link>
+          <Link to="/Strumenti" className="nav-link">Instruments</Link>
+          <a href="https://sites.unimi.it/tacitroots/" className="nav-link">Tacitroots</a>
         </div>
 
       </div>
@@ -34,11 +40,11 @@ function Navbar() {
       {open && (
         <div className="mobile-menu">
           <Link to="/Database" className="mobile-link" onClick={() => setOpen(false)}>Database Overview</Link>
-          <Link to="/" className="mobile-link" onClick={() => setOpen(false)}>People</Link>
-          <Link to="/Confronti" className="mobile-link" onClick={() => setOpen(false)}>Comparisons</Link>
+          <Link to="/" className="mobile-link" onClick={() => setOpen(false)}>Authors</Link>
+          <Link to="/Confronti" className="mobile-link" onClick={() => setOpen(false)}>Exchanges</Link>
           <Link to="/Esperimenti" className="mobile-link" onClick={() => setOpen(false)}>Esperiments</Link>
           <Link to="/Temi" className="mobile-link" onClick={() => setOpen(false)}>Topics</Link>
-          <Link to="/Strumenti" className="mobile-link" onClick={() => setOpen(false)}>Instrument</Link>
+          <Link to="/Strumenti" className="mobile-link" onClick={() => setOpen(false)}>Instruments</Link>
         </div>
       )}
 
@@ -62,6 +68,9 @@ function Navbar() {
         .navbar-brand {
           font-size: 18px;
           font-weight: 700;
+          text-decoration: none;
+          color: inherit;        
+          cursor: pointer;
         }
 
         .navbar-links {

@@ -32,7 +32,7 @@ function PersonCitedBetweenBar({ person1, person2 }) {
 
       <div className="card-header-legend">
         <h2 className="card-title">
-          Person Cited
+          Cited persons
         </h2>
            <InfoBubble 
              text="TBD" />

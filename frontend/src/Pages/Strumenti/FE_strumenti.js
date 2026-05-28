@@ -11,7 +11,7 @@ function TemiPage() {
   return (
     <div className="people-page">
       <div className="header">
-        <h1 className="title">Instruments Tracking</h1>
+        <h1 className="title">Instruments</h1>
       </div>
       <div className="grid-2">
         <TableInstrument onView={setSelectedInstrument} selectedInstrument={selectedInstrument}/>

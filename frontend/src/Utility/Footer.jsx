@@ -3,53 +3,61 @@ import "../Styles/footerStyle.css";
 import logo from "../img/ISLab_logo.png";
 
 function Footer() {
-  const [showPopup, setShowPopup] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <footer className="footer">
 
-      <div className="footer-content">
+      <div className="footer-center">
+        <button
+          className="footer-info-button"
+          onClick={() => setShowModal(true)}
+        >
+          Credits
+        </button>
+      </div>
 
-        <img
-          src={logo}
-          alt="Logo"
-          className="footer-logo"
-        />
+      {showModal && (
+        <div className="modal-overlay" onClick={() => setShowModal(false)}>
 
-        <div className="footer-texts">
+          <div className="modal-box" onClick={(e) => e.stopPropagation()}>
 
-          <div className="footer-title">
-            TacitRoots Dashboard
-          </div>
+            <h2>Credits</h2>
 
-          <div className="footer-subtitle">
-            Historical correspondence analysis
-          </div>
+            <p>
+              The Tacitroots Dataset Analysis is a project supported by ISLab
+            </p>
 
-          <div className="footer-info-container">
+            <p>
+              Dev team: Aron Gabriel Dela Cruz
+            </p>
 
-            <button
-              className="footer-info-button"
-              onClick={() => setShowPopup(!showPopup)}
-            >
-              Credits
-            </button>
+            {/* LOGO + CLOSE IN BLOCK VERTICALE */}
+            <div className="modal-logo-section">
+              <a
+                href="https://islab.di.unimi.it/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={logo}
+                  alt="ISLab Logo"
+                  className="modal-logo"
+                />
+              </a>
 
-            {showPopup && (
-              <div className="footer-popup">
-                Credits
-                <br />
-                Name: Aron Gabriel Dela Cruz
-                <br />
-                Matricola: 26035A
-              </div>
-            )}
+              <button
+                className="modal-close"
+                onClick={() => setShowModal(false)}
+              >
+                Close
+              </button>
+            </div>
 
           </div>
 
         </div>
-
-      </div>
+      )}
 
     </footer>
   );

@@ -11,7 +11,7 @@ function TemiPage() {
   return (
     <div className="people-page">
       <div className="header">
-        <h1 className="title">Discussed Topics</h1>
+        <h1 className="title">Topics</h1>
       </div>
 
       <div className="grid-2">

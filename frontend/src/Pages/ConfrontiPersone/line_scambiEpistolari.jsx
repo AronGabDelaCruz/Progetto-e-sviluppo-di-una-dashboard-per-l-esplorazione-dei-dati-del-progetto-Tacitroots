@@ -35,8 +35,7 @@ function PersonsExchangeLine({ person1, person2 }) {
         <h2 className="card-title">
           Letter exchanges over the years
         </h2>
-           <InfoBubble 
-            text="TBD" />
+           <InfoBubble text="TBD" />
       </div>
 
       <div className="card-wrapper">

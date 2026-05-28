@@ -36,10 +36,9 @@ function PersonFieldPackingBar({ person1, person2 }) {
 
       <div className="card-header-legend">
         <h2 className="card-title">
-          Discussed Field
+          Fields of discussion
         </h2>
-                <InfoBubble 
-                text="TBD" />
+        <InfoBubble text="TBD" />
       </div>
 
       <div className="card-wrapper-scroll">

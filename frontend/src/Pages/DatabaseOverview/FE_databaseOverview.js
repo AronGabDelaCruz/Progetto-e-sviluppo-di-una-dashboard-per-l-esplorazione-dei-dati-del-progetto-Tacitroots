@@ -12,7 +12,7 @@ function DatabaseOverviewPage() {
 
   return (
     <div className="page-container">
-      <h1>Database Overview</h1>
+      <h1>Database overview</h1>
 
       <DatabaseOverview />
 

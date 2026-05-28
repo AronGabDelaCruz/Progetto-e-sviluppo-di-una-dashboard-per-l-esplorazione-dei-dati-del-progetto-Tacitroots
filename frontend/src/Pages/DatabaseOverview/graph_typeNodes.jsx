@@ -77,7 +77,7 @@ const Graph = ({ label }) => {
     <div className="card-container">
       <div className="card-header-legend">
         <h2 className="card-title">
-          Graph Node: {label || "Seleziona un nodo"}
+          Graph node: {label || "Seleziona un nodo"}
         </h2>
              <InfoBubble text="TBD" />
       </div>

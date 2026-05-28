@@ -28,7 +28,7 @@ function PersonInstrumentList({ name }) {
   <div className="card-compact">
 
     <h2 className="card-title-compact">
-      Instrument Created
+      Instrument created
     </h2>
 <div className="card-header-legend"><InfoBubble text="TBD" /></div>
     <div className="card-grid-compact">

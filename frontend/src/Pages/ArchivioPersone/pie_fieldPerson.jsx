@@ -60,8 +60,7 @@ function PersonFieldPie({ name }) {
         <h2 className="card-title">
           Main topics
         </h2>
-        <InfoBubble 
-        text="TBD" />
+        <InfoBubble text="TBD" />
 
       </div>
 
@@ -69,7 +68,7 @@ function PersonFieldPie({ name }) {
 
         {data.length === 0 ? (
           <div className="pie-empty">
-            No field data for this person
+            No data available
           </div>
         ) : (
           <ResponsiveContainer width="100%" height="100%">

@@ -32,10 +32,9 @@ function PersonCitationsLine({ name }) {
 
       <div className="card-header-legend">
         <h2 className="card-title">
-          Citations Over The Years
+          Citations over the years
         </h2>
-           <InfoBubble 
-            text="TBD" />
+           <InfoBubble text="TBD" />
       </div>
 
       <div className="card-wrapper">
@@ -48,7 +47,7 @@ function PersonCitationsLine({ name }) {
             color: "#888",
             fontSize: "14px"
           }}>
-            Nessun dato citazioni per anno
+            No data available
           </div>
         ) : (
           <ResponsiveContainer width="100%" height="100%">

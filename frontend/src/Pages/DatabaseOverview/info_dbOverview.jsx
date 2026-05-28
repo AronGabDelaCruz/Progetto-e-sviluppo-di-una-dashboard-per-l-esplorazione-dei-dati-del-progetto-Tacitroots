@@ -20,8 +20,8 @@ export default function DatabaseOverview() {
       <div className="db-card">
         <Stat label="Nodes" value={data.totalNodes} />
         <Stat label="Relationships" value={data.totalRelationships} />
-        <Stat label="Node Types" value={data.totalNodeTypes} />
-        <Stat label="Rel Types" value={data.totalRelationshipTypes} />
+        <Stat label="Node types" value={data.totalNodeTypes} />
+        <Stat label="Relation types" value={data.totalRelationshipTypes} />
       </div>
     </div>
   );

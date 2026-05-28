@@ -41,7 +41,7 @@ export default function ExperimentsTable({ onView, selectedExperiment }) {
             {data.length === 0 ? (
               <tr>
                 <td colSpan={3} className="table-empty">
-                  Nessun dato disponibile
+                  No data available
                 </td>
               </tr>
             ) : (

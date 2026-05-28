@@ -25,7 +25,7 @@ function TableListaTopics({ onView, selectedTopic }) {
           <thead>
             <tr>
               <th>Topic</th>
-              <th>N Doc</th>
+              <th>N. Doc</th>
               <th>Action</th>
             </tr>
           </thead>

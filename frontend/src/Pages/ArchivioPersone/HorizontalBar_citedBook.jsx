@@ -62,13 +62,13 @@ function PersonBooksTagsToggleBar({ name }) {
 
   const title =
     mode === "books"
-      ? "Cited Books"
-      : "Cited Themes";
+      ? "Cited books"
+      : "Cited themes";
 
   const buttonLabel =
     mode === "books"
-      ? "Show Themes"
-      : "Show Books";
+      ? "Show themes"
+      : "Show books";
 
   const color =
     mode === "books"

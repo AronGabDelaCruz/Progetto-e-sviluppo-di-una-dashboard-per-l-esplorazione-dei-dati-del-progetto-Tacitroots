@@ -11,7 +11,7 @@ const [selectedExperiment, setSelectedExperiment] = useState("barometric experim
     <div className="people-page">
 
       <div className="header">
-        <h1 className="title">Experiments Tracking</h1>
+        <h1 className="title">Experiments</h1>
       </div>
 
 

@@ -19,8 +19,8 @@ function PeoplePage() {
     <div className="people-page">
 
       <div className="header">
-        <h1 className="title">People</h1>
-        <div className="subtitle">Persona Selezionata: {selectedPerson}</div>
+        <h1 className="title">Authors</h1>
+        <div className="subtitle">Selected author: {selectedPerson}</div>
       </div>
 
 

@@ -18,7 +18,7 @@ function TableListaPersone({ onView, selectedPerson }) {
 
   return (
     <div className="card-container">
-      <h2 className="card-title">People list</h2>
+      <h2 className="card-title">Author list</h2>
 
       <div className="card-wrapper-scroll">
         <table className="table">
@@ -26,8 +26,8 @@ function TableListaPersone({ onView, selectedPerson }) {
             <tr>
               <th>Name</th>
               <th>Sent</th>
-              <th>Receive</th>
-              <th>action</th>
+              <th>Received</th>
+              <th>Action</th>
             </tr>
           </thead>
 

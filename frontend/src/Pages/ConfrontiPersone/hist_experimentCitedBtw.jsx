@@ -32,7 +32,7 @@ function PersonExperimentHistogram({ person1, person2 }) {
 
       <div className="card-header-legend">
         <h2 className="card-title">
-          Cited Experiments
+          Cited experiments
         </h2>
               <InfoBubble 
               text="TBD" />

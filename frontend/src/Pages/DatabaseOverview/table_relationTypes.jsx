@@ -21,7 +21,7 @@ export default function RelationTypesTable({ onView, selectedRelation }) {
   return (
     <div className="card-container">
 
-      <h2 className="card-title">Relation Types</h2>
+      <h2 className="card-title">Relation types</h2>
 
       <div className="card-wrapper-scroll">
 

@@ -29,20 +29,19 @@ function ExperimentPeopleList({ name }) {
         People involved
       </h2>
       <div className="card-header-legend">
-      <InfoBubble 
-      text="TBD" />
+      <InfoBubble text="TBD" />
       </div>
       <div className="card-grid-compact">
 
 
         <div className="card-column-compact">
           <h4 className="card-subtitle-invented">
-            Inventors
+            Makers
           </h4>
 
           {inventors.length === 0 ? (
             <div className="card-empty">
-              Nessun inventore
+              No makers available
             </div>
           ) : (
             inventors.map((name, i) => (
@@ -60,7 +59,7 @@ function ExperimentPeopleList({ name }) {
 
           {proponents.length === 0 ? (
             <div className="card-empty">
-              Nessun proponente
+              No proponents available
             </div>
           ) : (
             proponents.map((name, i) => (

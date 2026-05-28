@@ -21,7 +21,7 @@ export default function NodeTypesTable({ onView, selectedLabel }) {
   return (
     <div className="card-container">
 
-      <h2 className="card-title">Node Types</h2>
+      <h2 className="card-title">Node types</h2>
 
       <div className="card-wrapper-scroll">
 
