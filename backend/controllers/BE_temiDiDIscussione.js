@@ -2,12 +2,19 @@
 
 export const topicsStats = async (session) => {
   const result = await session.run(`
-    MATCH (d:Document)-[:TAGGED_WITH]->(f:Field)
+  MATCH (d:Document)-[:TAGGED_WITH]->(f:Field)
+  where d.year is not null
+  OPTIONAL MATCH (root)<-[:SUBFIELD_OF*]-(f)
+  WHERE NOT EXISTS {
+      MATCH (root)-[:SUBFIELD_OF]->()
+  }
 
-    RETURN 
-      f.name AS field,
+  WITH d, CASE WHEN root IS NOT NULL THEN root ELSE f END AS parent
+
+  RETURN
+      parent.name AS field,
       count(DISTINCT d) AS num_documents
-    ORDER BY num_documents DESC
+  ORDER BY num_documents DESC
   `);
 
   return result.records.map((record) => ({
@@ -22,14 +29,22 @@ export const topicTimeline = async (session, req) => {
     const { name } = req.params;
   const result = await session.run(
     `
-    MATCH (d:Document)-[:TAGGED_WITH]->(f:Field {name: $name})
-    WHERE d.year IS NOT NULL
+    MATCH (root:Field {name: $name})
+
+    OPTIONAL MATCH (child:Field)-[:SUBFIELD_OF*]->(root)
+
+    WITH root, collect(DISTINCT child) AS children
+    WITH root, children + root AS fields
+
+    MATCH (d:Document)-[:TAGGED_WITH]->(f:Field)
+    WHERE f IN fields
+      AND d.year IS NOT NULL
 
     WITH toInteger(d.year) AS year, d
 
-    RETURN 
-      year,
-      count(DISTINCT d) AS num_documents
+    RETURN
+        year,
+        count(DISTINCT d) AS num_documents
     ORDER BY year ASC
     `,
     { name }
@@ -47,7 +62,15 @@ export const topicPeopleSent = async (session, req) => {
 
   const result = await session.run(
     `
-    MATCH (d:Document)-[:TAGGED_WITH]->(f:Field {name: $name})
+    MATCH (root:Field {name: $name})
+
+    OPTIONAL MATCH (child:Field)-[:SUBFIELD_OF*0..]->(root)
+
+    WITH collect(DISTINCT child) AS fields
+
+    MATCH (d:Document)-[:TAGGED_WITH]->(f:Field)
+    WHERE f IN fields
+
     MATCH (d)-[:WRITTEN_BY]->(p:Person)
 
     RETURN 
@@ -71,7 +94,15 @@ export const topicPeopleReceived = async (session, req) => {
 
   const result = await session.run(
     `
-    MATCH (d:Document)-[:TAGGED_WITH]->(f:Field {name: $name})
+    MATCH (root:Field {name: $name})
+
+    OPTIONAL MATCH (child:Field)-[:SUBFIELD_OF*0..]->(root)
+
+    WITH collect(DISTINCT child) AS fields
+
+    MATCH (d:Document)-[:TAGGED_WITH]->(f:Field)
+    WHERE f IN fields
+
     MATCH (d)-[:RECEIVED_BY]->(p:Person)
 
     RETURN 
@@ -95,13 +126,21 @@ export const topicExperiments = async (session, req) => {
 
   const result = await session.run(
     `
-    MATCH (d:Document)-[:TAGGED_WITH]->(f:Field {name: $name})
-    MATCH (e:Experiment)-[:CITED_IN]->(d)
+      MATCH (root:Field {name: $name})
 
-    RETURN 
-        e.name AS experiment,
-        count(DISTINCT d) AS num_documents
-    ORDER BY num_documents DESC
+      OPTIONAL MATCH (child:Field)-[:SUBFIELD_OF*0..]->(root)
+
+      WITH collect(DISTINCT child) AS fields
+
+      MATCH (d:Document)-[:TAGGED_WITH]->(f:Field)
+      WHERE f IN fields
+
+      MATCH (e:Experiment)-[:CITED_IN]->(d)
+
+      RETURN 
+          e.name AS experiment,
+          count(DISTINCT d) AS num_documents
+      ORDER BY num_documents DESC
     `,
     { name }
   );
@@ -119,7 +158,15 @@ export const topicInstruments = async (session, req) => {
 
   const result = await session.run(
     `
-    MATCH (d:Document)-[:TAGGED_WITH]->(f:Field {name: $name})
+    MATCH (root:Field {name: $name})
+
+    OPTIONAL MATCH (child:Field)-[:SUBFIELD_OF*0..]->(root)
+
+    WITH collect(DISTINCT child) AS fields
+
+    MATCH (d:Document)-[:TAGGED_WITH]->(f:Field)
+    WHERE f IN fields
+
     MATCH (i:Instrument)-[:CITED_IN]->(d)
 
     RETURN 
@@ -141,7 +188,15 @@ export const topicSenderLocations = async (session, req) => {
 
   const result = await session.run(
     `
-    MATCH (d:Document)-[:TAGGED_WITH]->(f:Field {name: $name})
+    MATCH (root:Field {name: $name})
+
+    OPTIONAL MATCH (child:Field)-[:SUBFIELD_OF*0..]->(root)
+
+    WITH collect(DISTINCT child) AS fields
+
+    MATCH (d:Document)-[:TAGGED_WITH]->(f:Field)
+    WHERE f IN fields
+
     MATCH (d)-[:WRITTEN_FROM]->(l:Location)
 
     RETURN 
@@ -170,14 +225,22 @@ export const topicReceiverLocations = async (session, req) => {
 
   const result = await session.run(
     `
-    MATCH (d:Document)-[:TAGGED_WITH]->(f:Field {name: $name})
-    MATCH (d)-[:RECEIVED_IN]->(l:Location)
+MATCH (root:Field {name: $name})
 
-    RETURN 
-        l.name AS location,
-        l.point AS coordinates,
-        count(DISTINCT d) AS num_documents
-    ORDER BY num_documents DESC
+OPTIONAL MATCH (child:Field)-[:SUBFIELD_OF*0..]->(root)
+
+WITH collect(DISTINCT child) AS fields
+
+MATCH (d:Document)-[:TAGGED_WITH]->(f:Field)
+WHERE f IN fields
+
+MATCH (d)-[:RECEIVED_IN]->(l:Location)
+
+RETURN 
+    l.name AS location,
+    l.point AS coordinates,
+    count(DISTINCT d) AS num_documents
+ORDER BY num_documents DESC
     `,
     { name }
   );
@@ -199,9 +262,16 @@ export const topicBooks = async (session, req) => {
 
   const result = await session.run(
     `
-    MATCH (d:Document)-[:TAGGED_WITH]->(f:Field {name: $name})
-    MATCH (d)<-[:CITED_IN]-(b:Book)
+    MATCH (root:Field {name: $name})
 
+    OPTIONAL MATCH (child:Field)-[:SUBFIELD_OF*0..]->(root)
+
+    WITH collect(DISTINCT child) AS fields
+
+    MATCH (d:Document)-[:TAGGED_WITH]->(f:Field)
+    WHERE f IN fields
+
+    MATCH (d)<-[:CITED_IN]-(b:Book)
     WHERE b.title IS NOT NULL
 
     RETURN 
@@ -228,9 +298,15 @@ export const fieldTags = async (session, req) => {
 
   const result = await session.run(
     `
-    MATCH (f:Field {name: $field})
+    MATCH (root:Field {name: $field})
 
-    MATCH (d:Document)-[:CITED_FIELD|TAGGED_WITH]->(f)
+    OPTIONAL MATCH (child:Field)-[:SUBFIELD_OF*0..]->(root)
+
+    WITH collect(DISTINCT child) AS fields
+
+    MATCH (d:Document)-[:CITED_FIELD|TAGGED_WITH]->(f:Field)
+    WHERE f IN fields
+
     MATCH (d)-[:TAGGED_WITH]->(t:Tag)
 
     RETURN 

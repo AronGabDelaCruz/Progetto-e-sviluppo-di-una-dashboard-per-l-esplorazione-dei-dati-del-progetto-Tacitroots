@@ -5,10 +5,16 @@ export const instrumentStats = async (session) => {
     `
     MATCH (i:Instrument)
 
+    OPTIONAL MATCH (root)<-[:CHILD_OF*0..]-(i)
+
+    WITH i, CASE WHEN root IS NOT NULL THEN root ELSE i END AS parent
+
     OPTIONAL MATCH (i)-[:CITED_IN]->(d:Document)
 
+    WITH parent, d
+
     RETURN 
-        i.name AS instrument,
+        parent.name AS instrument,
         count(DISTINCT d) AS num_citations
     ORDER BY num_citations DESC
     `
@@ -26,11 +32,17 @@ export const instrumentTimeline = async (session, req) => {
 
   const result = await session.run(
     `
-    MATCH (i:Instrument {name: $name})-[:CITED_IN]->(d:Document)
+    MATCH (n:Instrument {name: $name})
+
+    OPTIONAL MATCH (n)-[:CHILD_OF*0..]->(root)
+
+    WITH COALESCE(root, n) AS instrument
+
+    MATCH (instrument)-[:CITED_IN]->(d:Document)
     WHERE d.year IS NOT NULL
 
     RETURN 
-        d.year AS year,
+        toInteger(d.year) AS year,
         count(DISTINCT d) AS num_citations
     ORDER BY year ASC
     `,
@@ -49,7 +61,13 @@ export const instrumentPeopleBar = async (session, req) => {
 
   const result = await session.run(
     `
-    MATCH (i:Instrument {name: $name})-[:CITED_IN]->(d:Document)
+    MATCH (i:Instrument {name: $name})
+
+    OPTIONAL MATCH (i)-[:CHILD_OF*0..]->(root)
+
+    WITH COALESCE(root, i) AS instrument
+
+    MATCH (instrument)-[:CITED_IN]->(d:Document)
     MATCH (d)-[:WRITTEN_BY]->(p:Person)
 
     RETURN 
@@ -71,7 +89,13 @@ export const instrumentMap = async (session, req) => {
 
   const result = await session.run(
     `
-    MATCH (i:Instrument {name: $name})-[:CITED_IN]->(d:Document)
+    MATCH (i:Instrument {name: $name})
+
+    OPTIONAL MATCH (i)-[:CHILD_OF*0..]->(root)
+
+    WITH COALESCE(root, i) AS instrument
+
+    MATCH (instrument)-[:CITED_IN]->(d:Document)
     MATCH (d)-[:WRITTEN_FROM]->(l:Location)
 
     RETURN 
@@ -110,17 +134,21 @@ export const instrumentPeople = async (session, req) => {
     `
     MATCH (i:Instrument {name: $name})
 
-    OPTIONAL MATCH (p1:Person)-[:MAKER_OF]->(i)
-    WITH i, collect(DISTINCT p1) AS inventors
+    OPTIONAL MATCH (i)-[:CHILD_OF*0..]->(root)
 
-    OPTIONAL MATCH (p2:Person)-[:PROPONENT_OF]->(i)
-    WITH 
-        i,
-        inventors,
-        [p IN collect(DISTINCT p2) WHERE NOT p IN inventors] AS proponents
+    WITH COALESCE(root, i) AS instrument
+
+    OPTIONAL MATCH (p1:Person)-[:MAKER_OF]->(instrument)
+    WITH instrument, collect(DISTINCT p1) AS inventors
+
+    OPTIONAL MATCH (p2:Person)-[:PROPONENT_OF]->(instrument)
+    WITH instrument, inventors, collect(DISTINCT p2) AS all_proponents
+
+    WITH instrument, inventors,
+        [p IN all_proponents WHERE NOT p IN inventors] AS proponents
 
     RETURN 
-        i.name AS instrument,
+        instrument.name AS instrument,
         [p IN inventors | p.name] AS inventors,
         [p IN proponents | p.name] AS proponents
     `,
@@ -145,7 +173,13 @@ export const instrumentExperimentShared = async (session, req) => {
 
   const result = await session.run(
     `
-    MATCH (i:Instrument {name: $name})-[:CITED_IN]->(d:Document)
+    MATCH (i:Instrument {name: $name})
+
+    OPTIONAL MATCH (i)-[:CHILD_OF*0..]->(root)
+
+    WITH COALESCE(root, i) AS instrument
+
+    MATCH (instrument)-[:CITED_IN]->(d:Document)
     MATCH (e:Experiment)-[:CITED_IN]->(d)
 
     RETURN 

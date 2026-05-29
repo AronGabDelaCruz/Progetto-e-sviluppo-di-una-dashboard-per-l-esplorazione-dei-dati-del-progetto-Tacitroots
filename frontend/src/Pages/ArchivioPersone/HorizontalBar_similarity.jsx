@@ -53,7 +53,7 @@ function PersonSimilarityToggleBar({ name }) {
 
   const config = {
     fields: {
-      title: "Shared fields",
+      title: "Persons having fields in common with",
       button: "FIelds",
       color: "#1677ff"
     },

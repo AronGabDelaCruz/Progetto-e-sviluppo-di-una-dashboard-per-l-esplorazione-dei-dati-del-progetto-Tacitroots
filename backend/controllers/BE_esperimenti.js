@@ -1,14 +1,24 @@
 export const experimentsStats = async (session) => {
   const result = await session.run(`
-MATCH (e:Experiment)
-OPTIONAL MATCH (e)-[r:CITED_IN]-()
-RETURN e.name AS experiment, COUNT(r) AS citations
-ORDER BY citations DESC
+MATCH (d:Document)<-[:CITED_IN]-(i:Experiment)
+
+OPTIONAL MATCH (root)-[:PARENT_OF*1]->(i)
+
+WITH d, CASE WHEN root IS NOT NULL THEN root ELSE i END AS parent
+
+WHERE parent IS NOT NULL AND parent.name IS NOT NULL
+
+WITH parent, count(DISTINCT d) AS num_mentions
+
+RETURN 
+    parent.name AS experiment,
+    num_mentions
+ORDER BY num_mentions DESC
   `);
 
   return result.records.map(r => ({
     experiment: r.get("experiment"),
-    count: r.get("citations").toNumber()
+    count: r.get("num_mentions").toNumber()
   }));
 };
 
@@ -16,15 +26,20 @@ export const experimentTimeline = async (session, req) => {
 const { name } = req.params;
   const result = await session.run(
     `
-MATCH (e:Experiment {name: $name})-[:CITED_IN]->(d:Document)
+MATCH (e:Experiment {name: $name})
+
+OPTIONAL MATCH (e)-[:PARENT_OF*0..]->(root)
+
+WITH COALESCE(root, e) AS experiment
+
+MATCH (experiment)-[:CITED_IN]->(d:Document)
 WHERE d.date IS NOT NULL AND d.date <> ""
 
-WITH toInteger(split(d.date, "-")[0]) AS year
-WHERE year IS NOT NULL
+WITH toInteger(split(d.date, "-")[0]) AS year, d
 
 RETURN 
     year,
-    count(*) AS citations
+    count(DISTINCT d) AS citations
 ORDER BY year ASC
     `,
     { name }
@@ -40,13 +55,19 @@ export const experimentPeopleCitations = async (session, req) => {
   const { name } = req.params;
   const result = await session.run(
     `
-    MATCH (e:Experiment {name: $name})
-    MATCH (p:Person)<-[:WRITTEN_BY]-(d:Document)<-[:CITED_IN]-(e)
+  MATCH (e:Experiment {name: $name})
 
-    RETURN 
-        p.name AS person,
-        count(DISTINCT d) AS citations
-    ORDER BY citations DESC
+  OPTIONAL MATCH (e)-[:PARENT_OF*0..]->(root)
+
+  WITH COALESCE(root, e) AS experiment
+
+  MATCH (experiment)-[:CITED_IN]->(d:Document)
+  MATCH (p:Person)<-[:WRITTEN_BY]-(d)
+
+  RETURN 
+      p.name AS person,
+      count(DISTINCT d) AS citations
+  ORDER BY citations DESC
     `,
     { name }
   );
@@ -62,7 +83,13 @@ export const experimentLocationsMap = async (session, req) => {
 
   const result = await session.run(
     `
-    MATCH (e:Experiment {name: $name})-[:CITED_IN]->(d:Document)
+    MATCH (e:Experiment {name: $name})
+
+    OPTIONAL MATCH (e)-[:PARENT_OF*0..]->(root)
+
+    WITH COALESCE(root, e) AS experiment
+
+    MATCH (experiment)-[:CITED_IN]->(d:Document)
     MATCH (d)-[:WRITTEN_FROM]->(l:Location)
 
     RETURN 
@@ -101,11 +128,15 @@ export const experimentGraph = async (session, req) => {
     `
     MATCH (e:Experiment {name: $name})
 
-    OPTIONAL MATCH (m:Material)-[:FEATURED_IN]->(e)
-    OPTIONAL MATCH (i:Instrument)-[:USED_IN]->(e)
+    OPTIONAL MATCH (e)-[:PARENT_OF*0..]->(root)
+
+    WITH COALESCE(root, e) AS experiment
+
+    OPTIONAL MATCH (m:Material)-[:FEATURED_IN]->(experiment)
+    OPTIONAL MATCH (i:Instrument)-[:USED_IN]->(experiment)
 
     RETURN 
-        e.name AS experiment,
+        experiment.name AS experiment,
         collect(DISTINCT m.name) AS materials,
         collect(DISTINCT i.name) AS instruments
     `,
@@ -173,17 +204,21 @@ export const experimentPeople = async (session, req) => {
     `
     MATCH (e:Experiment {name: $name})
 
-    OPTIONAL MATCH (p1:Person)-[:MAKER_OF]->(e)
-    WITH e, collect(DISTINCT p1) AS inventors
+    OPTIONAL MATCH (e)-[:PARENT_OF*0..]->(root)
 
-    OPTIONAL MATCH (p2:Person)-[:PROPONENT_OF]->(e)
-    WITH 
-        e, 
-        inventors,
-        [p IN collect(DISTINCT p2) WHERE NOT p IN inventors] AS proponents
+    WITH COALESCE(root, e) AS experiment
+
+    OPTIONAL MATCH (p1:Person)-[:MAKER_OF]->(experiment)
+    WITH experiment, collect(DISTINCT p1) AS inventors
+
+    OPTIONAL MATCH (p2:Person)-[:PROPONENT_OF]->(experiment)
+    WITH experiment, inventors, collect(DISTINCT p2) AS all_proponents
+
+    WITH experiment, inventors,
+        [p IN all_proponents WHERE NOT p IN inventors] AS proponents
 
     RETURN 
-        e.name AS experiment,
+        experiment.name AS experiment,
         [p IN inventors | p.name] AS inventors,
         [p IN proponents | p.name] AS proponents
     `,

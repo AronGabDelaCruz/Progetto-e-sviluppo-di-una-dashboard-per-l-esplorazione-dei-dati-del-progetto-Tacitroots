@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import logoTacitroots from "../img/TacitRoots_logo.jpg";
 function Navbar() {
   const [open, setOpen] = useState(false);
 
@@ -9,14 +9,21 @@ function Navbar() {
 
       <div className="navbar-inner">
 
-      <a
-        href="https://sites.unimi.it/tacitroots/"
-        className="navbar-brand"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        The Tacitroots Dataset Analysis
-      </a>
+        <a
+          href="https://sites.unimi.it/tacitroots/"
+          className="navbar-brand"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            src={logoTacitroots}
+            className="navbar-brand-logo"
+          />
+
+          <span>
+            The Tacitroots Dataset Analysis
+          </span>
+        </a>
 
      
         <div className="hamburger" onClick={() => setOpen(!open)}>
@@ -65,12 +72,22 @@ function Navbar() {
           padding: 12px 5%;
         }
 
-        .navbar-brand {
-          font-size: 18px;
-          font-weight: 700;
-          text-decoration: none;
-          color: inherit;        
-          cursor: pointer;
+      .navbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        font-size: 18px;
+        font-weight: 700;
+
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+      }
+        .navbar-brand-logo {
+          width: 32px;
+          height: 32px;
+          object-fit: contain;
         }
 
         .navbar-links {
