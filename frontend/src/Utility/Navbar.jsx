@@ -18,6 +18,7 @@ function Navbar() {
           <img
             src={logoTacitroots}
             className="navbar-brand-logo"
+            alt="Tacit Roots logo"
           />
 
           <span>
