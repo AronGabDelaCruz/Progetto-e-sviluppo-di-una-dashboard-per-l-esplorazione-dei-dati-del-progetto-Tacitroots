@@ -15,5 +15,9 @@ backend/dist/
 frontend/.env
 backend/.env
 
+# Utility Folder
+import
+Project Design
+
 # Logs
 npm-debug.log*
