@@ -35,7 +35,7 @@ import {instrumentStats, instrumentTimeline, instrumentPeopleBar, instrumentMap,
 const app = express();
 app.use(cors());
 app.use(express.json());
-
+console.log(`Neo4j URI: ${process.env.NEO4J_URI}`);
 // connesione a neo4j
 const driver = neo4j.driver(
   process.env.NEO4J_URI,
