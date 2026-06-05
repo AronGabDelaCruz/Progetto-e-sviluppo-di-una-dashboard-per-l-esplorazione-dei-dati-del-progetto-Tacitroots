@@ -11,12 +11,10 @@ backend/dist/
 # Env files
 .env
 .env.*
-!.env.template
 frontend/.env
 backend/.env
 
 # Utility Folder
-import
 Project Design
 
 # Logs
