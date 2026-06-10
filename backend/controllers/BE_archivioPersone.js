@@ -515,3 +515,550 @@ export const personTagsBar = async (session, req) => {
     count: r.get("num_documents").toNumber()
   }));
 };
+
+// sankey diagram
+export const getPersonSankey = async (session, req) => {
+  const { name } = req.params;
+
+  const result = await session.run(
+    `
+    MATCH (sender:Person {name: $name})<-[:WRITTEN_BY]-(d:Document)
+
+// --------------------
+// FIELD NORMALIZATION
+// --------------------
+MATCH (d)-[:TAGGED_WITH]->(f:Field)
+OPTIONAL MATCH (f)-[:SUBFIELD_OF*0..]->(root)
+
+WITH sender, d, COALESCE(root, f) AS field
+WHERE field.name IS NOT NULL
+
+// --------------------
+// TOP 10 FIELDS
+// --------------------
+WITH sender, field, collect(DISTINCT d) AS field_docs
+WITH sender, field, field_docs, size(field_docs) AS field_doc_count
+ORDER BY field_doc_count DESC
+WITH sender, field, field_docs
+LIMIT 10
+
+// ============================
+// TOP 15 RECEIVERS (GLOBAL)
+// ============================
+CALL {
+    WITH sender
+    MATCH (sender)<-[:WRITTEN_BY]-(d:Document)
+    MATCH (d)-[:RECEIVED_BY]->(r:Person)
+    WITH r, count(DISTINCT d) AS cnt
+    ORDER BY cnt DESC
+    LIMIT 15
+    RETURN collect(r) AS top_receivers
+}
+
+// --------------------
+// FINAL COMPUTATION
+// --------------------
+UNWIND field_docs AS d
+MATCH (d)-[:RECEIVED_BY]->(receiver:Person)
+
+WITH sender, field, receiver, top_receivers, count(DISTINCT d) AS value
+WHERE receiver IN top_receivers
+
+RETURN 
+    sender.name AS sender,
+    field.name AS field,
+    receiver.name AS receiver,
+    value
+ORDER BY field, value DESC;
+    `,
+    { name }
+  );
+
+  const rows = result.records.map(r => ({
+    sender: r.get("sender"),
+    field: r.get("field"),
+    receiver: r.get("receiver"),
+    value: r.get("value").toNumber()
+  }));
+
+  // -----------------------------
+  // 🔥 BUILD SANKEY STRUCTURE
+  // -----------------------------
+  const nodeMap = new Map();
+  const getIndex = (name) => {
+    if (!nodeMap.has(name)) nodeMap.set(name, nodeMap.size);
+    return nodeMap.get(name);
+  };
+
+  const links = [];
+
+  rows.forEach(r => {
+    const s = getIndex(r.sender);
+    const f = getIndex(r.field);
+    const t = getIndex(r.receiver);
+
+    // sender → field
+    links.push({
+      source: s,
+      target: f,
+      value: r.value
+    });
+
+    // field → receiver
+    links.push({
+      source: f,
+      target: t,
+      value: r.value
+    });
+  });
+
+
+  // sankey sender->selceted
+  const nodes = Array.from(nodeMap.keys()).map(name => {
+  const isSender = name === rows[0]?.sender;
+  const isReceiver = rows.some(r => r.receiver === name);
+  const isField = !isSender && !isReceiver;
+
+  return {
+    name,
+    group: isSender
+      ? "sender"
+      : isField
+      ? "field"
+      : "receiver"
+  };
+});
+
+  return { nodes, links };
+};
+
+
+
+
+export const personReceiverSenderFieldSankey = async (session, req) => {
+  const { name } = req.params;
+
+  const result = await session.run(
+    `
+MATCH (receiver:Person {name: $name})<-[:RECEIVED_BY]-(d0:Document)
+
+// ============================
+// TOP 15 SENDERS
+// ============================
+MATCH (d0)-[:WRITTEN_BY]->(s:Person)
+
+WITH receiver, s, count(DISTINCT d0) AS total_sent
+ORDER BY total_sent DESC
+LIMIT 15
+
+WITH receiver,
+     collect(s) AS top_sender_list
+
+// ============================
+// SOLO DOCUMENTI DEI TOP 15 SENDERS
+// ============================
+MATCH (sender:Person)<-[:WRITTEN_BY]-(doc:Document)-[:RECEIVED_BY]->(receiver)
+WHERE sender IN top_sender_list
+
+// ============================
+// FIELD NORMALIZATION
+// ============================
+MATCH (doc)-[:TAGGED_WITH]->(f:Field)
+OPTIONAL MATCH (f)-[:SUBFIELD_OF*0..]->(root)
+
+WITH receiver,
+     sender,
+     doc,
+     COALESCE(root, f) AS field
+
+WHERE field.name IS NOT NULL
+
+// ============================
+// COUNT GLOBAL PER FIELD (IMPORTANTE)
+// ============================
+WITH receiver,
+     sender,
+     field,
+     count(DISTINCT doc) AS field_docs
+
+// ============================
+// TOP 10 FIELD GLOBALI (QUI È LA CHIAVE)
+// ============================
+WITH receiver,
+     field,
+     sum(field_docs) AS total_field_docs,
+     collect({sender: sender, docs: field_docs}) AS breakdown
+
+ORDER BY total_field_docs DESC
+LIMIT 10
+
+// ============================
+// OUTPUT
+// ============================
+UNWIND breakdown AS b
+
+RETURN
+    receiver.name AS receiver,
+    b.sender.name AS sender,
+    field.name AS field,
+    b.docs AS field_documents,
+    total_field_docs
+
+ORDER BY total_field_docs DESC, field_documents DESC
+    `,
+    { name }
+  );
+
+  // =========================================================
+  // 🔥 1. ROWS NORMALIZATION (come getPersonSankey)
+  // =========================================================
+  const rows = result.records.map(r => ({
+    receiver: r.get("receiver"),
+    sender: r.get("sender"),
+    field: r.get("field"),
+    value: r.get("field_documents").toNumber()
+  }));
+
+  // =========================================================
+  // 🔥 2. NODE INDEXING
+  // =========================================================
+  const nodeMap = new Map();
+  const getIndex = (name) => {
+    if (!nodeMap.has(name)) {
+      nodeMap.set(name, nodeMap.size);
+    }
+    return nodeMap.get(name);
+  };
+
+  const links = [];
+
+  rows.forEach(r => {
+    const s = getIndex(r.sender);
+    const f = getIndex(r.field);
+    const t = getIndex(r.receiver);
+
+    // sender → field
+    links.push({
+      source: s,
+      target: f,
+      value: r.value
+    });
+
+    // field → receiver
+    links.push({
+      source: f,
+      target: t,
+      value: r.value
+    });
+  });
+
+  // =========================================================
+  // 🔥 3. NODE BUILDING WITH GROUP LOGIC
+  // =========================================================
+  const nodes = Array.from(nodeMap.keys()).map((name) => {
+    const isSender = rows.some(r => r.sender === name);
+    const isReceiver = rows.some(r => r.receiver === name);
+    const isField = !isSender && !isReceiver;
+
+    return {
+      name,
+      group: isSender && !isField
+        ? "sender"
+        : isReceiver && !isSender
+        ? "receiver"
+        : "field"
+    };
+  });
+
+  return {
+    nodes,
+    links
+  };
+};
+
+// sankey TAG: selected -> recever
+
+export const getPersonTagSankey = async (session, req) => {
+  const { name } = req.params;
+
+  const result = await session.run(
+    `
+    MATCH (sender:Person {name: $name})<-[:WRITTEN_BY]-(d:Document)
+
+    // --------------------
+    // TAG NORMALIZATION
+    // --------------------
+    MATCH (d)-[:TAGGED_WITH]->(tag:Tag)
+
+    WITH sender, d, tag
+    WHERE tag.name IS NOT NULL
+
+    // --------------------
+    // TOP 10 TAGS
+    // --------------------
+    WITH sender, tag, collect(DISTINCT d) AS tag_docs
+    WITH sender, tag, tag_docs, size(tag_docs) AS tag_doc_count
+    ORDER BY tag_doc_count DESC
+
+    WITH sender, tag, tag_docs
+    LIMIT 10
+
+    // ============================
+    // TOP 15 RECEIVERS (GLOBAL)
+    // ============================
+    CALL {
+        WITH sender
+
+        MATCH (sender)<-[:WRITTEN_BY]-(d:Document)
+        MATCH (d)-[:RECEIVED_BY]->(r:Person)
+
+        WITH r, count(DISTINCT d) AS cnt
+        ORDER BY cnt DESC
+        LIMIT 15
+
+        RETURN collect(r) AS top_receivers
+    }
+
+    // --------------------
+    // FINAL COMPUTATION
+    // --------------------
+    UNWIND tag_docs AS d
+
+    MATCH (d)-[:RECEIVED_BY]->(receiver:Person)
+
+    WITH sender,
+         tag,
+         receiver,
+         top_receivers,
+         count(DISTINCT d) AS value
+
+    WHERE receiver IN top_receivers
+
+    RETURN 
+        sender.name AS sender,
+        tag.name AS tag,
+        receiver.name AS receiver,
+        value
+
+    ORDER BY tag, value DESC
+    `,
+    { name }
+  );
+
+  const rows = result.records.map(r => ({
+    sender: r.get("sender"),
+    tag: r.get("tag"),
+    receiver: r.get("receiver"),
+    value: r.get("value").toNumber()
+  }));
+
+  // -----------------------------
+  // 🔥 BUILD SANKEY STRUCTURE
+  // -----------------------------
+  const nodeMap = new Map();
+
+  const getIndex = (name) => {
+    if (!nodeMap.has(name)) {
+      nodeMap.set(name, nodeMap.size);
+    }
+    return nodeMap.get(name);
+  };
+
+  // uso una map per evitare link duplicati
+  const linkMap = new Map();
+
+  const addLink = (source, target, value) => {
+    const key = `${source}->${target}`;
+
+    if (linkMap.has(key)) {
+      linkMap.get(key).value += value;
+    } else {
+      linkMap.set(key, {
+        source,
+        target,
+        value
+      });
+    }
+  };
+
+  rows.forEach(r => {
+    const s = getIndex(r.sender);
+    const t = getIndex(r.tag);
+    const rcv = getIndex(r.receiver);
+
+    // sender -> tag
+    addLink(s, t, r.value);
+
+    // tag -> receiver
+    addLink(t, rcv, r.value);
+  });
+
+  // nodes array
+  const nodes = Array.from(nodeMap.keys()).map(name => ({
+    name
+  }));
+
+  // links array
+  const links = Array.from(linkMap.values());
+
+  return {
+    nodes,
+    links
+  };
+};
+
+export const personReceiverSenderTagSankey = async (session, req) => {
+  const { name } = req.params;
+
+  const result = await session.run(
+    `
+MATCH (receiver:Person {name: $name})<-[:RECEIVED_BY]-(d0:Document)
+
+// ============================
+// TOP 15 SENDERS
+// ============================
+MATCH (d0)-[:WRITTEN_BY]->(s:Person)
+
+WITH receiver, s, count(DISTINCT d0) AS total_sent
+ORDER BY total_sent DESC
+LIMIT 15
+
+WITH receiver,
+     collect(s) AS top_sender_list
+
+// ============================
+// SOLO DOCUMENTI DEI TOP 15 SENDERS
+// ============================
+MATCH (sender:Person)<-[:WRITTEN_BY]-(doc:Document)-[:RECEIVED_BY]->(receiver)
+WHERE sender IN top_sender_list
+
+// ============================
+// TAG NORMALIZATION
+// ============================
+MATCH (doc)-[:TAGGED_WITH]->(tag:Tag)
+
+WITH receiver,
+     sender,
+     doc,
+     tag
+
+WHERE tag.name IS NOT NULL
+
+// ============================
+// COUNT GLOBAL PER TAG
+// ============================
+WITH receiver,
+     sender,
+     tag,
+     count(DISTINCT doc) AS tag_docs
+
+// ============================
+// TOP 10 TAG GLOBALI
+// ============================
+WITH receiver,
+     tag,
+     sum(tag_docs) AS total_tag_docs,
+     collect({
+        sender: sender,
+        docs: tag_docs
+     }) AS breakdown
+
+ORDER BY total_tag_docs DESC
+LIMIT 10
+
+// ============================
+// OUTPUT
+// ============================
+UNWIND breakdown AS b
+
+RETURN
+    receiver.name AS receiver,
+    b.sender.name AS sender,
+    tag.name AS tag,
+    b.docs AS tag_documents,
+    total_tag_docs
+
+ORDER BY
+    total_tag_docs DESC,
+    tag_documents DESC
+    `,
+    { name }
+  );
+
+  // =========================================================
+  // 🔥 1. ROWS NORMALIZATION
+  // =========================================================
+  const rows = result.records.map(r => ({
+    receiver: r.get("receiver"),
+    sender: r.get("sender"),
+    tag: r.get("tag"),
+    value: r.get("tag_documents").toNumber()
+  }));
+
+  // =========================================================
+  // 🔥 2. NODE INDEXING
+  // =========================================================
+  const nodeMap = new Map();
+
+  const getIndex = (name) => {
+    if (!nodeMap.has(name)) {
+      nodeMap.set(name, nodeMap.size);
+    }
+
+    return nodeMap.get(name);
+  };
+
+  // uso map per evitare duplicati
+  const linkMap = new Map();
+
+  const addLink = (source, target, value) => {
+    const key = `${source}->${target}`;
+
+    if (linkMap.has(key)) {
+      linkMap.get(key).value += value;
+    } else {
+      linkMap.set(key, {
+        source,
+        target,
+        value
+      });
+    }
+  };
+
+  rows.forEach(r => {
+    const s = getIndex(r.sender);
+    const t = getIndex(r.tag);
+    const rcv = getIndex(r.receiver);
+
+    // sender -> tag
+    addLink(s, t, r.value);
+
+    // tag -> receiver
+    addLink(t, rcv, r.value);
+  });
+
+  // =========================================================
+  // 🔥 3. NODE BUILDING WITH GROUP LOGIC
+  // =========================================================
+  const nodes = Array.from(nodeMap.keys()).map((name) => {
+
+    const isSender = rows.some(r => r.sender === name);
+    const isReceiver = rows.some(r => r.receiver === name);
+    const isTag = rows.some(r => r.tag === name);
+
+    return {
+      name,
+      group:
+        isSender && !isTag
+          ? "sender"
+          : isReceiver && !isTag
+          ? "receiver"
+          : "tag"
+    };
+  });
+
+  return {
+    nodes,
+    links: Array.from(linkMap.values())
+  };
+};

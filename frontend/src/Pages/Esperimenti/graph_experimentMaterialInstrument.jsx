@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { DataSet, Network } from "vis-network/standalone";
 import "../../Styles/MultiPurposeStyle.css";
-import InfoBubble from "../../Utility/Bubble";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 function ExperimentGraph({ name }) {
@@ -81,8 +81,7 @@ function ExperimentGraph({ name }) {
     <h2 className="card-title">
       Elements used in {name}
     </h2>
-          <InfoBubble 
-          text="TBD" />
+        <p className="card-description">place holder 4</p>
     <div className="legend">
       <div className="legend-item">
         <span className="legend-dot" style={{ background: "#1677ff" }} />

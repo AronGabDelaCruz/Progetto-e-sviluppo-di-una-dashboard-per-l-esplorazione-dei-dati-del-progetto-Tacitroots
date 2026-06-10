@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../Styles/TableStyle.css";
-import InfoBubble from "../../Utility/Bubble";
+
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -37,7 +37,7 @@ function PersonReceivedTable({ person1, onView, selectedPerson }) {
       <h2 className="card-title">
         Letter receivers
       </h2>
-    <div className="card-header-legend"><InfoBubble text="TBD" /></div>
+   <p className="card-description">place holder 2</p>
       
 
       <div className="card-wrapper-scroll">

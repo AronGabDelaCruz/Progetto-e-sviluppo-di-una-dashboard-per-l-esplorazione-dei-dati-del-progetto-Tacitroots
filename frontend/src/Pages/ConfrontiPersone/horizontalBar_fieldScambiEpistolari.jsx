@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../Styles/HorizontalBarStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
-import InfoBubble from "../../Utility/Bubble";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 function PersonFieldPackingBar({ person1, person2 }) {
@@ -38,7 +38,7 @@ function PersonFieldPackingBar({ person1, person2 }) {
         <h2 className="card-title">
           Fields of discussion
         </h2>
-        <InfoBubble text="TBD" />
+        <p className="card-description">place holder 4</p>
       </div>
 
       <div className="card-wrapper-scroll">

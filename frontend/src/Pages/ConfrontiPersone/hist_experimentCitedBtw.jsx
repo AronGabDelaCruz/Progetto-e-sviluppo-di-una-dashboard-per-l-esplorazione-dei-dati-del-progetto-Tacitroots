@@ -8,7 +8,7 @@ import {
   CartesianGrid,
   ResponsiveContainer
 } from "recharts";
-import InfoBubble from "../../Utility/Bubble";
+
 import "../../Styles/HistStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
 const API_URL = process.env.REACT_APP_API_URL;
@@ -34,8 +34,7 @@ function PersonExperimentHistogram({ person1, person2 }) {
         <h2 className="card-title">
           Cited experiments
         </h2>
-              <InfoBubble 
-              text="TBD" />
+      <p className="card-description">place holder 6</p>
       </div>
 
       <div className="card-wrapper">

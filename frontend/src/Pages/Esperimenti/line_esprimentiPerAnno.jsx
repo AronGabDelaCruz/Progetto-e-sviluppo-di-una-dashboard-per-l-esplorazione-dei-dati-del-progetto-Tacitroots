@@ -11,7 +11,7 @@ import {
 
 import "../../Styles/CircleStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
-import InfoBubble from "../../Utility/Bubble";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 function ExperimentTimeline({ name }) {
@@ -35,7 +35,7 @@ function ExperimentTimeline({ name }) {
         <h2 className="card-title">
           Citation over the years
         </h2>
-        <InfoBubble text="TBD" />
+        <p className="card-description">place holder 1</p>
       </div>
 
       <div className="card-wrapper">

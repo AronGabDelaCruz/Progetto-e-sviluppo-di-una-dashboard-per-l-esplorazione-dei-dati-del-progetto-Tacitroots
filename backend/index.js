@@ -14,8 +14,10 @@ import {peopleStats, personDetail, personGraph,
    personFieldPie, personWritingMap, personCitationTimeline, 
    personCitedBy, personInstrumentPacking, personExperimentPacking,
   personCited, personReceiverMap, personGraphIn, personSharedCitedEntities,
-personQuotedSimilarity, personSharedFields, personBooksBar, personTagsBar } from "./controllers/BE_archivioPersone.js"
-// configurazione express
+personQuotedSimilarity, personSharedFields, personBooksBar, personTagsBar,
+getPersonSankey, personReceiverSenderFieldSankey, getPersonTagSankey,
+personReceiverSenderTagSankey  } from "./controllers/BE_archivioPersone.js"
+// configurazione express 
 import {personsExchangeTimeline, personFieldPacking,
   personCitedBetween, personExperimentHistogram, personReceivedLetters
 } from "./controllers/BE_confrontiPersone.js";
@@ -23,7 +25,7 @@ import {personsExchangeTimeline, personFieldPacking,
 import { experimentsStats, experimentTimeline, experimentPeopleCitations,
   experimentLocationsMap, experimentGraph, experimentPeople} from "./controllers/BE_esperimenti.js";
 
-import {topicsStats, topicTimeline, topicPeopleSent, topicPeopleReceived,
+import {topicsStats, topicTimelineWithCitations, topicPeopleSent, topicPeopleReceived,
   topicInstruments, topicExperiments, topicSenderLocations, topicReceiverLocations, topicBooks,
   fieldTags
 } from "./controllers/BE_temiDiDIscussione.js"
@@ -84,6 +86,10 @@ app.get("/person-quoted-sim/:name", handleRoute(driver, personQuotedSimilarity))
 app.get("/person-sim-fields/:name", handleRoute(driver, personSharedFields));
 app.get("/person-books/:name", handleRoute(driver, personBooksBar));
 app.get("/person-tags/:name",handleRoute(driver, personTagsBar));
+app.get("/person-field-receiver-sankey/:name",handleRoute(driver, getPersonSankey));
+app.get("/receiver-sender-field-sankey/:name",handleRoute(driver, personReceiverSenderFieldSankey));
+app.get("/sankey-tag-selected-recever/:name",handleRoute(driver, getPersonTagSankey));
+app.get("/sankey-tag-selected-sender/:name",handleRoute(driver, personReceiverSenderTagSankey));
 // Rotte utili per confronti tra Persone
 app.get("/persons-exchange-timeline/:name1/:name2",handleRoute(driver, personsExchangeTimeline));
 app.get("/person-field-packing/:name1/:name2",handleRoute(driver, personFieldPacking));
@@ -100,7 +106,7 @@ app.get("/experiment-people/:name", handleRoute(driver, experimentPeople));
 
 // Rotte utili per Topics
 app.get("/topics-stats",handleRoute(driver, topicsStats));
-app.get("/topic-timeline/:name",handleRoute(driver, topicTimeline));
+app.get("/field-timeline-citations/:name",handleRoute(driver, topicTimelineWithCitations));
 app.get("/topic-people-sent/:name",handleRoute(driver, topicPeopleSent));
 app.get("/topic-people-received/:name",handleRoute(driver, topicPeopleReceived));
 app.get("/topic-experiments/:name",handleRoute(driver, topicExperiments));

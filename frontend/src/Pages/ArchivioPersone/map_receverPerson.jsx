@@ -4,7 +4,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "../../Styles/MapStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
-import InfoBubble from "../../Utility/Bubble";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 // fix icone leaflet
@@ -46,8 +46,8 @@ function PersonMapToggle({ name }) {
       : "Recipient’s locations";
 const buttonLabel =
   mode === "receiver"
-    ? "Recipient’s locations"
-    : "Senders’ locations";
+    ? "recipient’s locations"
+    : "senders’ locations";
   const color = mode === "receiver" ? "#1677ff" : "#ff4d4f";
 
   const customIcon = (size) =>
@@ -68,9 +68,8 @@ const buttonLabel =
 
       <div className="card-header-legend">
         <h2 className="card-title">{title}</h2>
+        <p className="card-description">place holder 3</p>
       <div className="card-header-buttons">
-       
-          <InfoBubble text="TBD" />
         <button
           className="horizontal-bar-toggle"
           onClick={() =>
@@ -79,7 +78,7 @@ const buttonLabel =
             )
           }
         >
-          {buttonLabel}
+         Switch to {buttonLabel}
         </button>
 
         </div>

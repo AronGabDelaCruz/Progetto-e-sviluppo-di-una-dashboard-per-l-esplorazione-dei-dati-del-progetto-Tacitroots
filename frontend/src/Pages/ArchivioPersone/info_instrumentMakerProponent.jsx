@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../Styles/ColumnListStyle.css";
-import InfoBubble from "../../Utility/Bubble";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 function PersonInstrumentList({ name }) {
@@ -30,12 +30,12 @@ function PersonInstrumentList({ name }) {
     <h2 className="card-title-compact">
       Instrument created
     </h2>
-<div className="card-header-legend"><InfoBubble text="TBD" /></div>
+       <p className="card-description">place holder 1</p>
     <div className="card-grid-compact">
 
       <div className="card-column-compact">
         <h4 className="card-subtitle-invented">
-          Invented
+          Makers
         </h4>
 
         {invented.length === 0 ? (
@@ -59,7 +59,7 @@ function PersonInstrumentList({ name }) {
 
         {proposed.length === 0 ? (
           <div className="card-empty">
-            Nessun elemento
+            No data avilable
           </div>
         ) : (
           proposed.map((d, i) => (

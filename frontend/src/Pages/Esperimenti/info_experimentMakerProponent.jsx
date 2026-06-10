@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../Styles/ColumnListStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
-import InfoBubble from "../../Utility/Bubble";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 function ExperimentPeopleList({ name }) {
@@ -29,7 +29,7 @@ function ExperimentPeopleList({ name }) {
         People involved
       </h2>
       <div className="card-header-legend">
-      <InfoBubble text="TBD" />
+      <p className="card-description">place holder 5</p>
       </div>
       <div className="card-grid-compact">
 

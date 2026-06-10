@@ -27,7 +27,7 @@ function PersonDetail({ name }) {
       <h2 className="info-title">
         General information
       </h2>
-
+   
       {!person ? (
         <p className="info-loading">Loading...</p>
       ) : (

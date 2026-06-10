@@ -25,8 +25,9 @@ export const topicsStats = async (session) => {
 
 
 
-export const topicTimeline = async (session, req) => {
-    const { name } = req.params;
+export const topicTimelineWithCitations = async (session, req) => {
+  const { name } = req.params;
+
   const result = await session.run(
     `
     MATCH (root:Field {name: $name})
@@ -34,25 +35,33 @@ export const topicTimeline = async (session, req) => {
     OPTIONAL MATCH (child:Field)-[:SUBFIELD_OF*]->(root)
 
     WITH root, collect(DISTINCT child) AS children
-    WITH root, children + root AS fields
+    WITH children + root AS fields
 
+    // documenti che discutono il field
     MATCH (d:Document)-[:TAGGED_WITH]->(f:Field)
     WHERE f IN fields
       AND d.year IS NOT NULL
 
-    WITH toInteger(d.year) AS year, d
+    WITH d, fields, toInteger(d.year) AS year
+
+    // libri citati nei documenti
+    OPTIONAL MATCH (b:Book)-[:CITED_IN]->(d)
+    OPTIONAL MATCH (b)-[:TAGGED_WITH]->(bf:Field)
+    WHERE bf IN fields
 
     RETURN
         year,
-        count(DISTINCT d) AS num_documents
+        count(DISTINCT d) AS field_discussions,
+        count(DISTINCT b) AS book_citations
     ORDER BY year ASC
     `,
     { name }
   );
 
-  return result.records.map((r) => ({
+  return result.records.map(r => ({
     year: r.get("year").toNumber(),
-    count: r.get("num_documents").toNumber(),
+    field_discussions: r.get("field_discussions").toNumber(),
+    book_citations: r.get("book_citations").toNumber()
   }));
 };
 

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "../../Styles/HorizontalBarStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
 
-import InfoBubble from "../../Utility/Bubble";
+
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -56,8 +56,8 @@ function TopicPeopleBar({ selectedTopic }) {
 
   const buttonLabel =
     mode === "sent"
-      ? "Received documents"
-      : "Sent documents";
+      ? "received documents"
+      : "sent documents";
 
   return (
     <div className="card-container">
@@ -67,11 +67,9 @@ function TopicPeopleBar({ selectedTopic }) {
         <h2 className="card-title">
           {title} {selectedTopic}
         </h2>
-
+        <p className="card-description">place holder 3</p>
         <div className="card-header-buttons">
-         <InfoBubble
-            text="Shows the senders/recipist associated with documents/letters related to the selected topic."
-          />
+         
           <button
             className="horizontal-bar-toggle"
             onClick={() =>
@@ -82,7 +80,7 @@ function TopicPeopleBar({ selectedTopic }) {
               )
             }
           >
-            {buttonLabel}
+            Switch to {buttonLabel}
           </button>
 
         </div>

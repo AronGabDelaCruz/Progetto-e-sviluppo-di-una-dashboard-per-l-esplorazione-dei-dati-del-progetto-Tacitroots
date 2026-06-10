@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "../../Styles/HorizontalBarStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
 
-import InfoBubble from "../../Utility/Bubble";
+
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -56,8 +56,8 @@ function TopicExperimentsInstrumentsBar({ selectedTopic }) {
 
   const buttonLabel =
     mode === "experiments"
-      ? "Show instruments"
-      : "Show experiments";
+      ? "show instruments"
+      : "show experiments";
 
   return (
     <div className="card-container">
@@ -67,11 +67,9 @@ function TopicExperimentsInstrumentsBar({ selectedTopic }) {
         <h2 className="card-title">
           {title} { selectedTopic }
         </h2>
-
+        <p className="card-description">place holder 4</p>
         <div className="card-header-buttons">
-          <InfoBubble
-            text="Shows experiments and instruments cited in documents/letters of the selected topic."
-          />
+          
           <button
             className="horizontal-bar-toggle"
             onClick={() =>
@@ -82,7 +80,7 @@ function TopicExperimentsInstrumentsBar({ selectedTopic }) {
               )
             }
           >
-            {buttonLabel}
+            Switch to {buttonLabel}
           </button>
         </div>
 

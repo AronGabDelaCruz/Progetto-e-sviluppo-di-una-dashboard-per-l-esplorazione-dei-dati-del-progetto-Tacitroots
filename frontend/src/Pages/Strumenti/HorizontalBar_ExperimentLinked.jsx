@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "../../Styles/HorizontalBarStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
 
-import InfoBubble from "../../Utility/Bubble";
+
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -46,8 +46,7 @@ function InstrumentExperimentBar({ selectedInstrument }) {
           Linked experiments
         </h2>
 
-        <InfoBubble text="Shows experiments that share documents/letters citing this instrument." />
-
+       <p className="card-description">place holder 5</p>
       </div>
 
       <div className="card-wrapper-scroll">

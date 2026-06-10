@@ -33,13 +33,20 @@ function Navbar() {
 
     
         <div className="navbar-links">
-          <Link to="/Database" className="nav-link">Database Overview</Link>
           <Link to="/" className="nav-link">Authors</Link>
           <Link to="/Confronti" className="nav-link">Exchanges</Link>
           <Link to="/Esperimenti" className="nav-link">Experiments</Link>
           <Link to="/Temi" className="nav-link">Topics</Link>
           <Link to="/Strumenti" className="nav-link">Instruments</Link>
-          <a href="https://sites.unimi.it/tacitroots/" className="nav-link">Tacitroots</a>
+          <Link to="/Database" className="nav-link">Database Overview</Link>
+         <a
+  href="https://sites.unimi.it/tacitroots/"
+  className="nav-link"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Tacitroots
+</a>
         </div>
 
       </div>
@@ -53,6 +60,15 @@ function Navbar() {
           <Link to="/Esperimenti" className="mobile-link" onClick={() => setOpen(false)}>Esperiments</Link>
           <Link to="/Temi" className="mobile-link" onClick={() => setOpen(false)}>Topics</Link>
           <Link to="/Strumenti" className="mobile-link" onClick={() => setOpen(false)}>Instruments</Link>
+          <Link to="/Database" className="mobile-link" onClick={() => setOpen(false)}>Database Overview</Link>
+                  <a
+  href="https://sites.unimi.it/tacitroots/"
+  className="mobile-link"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Tacitroots
+</a>
         </div>
       )}
 

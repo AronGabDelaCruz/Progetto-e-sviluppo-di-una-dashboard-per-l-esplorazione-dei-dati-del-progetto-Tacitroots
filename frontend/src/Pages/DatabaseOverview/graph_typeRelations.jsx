@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { DataSet, Network } from "vis-network/standalone";
 import "../../Styles/MultiPurposeStyle.css";
-import InfoBubble from "../../Utility/Bubble";
+
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -81,7 +81,7 @@ export default function RelationGraph({ relation }) {
           Graph relation: {relation || "Seleziona una relazione"}
         </h2>
 
-        <InfoBubble text="TBD" />
+        <p className="card-description">place holder 2</p>
       </div>
 
       <div ref={ref} className="card-wrapper" />

@@ -6,7 +6,6 @@ import "leaflet/dist/leaflet.css";
 import "../../Styles/MapStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
 
-import InfoBubble from "../../Utility/Bubble";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -53,8 +52,8 @@ function TopicLocationMap({ selectedTopic }) {
 
   const buttonLabel =
     mode === "receiver"
-      ? "Show senders"
-      : "Show recipients";
+      ? "show senders"
+      : "show recipients";
 
   const color =
     mode === "receiver" ? "#1677ff" : "#ff4d4f";
@@ -80,7 +79,7 @@ function TopicLocationMap({ selectedTopic }) {
         <h2 className="card-title">
           {title}
         </h2>
-
+        <p className="card-description">place holder 5</p>
         <div className="card-header-buttons">
 
           <button
@@ -93,12 +92,8 @@ function TopicLocationMap({ selectedTopic }) {
               )
             }
           >
-            {buttonLabel}
+            Switch to {buttonLabel}
           </button>
-
-          <InfoBubble
-            text="Shows geographical distribution of senders and receivers for documents/letters of the selected topic."
-          />
 
         </div>
 

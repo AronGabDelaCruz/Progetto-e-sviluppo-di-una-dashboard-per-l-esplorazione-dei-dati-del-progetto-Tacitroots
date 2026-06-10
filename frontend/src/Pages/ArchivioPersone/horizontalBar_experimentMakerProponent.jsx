@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../Styles/HorizontalBarStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
-import InfoBubble from "../../Utility/Bubble";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 function PersonExperimentPackingBar({ name }) {
@@ -38,8 +38,8 @@ function PersonExperimentPackingBar({ name }) {
   
   const buttonLabel =
   mode === "invented"
-    ? "Experiments proposed"
-    : "Experiments made";
+    ? "experiments proposed"
+    : "experiments made";
 
   const color =
     mode === "invented"
@@ -54,8 +54,8 @@ function PersonExperimentPackingBar({ name }) {
         <h2 className="card-title">
           {title}
         </h2>
+        <p className="card-description">place holder 5</p>
         <div className="card-header-buttons">
-          <InfoBubble text="TBD" />
         <button
           className="horizontal-bar-toggle"
           onClick={() =>
@@ -64,7 +64,7 @@ function PersonExperimentPackingBar({ name }) {
             )
           }
         >
-          {buttonLabel}
+         Switch to {buttonLabel}
         </button>
         </div>
       </div>

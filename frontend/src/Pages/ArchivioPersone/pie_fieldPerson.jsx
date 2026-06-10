@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import "../../Styles/MultiPurposeStyle.css";
-import InfoBubble from "../../Utility/Bubble";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 const COLORS = [
@@ -60,8 +60,7 @@ function PersonFieldPie({ name }) {
         <h2 className="card-title">
           Main topics
         </h2>
-        <InfoBubble text="TBD" />
-
+        <p className="card-description">place holder 7</p>
       </div>
 
       <div className="card-wrapper">

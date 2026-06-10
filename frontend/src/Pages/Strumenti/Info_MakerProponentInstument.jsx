@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import "../../Styles/ColumnListStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
 
-import InfoBubble from "../../Utility/Bubble";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -39,8 +38,7 @@ function InstrumentPeopleList({ selectedInstrument }) {
 
       <div className="card-header-legend">
 
-        <InfoBubble text="Shows inventors and proponents associated with this instrument." />
-
+        <p className="card-description">place holder 4</p>
       </div>
 
       <div className="card-grid-compact">
@@ -48,13 +46,13 @@ function InstrumentPeopleList({ selectedInstrument }) {
         <div className="card-column-compact">
 
           <h4 className="card-subtitle-invented">
-            Inventors
+            Makers
           </h4>
 
           {inventors.length === 0 ? (
 
             <div className="card-empty">
-              No inventors
+              No data available
             </div>
 
           ) : (
@@ -77,7 +75,7 @@ function InstrumentPeopleList({ selectedInstrument }) {
           {proponents.length === 0 ? (
 
             <div className="card-empty">
-              No proponents
+              No data available
             </div>
 
           ) : (

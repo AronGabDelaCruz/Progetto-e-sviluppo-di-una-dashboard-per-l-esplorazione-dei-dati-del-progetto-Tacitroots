@@ -7,8 +7,6 @@ import "leaflet/dist/leaflet.css";
 import "../../Styles/MapStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
 
-import InfoBubble from "../../Utility/Bubble";
-
 const API_URL = process.env.REACT_APP_API_URL;
 
 // fix icone leaflet
@@ -63,8 +61,7 @@ function InstrumentMap({ selectedInstrument }) {
           Instrument citation map
         </h2>
 
-        <InfoBubble text="Shows geographical distribution of documents/letters citing this instrument." />
-
+        <p className="card-description">place holder 3</p>
       </div>
 
       <div className="card-wrapper">

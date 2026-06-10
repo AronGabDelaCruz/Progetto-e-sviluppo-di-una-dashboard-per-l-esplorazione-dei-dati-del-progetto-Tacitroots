@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../Styles/HorizontalBarStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
-import InfoBubble from "../../Utility/Bubble";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 function PersonCitedToggleBar({ name }) {
@@ -40,8 +40,8 @@ function PersonCitedToggleBar({ name }) {
       : "Persons cited by";
 const buttonLabel =
   mode === "cited"
-    ? "Persons cited by"
-    : "Persons citing";
+    ? "persons cited by"
+    : "persons citing";
   const color =
     mode === "cited"
       ? "#fa8c16"
@@ -55,8 +55,8 @@ const buttonLabel =
         <h2 className="card-title">
           {title} {name}
         </h2>
+        <p className="card-description">place holder 6</p>
         <div className="card-header-buttons">
-          <InfoBubble text="TBD" />
         <button
           className="horizontal-bar-toggle"
           onClick={() =>
@@ -65,7 +65,7 @@ const buttonLabel =
             )
           }
         >
-          {buttonLabel}
+          Switch to {buttonLabel}
         </button>
 
         </div>

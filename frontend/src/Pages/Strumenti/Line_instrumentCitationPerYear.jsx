@@ -11,7 +11,7 @@ import {
 
 import "../../Styles/CircleStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
-import InfoBubble from "../../Utility/Bubble";
+
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -40,9 +40,7 @@ function InstrumentTimeline({ selectedInstrument }) {
         <h2 className="card-title">
           Instrument citation trend over the years
         </h2>
-
-        <InfoBubble text="Shows how many documents/letters citing this instrument appear over time." />
-
+        <p className="card-description">place holder 1</p>
       </div>
 
       <div className="card-wrapper">

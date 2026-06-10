@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { DataSet, Network } from "vis-network/standalone";
 import "../../Styles/MultiPurposeStyle.css";
-import InfoBubble from "../../Utility/Bubble";
+
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -79,7 +79,7 @@ const Graph = ({ label }) => {
         <h2 className="card-title">
           Graph node: {label || "Seleziona un nodo"}
         </h2>
-             <InfoBubble text="TBD" />
+             <p className="card-description">place holder 1</p>
       </div>
       <div ref={ref} className="card-wrapper" />
     </div>

@@ -9,8 +9,8 @@ import Experiment from "./horizontalBar_experimentMakerProponent";
 import MapReceverPerson from "./map_receverPerson";
 import GraphNetworkIn from "./horizontalBar_networkEntrata";
 import TableCitedBy from "./HorizontalBar_listaCitedBy";
-import HorizontalBarSimilarity from "./HorizontalBar_similarity";
-import HorizontalBarBook from "./HorizontalBar_citedBook"
+import SankeySelector from "./Sankey_selector";
+import SankeyTagSelector from "./Sankey_tagSelector";
 function PeoplePage() {
   const [selectedPerson, setSelectedPerson] =
     useState("Leopoldo de' Medici");
@@ -58,9 +58,10 @@ function PeoplePage() {
       </div> 
 
       <div className="grid-2">
-        <HorizontalBarSimilarity name={selectedPerson} />   
-        <HorizontalBarBook name={selectedPerson} />    
+        <SankeySelector name={selectedPerson} />     
+        <SankeyTagSelector name={selectedPerson} /> 
       </div>
+
     </div>
   );
 }

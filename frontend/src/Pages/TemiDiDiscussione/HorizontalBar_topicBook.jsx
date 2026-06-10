@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "../../Styles/HorizontalBarStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
 
-import InfoBubble from "../../Utility/Bubble";
+
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -65,8 +65,8 @@ function TopicBooksTagsBar({ selectedTopic }) {
 
   const buttonLabel =
     mode === "books"
-      ? "Show themes"
-      : "Show books";
+      ? "show themes"
+      : "show books";
 
 
   return (
@@ -77,7 +77,7 @@ function TopicBooksTagsBar({ selectedTopic }) {
         <h2 className="card-title">
           {title} { selectedTopic }
         </h2>
-
+        <p className="card-description">place holder 6</p>
         <div className="card-header-buttons">
 
           <button
@@ -88,11 +88,8 @@ function TopicBooksTagsBar({ selectedTopic }) {
               )
             }
           >
-            {buttonLabel}
+            Switch to {buttonLabel}
           </button>
-
-          <InfoBubble text="Shows books/themes cited by documents/leters related to the selected topic." />
-
         </div>
 
       </div>

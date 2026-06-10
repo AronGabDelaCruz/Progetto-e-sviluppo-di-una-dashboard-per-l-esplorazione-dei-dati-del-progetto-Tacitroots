@@ -5,7 +5,7 @@ import "leaflet/dist/leaflet.css";
 
 import "../../Styles/MapStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
-import InfoBubble from "../../Utility/Bubble";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 // fix icone leaflet
@@ -55,8 +55,7 @@ function ExperimentMap({ name }) {
         <h2 className="card-title">
           Citation map
         </h2>
-        <InfoBubble 
-        text="TBD" />
+<p className="card-description">place holder 3</p>
       </div>
 
       <div className="card-wrapper">

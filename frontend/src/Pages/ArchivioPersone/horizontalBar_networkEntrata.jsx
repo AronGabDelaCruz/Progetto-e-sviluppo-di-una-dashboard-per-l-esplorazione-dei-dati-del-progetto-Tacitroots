@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../Styles/HorizontalBarStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
-import InfoBubble from "../../Utility/Bubble";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 function PersonGraphBar({ name }) {
@@ -48,8 +48,8 @@ function PersonGraphBar({ name }) {
     mode === "in" ? "Letters received" : "Letters sent";
 const buttonLabel =
   mode === "in"
-    ? "Letters sent"
-    : "Letters received";
+    ? "letters sent"
+    : "letters received";
   return (
     <div className="card-container">
 
@@ -58,16 +58,15 @@ const buttonLabel =
         <h2 className="card-title">
           {title}
         </h2>
+         <p className="card-description">place holder 2</p>
         <div className="card-header-buttons">
-                              <InfoBubble 
-                  text="TBD" />
         <button
         className="horizontal-bar-toggle"
           onClick={() =>
             setMode(prev => (prev === "in" ? "out" : "in"))
           }
         >
-          {buttonLabel}
+        Switch to {buttonLabel}
         </button>
 
         </div>
