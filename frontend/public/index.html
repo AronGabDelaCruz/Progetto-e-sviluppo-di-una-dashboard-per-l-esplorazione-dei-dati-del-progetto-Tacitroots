@@ -2,6 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <!--
+      Le chiamate API passano dallo stesso origin con cui il browser apre la
+      pagina, sotto il prefisso /api (vedi frontend/src/setupProxy.js, che
+      inoltra al backend). Funziona con localhost, IP della LAN e dominio
+      pubblico senza esporre la porta 3001 ne ricompilare il frontend.
+      Per forzare un endpoint diverso, impostare window.__API_URL__ prima.
+    -->
+    <script>
+      window.__API_URL__ = window.__API_URL__ || location.origin + "/api";
+    </script>
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />

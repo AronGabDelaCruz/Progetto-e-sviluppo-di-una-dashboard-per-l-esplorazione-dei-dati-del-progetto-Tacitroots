@@ -1,7 +1,7 @@
 // src/components/TimelineChart.jsx
 import React, { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = window.__API_URL__;
 export default function TimelineChart() {
   const [data, setData] = useState([]);
 

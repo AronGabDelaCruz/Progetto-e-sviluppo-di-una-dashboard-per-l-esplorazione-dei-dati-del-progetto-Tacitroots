@@ -5,7 +5,7 @@ import "../../Styles/MultiPurposeStyle.css";
 
 import InfoBubble from "../../Utility/Bubble";
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = window.__API_URL__;
 
 function PersonSimilarityToggleBar({ name }) {
 

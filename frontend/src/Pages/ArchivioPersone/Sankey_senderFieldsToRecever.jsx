@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { sankey, sankeyLinkHorizontal } from "d3-sankey";
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = window.__API_URL__;
 
 export default function PersonSankeyD3({ name }) {
   const ref = useRef();

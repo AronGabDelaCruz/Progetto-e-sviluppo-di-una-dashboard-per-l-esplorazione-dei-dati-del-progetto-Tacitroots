@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "../../Styles/TableStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = window.__API_URL__;
 
 export default function ExperimentsTable({ onView, selectedExperiment }) {
   const [data, setData] = useState([]);

@@ -12,7 +12,7 @@ import {
 import "../../Styles/CircleStyle.css";
 import "../../Styles/MultiPurposeStyle.css";
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = window.__API_URL__;
 
 function ExperimentTimeline({ name }) {
   const [data, setData] = useState([]);

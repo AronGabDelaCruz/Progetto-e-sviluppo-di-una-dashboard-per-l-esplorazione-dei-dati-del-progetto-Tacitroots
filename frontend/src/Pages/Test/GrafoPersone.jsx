@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import ReactFlow, { Background, Controls } from "reactflow";
 import "reactflow/dist/style.css";
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = window.__API_URL__;
 export default function GrafoPersone() {
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState([]);

@@ -13,7 +13,7 @@ const [selectedPerson2, setSelectedPerson2] = useState(null);
 const [error, setError] = useState("");
 
 useEffect(() => {
-  fetch(`${process.env.REACT_APP_API_URL}/people-stats`)
+  fetch(`${window.__API_URL__}/people-stats`)
     .then(res => res.json())
     .then(data => {
       if (data.length > 0) {

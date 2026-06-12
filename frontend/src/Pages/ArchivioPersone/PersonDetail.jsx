@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../Styles/GeneralInfoStyle.css";
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = window.__API_URL__;
 
 function PersonDetail({ name }) {
   const [person, setPerson] = useState(null);

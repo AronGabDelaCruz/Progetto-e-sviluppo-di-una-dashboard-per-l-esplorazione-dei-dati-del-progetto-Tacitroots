@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactFlow, { ReactFlowProvider } from "reactflow";
 import "reactflow/dist/style.css";
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = window.__API_URL__;
 
 const transformToGraph = (data) => {
   if (!data || Object.keys(data).length === 0) return { nodes: [], edges: [] };

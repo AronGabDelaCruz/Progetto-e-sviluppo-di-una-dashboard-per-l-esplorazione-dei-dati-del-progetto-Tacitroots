@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { DataSet, Network } from "vis-network/standalone";
 import "vis-network/styles/vis-network.css";
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = window.__API_URL__;
 const Graph = () => {
   const networkRef = useRef(null);
   const [nodes, setNodes] = useState([]);

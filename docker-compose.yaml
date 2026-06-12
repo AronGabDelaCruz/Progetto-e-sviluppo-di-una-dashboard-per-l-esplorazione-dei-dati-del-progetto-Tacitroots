@@ -77,7 +77,8 @@ services:
       - backend
 
     environment:
-      REACT_APP_API_URL: http://localhost:3001
+      # Bersaglio del proxy /api del dev server (vedi frontend/src/setupProxy.js)
+      BACKEND_URL: http://backend:3001
 
 volumes:
   neo4j_data:

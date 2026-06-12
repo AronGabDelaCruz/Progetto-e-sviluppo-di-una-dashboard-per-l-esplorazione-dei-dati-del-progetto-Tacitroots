@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import "../../Styles/MultiPurposeStyle.css";
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = window.__API_URL__;
 
 const COLORS = [
   "#8884d8",

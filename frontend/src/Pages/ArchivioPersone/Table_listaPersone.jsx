@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = window.__API_URL__;
 
 function TableListaPersone({ onView, selectedPerson }) {
   const [data, setData] = useState([]);
